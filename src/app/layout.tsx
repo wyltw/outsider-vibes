@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { DM_Sans, Inter, Noto_Sans_TC } from "next/font/google";
 import "./globals.css";
+import Header from "@/components/header";
 
 const notoSansTC = Noto_Sans_TC({
   subsets: ["latin"],
@@ -25,7 +26,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${dmSans.variable} ${notoSansTC.variable}`}>
+      <body
+        className={`${dmSans.variable} ${notoSansTC.variable} bg-[#FDFBFE] md:px-32`}
+      >
+        <Header />
         {children}
       </body>
     </html>
