@@ -27,9 +27,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${dmSans.variable} ${notoSansTC.variable} bg-[#FDFBFE] md:px-32`}
+        className={`${dmSans.variable} ${notoSansTC.variable} bg-[#FDFBFE]`}
       >
-        <Header />
         {children}
       </body>
     </html>
