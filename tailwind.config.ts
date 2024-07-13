@@ -44,7 +44,7 @@ const config = {
         },
         airforce: {
           DEFAULT: "#5D83A4",
-          "50": "EFF3F6",
+          "50": "#EFF3F6",
         },
         popover: {
           DEFAULT: "#F9F4F5",

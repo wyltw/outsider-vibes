@@ -1,14 +1,12 @@
 import React, { ReactNode } from "react";
 import PropositionCard from "./proposition-card";
+import SecondHeading from "./second-heading";
 
 export default function SellingProposition() {
   return (
     <>
-      <section className="flex flex-col items-center justify-center gap-y-8 px-36 py-28">
-        <h2 className="text-center text-4xl font-semibold text-primary">
-          探索音樂，分享快樂
-        </h2>
-
+      <section className="flex flex-col items-center gap-y-8 px-36 py-28">
+        <SecondHeading>探索音樂，分享快樂</SecondHeading>
         <PropositionCard
           imageSrc="/images/nft-marketplace.svg"
           imageAlt="treasure"

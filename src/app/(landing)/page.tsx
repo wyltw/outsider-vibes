@@ -1,4 +1,6 @@
 import CallToAction from "@/components/call-to-action";
+import Feature from "@/components/feature";
+import FinalCallToAction from "@/components/final-call-to-action";
 import Header from "@/components/header";
 import SellingProposition from "@/components/selling-proposition";
 import Image from "next/image";
@@ -17,6 +19,8 @@ export default function LandingPage() {
         <CallToAction />
       </div>
       <SellingProposition />
+      <Feature />
+      <FinalCallToAction />
     </>
   );
 }

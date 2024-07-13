@@ -20,7 +20,7 @@ export default function PropositionCard({
   className,
 }: PropositionCardProps) {
   return (
-    <section className="grid w-full max-w-7xl grid-cols-2 place-items-center rounded-2xl bg-accent px-4 py-14">
+    <section className="flex w-full max-w-7xl flex-wrap items-center justify-around rounded-2xl bg-accent px-4 py-14">
       <Image src={imageSrc} alt={imageAlt} width={280} height={280} />
       <div className={cn("max-w-md", className)}>
         <PropositionCardlabel>{label}</PropositionCardlabel>
