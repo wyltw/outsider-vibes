@@ -5,7 +5,7 @@ import { Button } from "./ui/button";
 
 export default function FinalCallToAction() {
   return (
-    <section className="flex flex-col items-center gap-y-6 pb-16">
+    <section className="mb-16 flex flex-col items-center gap-y-6">
       <SecondHeading>加入我們一起探索音樂世界</SecondHeading>
       <Image
         src="/images/being-creative-2.svg"

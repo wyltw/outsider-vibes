@@ -6,7 +6,7 @@ import { routes } from "@/lib/constants";
 
 export default function Header() {
   return (
-    <header className="flex h-20 items-center justify-between px-36 py-2">
+    <header className="flex h-20 items-center justify-between py-2">
       <Logo width={128} height={76} />
       <nav>
         <ul className="flex items-center gap-x-4">

@@ -5,7 +5,7 @@ import SecondHeading from "./second-heading";
 export default function SellingProposition() {
   return (
     <>
-      <section className="flex flex-col items-center gap-y-8 px-36 py-28">
+      <section className="my-28 flex flex-col items-center gap-y-8">
         <SecondHeading>探索音樂，分享快樂</SecondHeading>
         <PropositionCard
           imageSrc="/images/nft-marketplace.svg"
@@ -21,6 +21,7 @@ export default function SellingProposition() {
             <span className="text-secondary">埋藏的</span>
             音樂寶藏
           </PropositionCardHeading>
+          {/* 標題包含span元素作為props會遇到轉型問題，所以用children props替代 */}
         </PropositionCard>
         <PropositionCard
           imageSrc="/images/discussion.svg"

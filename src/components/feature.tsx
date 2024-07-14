@@ -7,7 +7,7 @@ const iconStyle = "h-[90%] w-[90%] text-primary";
 
 export default function Feature() {
   return (
-    <section className="flex flex-col items-center gap-8 px-36 pb-28">
+    <section className="mb-28 flex flex-col items-center gap-8">
       <SecondHeading>你的音樂社群</SecondHeading>
       <div className="flex w-full max-w-5xl flex-wrap justify-around gap-y-4">
         <FeatureCard text={"最新的音樂資訊"}>

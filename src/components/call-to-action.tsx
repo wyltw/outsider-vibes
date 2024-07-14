@@ -4,7 +4,7 @@ import { Button } from "./ui/button";
 
 export default function CallToAction() {
   return (
-    <section className="px-36 py-52">
+    <section className="py-52">
       <section className="max-w-md">
         <h1 className="text-5xl font-semibold tracking-tight">
           找尋你的音樂<span className="text-secondary">共鳴</span>
