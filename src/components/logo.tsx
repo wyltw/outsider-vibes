@@ -1,10 +1,19 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
-type LogoProps = { width: number; height: number };
+type LogoProps = { width: number; height: number; className?: string };
 
-export default function Logo({ width, height }: LogoProps) {
+export default function Logo({ width, height, className }: LogoProps) {
   return (
-    <Image src="/images/brand.svg" alt="Logo" width={width} height={height} />
+    <Link href="/">
+      <Image
+        src="/images/brand.svg"
+        alt="Logo"
+        width={width}
+        height={height}
+        className={className}
+      />
+    </Link>
   );
 }

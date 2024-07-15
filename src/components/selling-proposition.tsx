@@ -6,15 +6,12 @@ export default function SellingProposition() {
   return (
     <>
       <section className="my-28 flex flex-col items-center gap-y-8">
-        <SecondHeading>探索音樂，分享快樂</SecondHeading>
+        <SecondHeading>你的音樂探索</SecondHeading>
         <PropositionCard
           imageSrc="/images/nft-marketplace.svg"
           imageAlt="treasure"
           label="UNEARTHING"
-          textLines={[
-            "與他人分享自己喜愛的音樂",
-            "在這裡不用煩惱自己的喜好不被接受。",
-          ]}
+          textLines={"與他人分享自己喜愛的音樂，不用煩惱自己的喜好不被接受。"}
         >
           <PropositionCardHeading>
             發現
@@ -27,16 +24,14 @@ export default function SellingProposition() {
           imageSrc="/images/discussion.svg"
           imageAlt="discussion"
           label="CONNECTING"
-          textLines={[
-            "身邊沒有喜歡後硬核，UK hardcore的朋友？",
-            "或者自己的音樂喜好還停留在上個世紀？",
-            "在這裡，你可以找到任何音樂風格的愛好者。",
-          ]}
-          className="order-first"
+          textLines={
+            "喜歡的音樂過於冷門？或者品味停留在上個世紀？在這裡找到任何音樂風格的同好。"
+          }
+          className="md:order-first"
         >
           <PropositionCardHeading>
             聚集
-            <span className="text-secondary">志同道合的</span>
+            <span className="text-secondary">知己的</span>
             愛好者
           </PropositionCardHeading>
         </PropositionCard>
@@ -46,5 +41,9 @@ export default function SellingProposition() {
 }
 
 function PropositionCardHeading({ children }: { children: ReactNode }) {
-  return <h3 className="whitespace-nowrap text-3xl font-medium">{children}</h3>;
+  return (
+    <h3 className="whitespace-nowrap text-2xl font-medium sm:text-3xl">
+      {children}
+    </h3>
+  );
 }

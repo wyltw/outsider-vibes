@@ -1,4 +1,4 @@
-export type Route = {
+export type RouteItem = {
   name: string;
   path: string;
   variant?:

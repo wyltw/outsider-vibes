@@ -7,7 +7,7 @@ type PropositionCardProps = {
   imageSrc: string;
   label: string;
   children: ReactNode;
-  textLines: string[];
+  textLines: string;
   className?: string;
 };
 
@@ -22,23 +22,15 @@ export default function PropositionCard({
   return (
     <section className="flex w-full max-w-7xl flex-wrap items-center justify-around rounded-2xl bg-accent px-4 py-14">
       <Image src={imageSrc} alt={imageAlt} width={280} height={280} />
-      <div className={cn("max-w-md", className)}>
+      <div className={cn("max-w-sm", className)}>
         <PropositionCardlabel>{label}</PropositionCardlabel>
         {children}
-        <PropositionCardTextLines>
-          {textLines.map((textLine) => (
-            <p key={textLine}>{textLine}</p>
-          ))}
-        </PropositionCardTextLines>
+        <div className="break-keep text-black/50">{textLines}</div>
       </div>
     </section>
   );
 }
 
 function PropositionCardlabel({ children }: { children: React.ReactNode }) {
-  return <p className="mb-2 tracking-wider text-secondary">{children}</p>;
-}
-
-function PropositionCardTextLines({ children }: { children: React.ReactNode }) {
-  return <div className="whitespace-nowrap text-black/50">{children}</div>;
+  return <p className="text-sm tracking-wider text-secondary">{children}</p>;
 }

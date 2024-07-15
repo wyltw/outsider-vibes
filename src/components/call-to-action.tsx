@@ -4,19 +4,20 @@ import { Button } from "./ui/button";
 
 export default function CallToAction() {
   return (
-    <section className="py-52">
-      <section className="max-w-md">
-        <h1 className="text-5xl font-semibold tracking-tight">
+    <section className="flex justify-center py-60 md:block">
+      <section className="flex max-w-md flex-col items-center md:items-start">
+        <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
           找尋你的音樂<span className="text-secondary">共鳴</span>
         </h1>
-        <p className="text-3xl font-semibold tracking-tight">
+        <p className="text-2xl font-semibold tracking-tight sm:text-3xl">
           Find your music <span className="text-secondary">resonance</span>
         </p>
-        <p className="text mt-3 leading-tight text-black/50">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Enim neque
-          deserunt odit.
+        <p className="mt-3 max-w-sm break-keep text-center leading-tight text-black/50 md:text-left">
+          每個音符都有故事，每種旋律都有共鳴。
+          加入我們的社區，發現更多令人驚喜的音樂。
         </p>
-        <div className="mt-6 space-x-4">
+
+        <div className="mt-6 flex w-full max-w-sm flex-col gap-4 md:mt-6 md:flex-row">
           <Button variant="outline" size={"lg"} asChild>
             <Link href="./home">Visit our community</Link>
           </Button>

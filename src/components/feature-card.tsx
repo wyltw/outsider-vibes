@@ -1,5 +1,3 @@
-import { cn } from "@/lib/utils";
-import { Music } from "lucide-react";
 import React, { ReactNode } from "react";
 
 type FeatureCardProps = {
@@ -11,7 +9,7 @@ export default function FeatureCard({ children, text }: FeatureCardProps) {
   return (
     <section
       className={
-        "flex w-60 flex-col items-center justify-center gap-y-6 rounded-2xl bg-primary-50/20 px-6 py-6"
+        "flex w-full max-w-md flex-col items-center justify-center gap-y-6 rounded-2xl bg-primary-50/20 px-6 py-6 md:max-w-lg lg:w-60"
       }
     >
       <div className="flex h-28 w-28 items-center justify-center rounded-full bg-primary-50/30">
