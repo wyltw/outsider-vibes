@@ -2,27 +2,10 @@ import React from "react";
 import Logo from "./logo";
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { RouteItem } from "@/lib/type";
 import { Sheet, SheetContent, SheetHeader, SheetTrigger } from "./ui/sheet";
-
 import { Menu } from "lucide-react";
-
-const headerRoutes: RouteItem[] = [
-  {
-    name: "Home",
-    path: "./home",
-    variant: "ghost",
-  },
-  {
-    name: "Log in",
-    path: "./log-in",
-    variant: "ghost",
-  },
-  {
-    name: "Sign up",
-    path: "./sign-up",
-  },
-];
+import { headerRoutes } from "@/lib/constants";
+import RouteList from "./route-list";
 
 export default function Header() {
   return (
@@ -48,6 +31,7 @@ export default function Header() {
           <SheetContent>
             <SheetHeader>
               <h3 className="text-lg font-semibold">Menu</h3>
+              <RouteList routes={headerRoutes} />
             </SheetHeader>
           </SheetContent>
         </Sheet>

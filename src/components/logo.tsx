@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -12,7 +13,7 @@ export default function Logo({ width, height, className }: LogoProps) {
         alt="Logo"
         width={width}
         height={height}
-        className={className}
+        className={cn("h-auto", className)}
       />
     </Link>
   );
