@@ -8,7 +8,7 @@ type RouteListProps = { routes: RouteItem[] };
 export default function RouteList({ routes }: RouteListProps) {
   return (
     <>
-      <ul className="flex flex-col items-stretch gap-x-4 gap-y-4">
+      <ul className="flex flex-col gap-x-4 gap-y-4">
         {routes.map((route) => (
           <li key={route.name}>
             <Button
