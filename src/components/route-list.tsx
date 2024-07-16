@@ -3,12 +3,12 @@ import React from "react";
 import { Button } from "./ui/button";
 import Link from "next/link";
 
-type RouteListProps = { routes: RouteItem[] };
+type RouteListProps = { routes: RouteItem[]; className: string };
 
-export default function RouteList({ routes }: RouteListProps) {
+export default function RouteList({ routes, className }: RouteListProps) {
   return (
     <>
-      <ul className="flex flex-col gap-y-4">
+      <ul className={className}>
         {routes.map((route) => (
           <li key={route.name}>
             <Button

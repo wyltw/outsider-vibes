@@ -27,7 +27,7 @@ export default function Footer() {
   return (
     <footer className="flex max-h-[25rem] flex-col justify-center gap-y-4 bg-airforce-50">
       <div className="container flex w-full max-w-5xl flex-col justify-around md:flex-row md:items-center">
-        <Logo width={240} height={120} className="mt-4" />
+        <Logo width={224} height={133} className="mt-4" />
         <section className="mt-8 space-y-4">
           <FooterInfoBlock title="OUTSIDERVIBES" routes={routes} />
           <FooterInfoBlock title="CONTACT">

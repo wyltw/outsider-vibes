@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { DM_Sans, Inter, Noto_Sans_TC } from "next/font/google";
+import { DM_Sans, Noto_Sans_TC } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/header";
+
 import Footer from "@/components/footer";
 
 const notoSansTC = Noto_Sans_TC({

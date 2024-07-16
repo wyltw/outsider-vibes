@@ -13,7 +13,7 @@ export default function Logo({ width, height, className }: LogoProps) {
         alt="Logo"
         width={width}
         height={height}
-        className={cn("h-auto", className)}
+        className={cn("", className)}
       />
     </Link>
   );
