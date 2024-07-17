@@ -20,12 +20,12 @@ export default function PropositionCard({
   className,
 }: PropositionCardProps) {
   return (
-    <section className="flex w-full max-w-7xl flex-wrap items-center justify-around rounded-2xl bg-accent px-4 py-14">
+    <section className="flex w-full max-w-7xl flex-wrap items-center justify-around rounded-2xl bg-accent px-4 py-14 shadow">
       <Image src={imageSrc} alt={imageAlt} width={280} height={280} />
       <div className={cn("max-w-sm", className)}>
         <PropositionCardlabel>{label}</PropositionCardlabel>
         {children}
-        <div className="break-keep text-black/50">{textLines}</div>
+        <div className="mt-2 break-keep text-black/50">{textLines}</div>
       </div>
     </section>
   );

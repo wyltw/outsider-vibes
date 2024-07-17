@@ -34,8 +34,7 @@ export default function Header() {
 
             <SheetContent>
               <SheetHeader>
-                <SheetTitle>Menu</SheetTitle>
-                <SheetDescription>Lorem ipsum dolor sit amet.</SheetDescription>
+                <SheetTitle className="mb-4">Menu</SheetTitle>
               </SheetHeader>
               <RouteList
                 routes={headerRoutes}

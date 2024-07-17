@@ -17,7 +17,7 @@ export default function CallToAction() {
           加入我們的社區，發現更多令人驚喜的音樂。
         </p>
 
-        <div className="mt-6 flex w-full max-w-sm flex-col gap-4 md:mt-6 md:flex-row">
+        <div className="mt-6 flex w-full max-w-sm flex-col gap-4 md:flex-row">
           <Button variant="outline" size={"lg"} asChild>
             <Link href="./home">Visit our community</Link>
           </Button>
