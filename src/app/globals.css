@@ -3,20 +3,13 @@
 @tailwind utilities;
 
 @layer base {
-  .cta__container {
-    overflow: hidden;
-    position: relative;
-  }
-
-  .cta__background-image {
-    background-color: #f9f4f5;
-    z-index: -1;
-    opacity: 0.3;
-    position: absolute;
-    left: 0;
-    top: 0;
-    max-width: 100%;
-    height: auto;
+  .bg__landing {
+    background: rgb(243, 243, 248);
+    background: radial-gradient(
+      circle,
+      rgba(243, 243, 248, 1) 80%,
+      rgba(226, 228, 236, 1) 100%
+    );
   }
 }
 
