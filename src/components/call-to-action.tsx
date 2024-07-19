@@ -3,7 +3,6 @@ import React from "react";
 import { Button } from "./ui/button";
 
 export default function CallToAction() {
-  // no animation
   return (
     <section className="flex justify-center py-80 md:block">
       <section className="flex max-w-md flex-col items-center md:items-start">

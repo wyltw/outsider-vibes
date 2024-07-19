@@ -10,13 +10,13 @@ export default function Feature() {
     <section className="mb-28 flex flex-col items-center gap-y-8">
       <SecondHeading>你的音樂社群</SecondHeading>
       <div className="flex w-full max-w-5xl flex-col flex-wrap items-center gap-y-4 lg:flex-row lg:justify-around">
-        <FeatureCard text={"最新的音樂資訊"}>
+        <FeatureCard duration={0.3} text={"最新的音樂資訊"}>
           <Music className={iconStyle} />
         </FeatureCard>
-        <FeatureCard text={"加入多元音樂討論"}>
+        <FeatureCard duration={0.6} text={"加入多元音樂討論"}>
           <MessageSquare className={iconStyle} />
         </FeatureCard>
-        <FeatureCard text={"分享專輯歌曲評價"}>
+        <FeatureCard duration={1} text={"分享專輯歌曲評價"}>
           <Star className={iconStyle} />
         </FeatureCard>
       </div>
