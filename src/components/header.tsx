@@ -18,7 +18,7 @@ export default function Header() {
   return (
     <header className="bg__landing">
       <div className="container flex h-20 items-center justify-between">
-        <Logo width={128} height={76} className="h-auto w-full max-w-[128px]" />
+        <Logo width={128} height={76} />
         <nav className="flex gap-x-4">
           <RouteList
             routes={headerRoutes}
