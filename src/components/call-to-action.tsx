@@ -4,7 +4,7 @@ import { Button } from "./ui/button";
 
 export default function CallToAction() {
   return (
-    <section className="flex justify-center py-60 md:block">
+    <section className="flex justify-center py-80 md:block">
       <section className="flex max-w-md flex-col items-center md:items-start">
         <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
           找尋你的音樂<span className="text-secondary">共鳴</span>
