@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 
 export default function CallToAction() {
   return (
@@ -22,7 +22,7 @@ export default function CallToAction() {
             <Link href="./home">Visit our community</Link>
           </Button>
           <Button size={"lg"} asChild>
-            <Link href="./home">Sign up</Link>
+            <Link href="./sign-up">Sign up</Link>
           </Button>
         </div>
       </section>

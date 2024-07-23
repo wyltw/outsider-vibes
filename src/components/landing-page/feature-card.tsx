@@ -14,7 +14,7 @@ const sectionVariants = {
 type FeatureCardProps = {
   children: ReactNode;
   text: string;
-  duration: number;
+  duration?: number;
 };
 
 export default function FeatureCard({
@@ -35,7 +35,7 @@ export default function FeatureCard({
       <div className="flex h-28 w-28 items-center justify-center rounded-full bg-primary-50/30">
         {children}
       </div>
-      <p className="flex flex-col items-center text-2xl after:content-[url('/images/underline.svg')]">
+      <p className="flex flex-col items-center text-xl after:content-[url('/images/underline.svg')]">
         {text}
       </p>
     </motion.section>

@@ -1,5 +1,8 @@
-import React from "react";
-
 export default function HomePage() {
-  return <main></main>;
+  return (
+    <div className="container grid grid-cols-[18rem_1fr]">
+      <aside className="w-72 border-r border-primary">hello</aside>
+      <main>world</main>
+    </div>
+  );
 }

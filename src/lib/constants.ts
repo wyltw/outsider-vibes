@@ -1,6 +1,6 @@
 import { RouteItem } from "./type";
 
-export const headerRoutes: RouteItem[] = [
+export const LandingheaderRoutes: RouteItem[] = [
   {
     name: "Home",
     path: "./home",

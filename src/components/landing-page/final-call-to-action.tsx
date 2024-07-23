@@ -1,7 +1,8 @@
 import React from "react";
-import SecondHeading from "./second-heading";
+import SecondHeading from "../second-heading";
 import Image from "next/image";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
+import Link from "next/link";
 
 export default function FinalCallToAction() {
   return (
@@ -13,8 +14,9 @@ export default function FinalCallToAction() {
         width={240}
         height={240}
       />
-      <Button size={"lg"} className="text-base">
-        Join us
+
+      <Button size={"lg"} className="text-base" asChild>
+        <Link href="./sign-up">Join us</Link>
       </Button>
     </section>
   );
