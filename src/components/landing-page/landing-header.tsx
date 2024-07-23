@@ -9,7 +9,7 @@ import {
   SheetTrigger,
 } from "../ui/sheet";
 import { Menu } from "lucide-react";
-import { LandingheaderRoutes } from "@/lib/constants";
+import { headerRoutes } from "@/lib/constants";
 import RouteList from "../route-list";
 import Header from "../header";
 
@@ -18,7 +18,7 @@ export default function LandingHeader() {
     <>
       <Header className="bg__landing">
         <RouteList
-          routes={LandingheaderRoutes}
+          routes={headerRoutes}
           className="hidden items-center gap-x-4 sm:flex"
         />
         <Sheet>
@@ -33,7 +33,7 @@ export default function LandingHeader() {
               <SheetTitle className="mb-4">Menu</SheetTitle>
             </SheetHeader>
             <RouteList
-              routes={LandingheaderRoutes}
+              routes={headerRoutes}
               className="flex flex-col gap-y-4"
             />
           </SheetContent>
