@@ -16,7 +16,7 @@ import Header from "../header";
 export default function LandingHeader() {
   return (
     <>
-      <Header className="bg__landing">
+      <Header>
         <RouteList
           routes={headerRoutes}
           className="hidden items-center gap-x-4 sm:flex"

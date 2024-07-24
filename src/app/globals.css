@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer base {
-  .bg__landing {
+  .bg--landing {
     background: rgb(243, 243, 248);
     background: radial-gradient(
       circle,
