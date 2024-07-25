@@ -1,12 +1,15 @@
 import HomeHeader from "@/components/home-page/home-header";
+import Sidebar from "@/components/sidebar";
 
 export default function HomePage() {
   return (
     <>
-      <HomeHeader></HomeHeader>
+      <HomeHeader />
       <div className="grid grid-cols-[18rem_1fr]">
-        <aside className="w-72 border-r border-primary">hello</aside>
-        <main>world</main>
+        <Sidebar />
+        <main className="col-start-2 col-end-3 h-[calc(100vh_-_80px)]">
+          world
+        </main>
       </div>
     </>
   );

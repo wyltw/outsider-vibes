@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import { RouteItem } from "@/lib/type";
+import Copyright from "./copyright";
 
 const routes: RouteItem[] = [
   {
@@ -46,7 +47,7 @@ export default function Footer() {
           </FooterInfoBlock>
         </section>
       </div>
-      <small className="text-center">&copy;2024 By wyltw</small>
+      <Copyright />
     </footer>
   );
 }

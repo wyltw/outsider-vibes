@@ -3,18 +3,25 @@ import React from "react";
 import { Button } from "./ui/button";
 import Link from "next/link";
 
-type RouteListProps = { routes: RouteItem[]; className: string };
+type RouteListProps = {
+  routes: RouteItem[];
+  ulClassName?: string;
+  buttonClassName?: string;
+};
 
-export default function RouteList({ routes, className }: RouteListProps) {
+export default function RouteList({
+  routes,
+  ulClassName,
+  buttonClassName,
+}: RouteListProps) {
   return (
     <>
-      <ul className={className}>
+      <ul className={ulClassName}>
         {routes.map((route) => (
           <li key={route.name}>
             <Button
-              className="w-full"
+              className={`w-full text-base ${buttonClassName}`}
               variant={route.variant}
-              size="sm"
               asChild
             >
               <Link href={route.path}>{route.name}</Link>

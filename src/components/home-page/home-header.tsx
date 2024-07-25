@@ -9,7 +9,7 @@ export default function HomeHeader() {
       <Header isLanding={false}>
         <RouteList
           routes={headerRoutes}
-          className="hidden items-center gap-x-4 sm:flex"
+          ulClassName="hidden items-center gap-x-4 sm:flex"
         />
       </Header>
     </>

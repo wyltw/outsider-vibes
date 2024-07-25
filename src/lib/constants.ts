@@ -2,7 +2,7 @@ import { RouteItem } from "./type";
 
 export const headerRoutes: RouteItem[] = [
   {
-    name: "Home",
+    name: "首頁",
     path: "./home",
     variant: "ghost",
   },
@@ -14,5 +14,33 @@ export const headerRoutes: RouteItem[] = [
   {
     name: "Sign up",
     path: "./sign-up",
+  },
+];
+
+export const featuredGenres: RouteItem[] = [
+  {
+    name: "Happy hardcore",
+    path: "./genres/Happy hardcore",
+    variant: "ghost",
+  },
+  {
+    name: "Progressive metalcore",
+    path: "./genres/Progressive metalcore",
+    variant: "ghost",
+  },
+  {
+    name: "Big beat",
+    path: "./genres/Big beat",
+    variant: "ghost",
+  },
+  {
+    name: "Broken beat",
+    path: "./genres/Broken beat",
+    variant: "ghost",
+  },
+  {
+    name: "Disco",
+    path: "./genres/Disco",
+    variant: "ghost",
   },
 ];

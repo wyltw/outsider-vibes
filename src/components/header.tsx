@@ -9,12 +9,12 @@ type HeaderProps = {
 
 export default function Header({ children, isLanding = true }: HeaderProps) {
   return (
-    <header className={isLanding ? "bg--landing" : ""}>
+    <header className={isLanding ? "bg--landing" : "sticky top-0 bg-white"}>
       <div
         className={cn(
           "flex h-20 items-center justify-between",
           isLanding && "container",
-          !isLanding && "px-8",
+          !isLanding && "px-8 shadow",
         )}
       >
         <Logo width={128} height={76} />

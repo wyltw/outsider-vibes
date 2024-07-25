@@ -19,7 +19,7 @@ export default function LandingHeader() {
       <Header>
         <RouteList
           routes={headerRoutes}
-          className="hidden items-center gap-x-4 sm:flex"
+          ulClassName="hidden items-center gap-x-4 sm:flex"
         />
         <Sheet>
           <SheetTrigger asChild>
@@ -34,7 +34,7 @@ export default function LandingHeader() {
             </SheetHeader>
             <RouteList
               routes={headerRoutes}
-              className="flex flex-col gap-y-4"
+              ulClassName="flex flex-col gap-y-4"
             />
           </SheetContent>
         </Sheet>
