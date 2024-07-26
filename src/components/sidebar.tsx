@@ -33,7 +33,7 @@ export default function Sidebar() {
           <li>目前沒有任何收藏</li>
         </ul>
       </SidebarSection>
-      <Copyright className="mt-1" />
+      <Copyright className="mt-auto" />
     </aside>
   );
 }

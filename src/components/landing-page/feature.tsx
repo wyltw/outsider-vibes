@@ -1,5 +1,5 @@
 import React from "react";
-import SecondHeading from "../second-heading";
+import SecondHeading from "./second-heading";
 import { MessageSquare, Music, Star } from "lucide-react";
 import FeatureCard from "./feature-card";
 

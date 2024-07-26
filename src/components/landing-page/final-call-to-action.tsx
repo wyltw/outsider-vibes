@@ -1,5 +1,5 @@
 import React from "react";
-import SecondHeading from "../second-heading";
+import SecondHeading from "./second-heading";
 import Image from "next/image";
 import { Button } from "../ui/button";
 import Link from "next/link";

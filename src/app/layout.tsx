@@ -2,9 +2,6 @@ import type { Metadata } from "next";
 import { DM_Sans, Noto_Sans_TC } from "next/font/google";
 import "./globals.css";
 
-import Footer from "@/components/footer";
-import HomeHeader from "@/components/home-page/home-header";
-
 const notoSansTC = Noto_Sans_TC({
   subsets: ["latin"],
   display: "swap",

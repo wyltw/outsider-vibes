@@ -1,4 +1,4 @@
-import { RouteItem } from "./type";
+import { RouteItem } from "./types/types";
 
 export const headerRoutes: RouteItem[] = [
   {

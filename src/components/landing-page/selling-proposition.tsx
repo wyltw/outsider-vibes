@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import PropositionCard from "./proposition-card";
-import SecondHeading from "../second-heading";
+import SecondHeading from "./second-heading";
 
 export default function SellingProposition() {
   return (

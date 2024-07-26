@@ -3,7 +3,7 @@ import Logo from "./logo";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "./ui/button";
-import { RouteItem } from "@/lib/type";
+import { RouteItem } from "@/lib/types/types";
 import Copyright from "./copyright";
 
 const routes: RouteItem[] = [
