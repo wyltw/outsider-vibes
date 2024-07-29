@@ -1,20 +1,32 @@
 "use client";
 
-import { CircleX } from "lucide-react";
+import Image from "next/image";
 import React, { useEffect } from "react";
 import toast from "react-hot-toast";
 
 type CustomErrorProps = { error: string };
 
+const renderToast = (error: string) => {
+  toast.error(error);
+};
+
 export default function CustomError({ error }: CustomErrorProps) {
   useEffect(() => {
-    toast.error(error);
+    renderToast(error);
   }, [error]);
 
   return (
-    <p className="flex items-center gap-x-2 text-xl text-red-600">
-      <CircleX />
-      Oops! Something went wrong: {error}
-    </p>
+    <>
+      <div className="flex h-24 items-center gap-x-2">
+        <Image
+          className="opacity-50"
+          src="/images/embarrassed.png"
+          alt="oops"
+          width={36}
+          height={36}
+        />
+        <p className="text-lg text-black/50">維基百科暫時沒有相關敘述</p>
+      </div>
+    </>
   );
 }

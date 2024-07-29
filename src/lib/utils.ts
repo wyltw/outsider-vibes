@@ -15,6 +15,8 @@ export const fetchWikiArticleIntroduction: TfetchWikiArticleIntroduction =
         `https://en.wikipedia.org/api/rest_v1/page/summary/${title}`,
       );
       if (!response.ok) {
+        const errorData = await response.json();
+        console.log(response);
         throw new Error(`${response.status} - ${response.statusText}`);
       }
       const data = await response.json();
@@ -44,3 +46,11 @@ export const handleError = (
 export const formatTitle = (queryString: string) => {
   return queryString.split("%20").join(" ");
 };
+
+export async function sleep(ms: number) {
+  return new Promise((resolve) =>
+    setTimeout(() => {
+      resolve("awake");
+    }, ms),
+  );
+}
