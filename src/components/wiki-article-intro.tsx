@@ -25,7 +25,7 @@ export default async function WikiArticleIntro({
         {articleIntro.description === "Topics referred to by the same term" ? (
           <div className="flex h-24 items-center gap-x-2">
             <EmbarrassedIcon />
-            <p className="break-keep text-black/50">
+            <p className="break-keep text-lg text-black/50">
               這個音樂類型可能比較廣泛。試試搜索特定的藝人或專輯名稱
             </p>
           </div>
