@@ -1,8 +1,9 @@
-import { fetchWikiArticleIntroduction, sleep } from "@/lib/utils";
+import { sleep } from "@/lib/utils";
 import React from "react";
 import CustomError from "./custom-error";
 
 import EmbarrassedIcon from "./embarrased-icon";
+import { fetchWikiArticleIntroduction } from "@/lib/server-utils";
 
 type WikiArticleIntroProps = { genre: string };
 
