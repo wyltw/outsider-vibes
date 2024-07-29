@@ -1,18 +1,21 @@
-import { fetchWikiArticleIntroduction } from "@/lib/utils";
+import WikiArticleIntro from "@/components/wiki-article-intro";
 import React from "react";
+import { ErrorBoundary } from "react-error-boundary";
+import Fallback from "./fallback";
+import { formatTitle } from "@/lib/utils";
 
 type GenrePageProps = { params: { genre: string } };
 
 export default async function GenrePage({ params }: GenrePageProps) {
-  const articleIntro = await fetchWikiArticleIntroduction(params.genre);
-
   return (
     <>
       <h1 className="mt-4 text-4xl font-semibold text-primary">
-        {articleIntro.title}
+        {formatTitle(params.genre)}
       </h1>
-      <p className="mt-1 text-lg text-black/50">{articleIntro.description}</p>
-      <p className="max-w-4xl">{articleIntro.extract}</p>
+
+      <ErrorBoundary FallbackComponent={Fallback}>
+        <WikiArticleIntro genre={params.genre} />
+      </ErrorBoundary>
     </>
   );
 }

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Toaster } from "react-hot-toast";
 import { DM_Sans, Noto_Sans_TC } from "next/font/google";
 import "./globals.css";
 
@@ -29,6 +30,8 @@ export default function RootLayout({
         className={`${dmSans.variable} ${notoSansTC.variable} bg-[#FDFBFE]`}
       >
         {children}
+
+        <Toaster position="bottom-right" reverseOrder={false} />
       </body>
     </html>
   );
