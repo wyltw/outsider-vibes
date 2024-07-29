@@ -1,30 +1,21 @@
 "use client";
 
-import Image from "next/image";
 import React, { useEffect } from "react";
 import toast from "react-hot-toast";
+import EmbarrassedIcon from "./embarrased-icon";
 
 type CustomErrorProps = { error: string };
 
-const renderToast = (error: string) => {
-  toast.error(error);
-};
-
 export default function CustomError({ error }: CustomErrorProps) {
+  //Suspense改變了toast的渲染行為
   useEffect(() => {
-    renderToast(error);
+    toast.error(error);
   }, [error]);
 
   return (
     <>
       <div className="flex h-24 items-center gap-x-2">
-        <Image
-          className="opacity-50"
-          src="/images/embarrassed.png"
-          alt="oops"
-          width={36}
-          height={36}
-        />
+        <EmbarrassedIcon />
         <p className="text-lg text-black/50">維基百科暫時沒有相關敘述</p>
       </div>
     </>
