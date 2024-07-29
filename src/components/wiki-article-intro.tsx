@@ -1,5 +1,6 @@
 import { fetchWikiArticleIntroduction } from "@/lib/utils";
 import React from "react";
+import CustomError from "./custom-error";
 
 type WikiArticleIntroProps = { genre: string };
 
@@ -8,9 +9,10 @@ export default async function WikiArticleIntro({
 }: WikiArticleIntroProps) {
   const response = await fetchWikiArticleIntroduction(genre);
   if (!response.success) {
-    throw new Error(response.error);
+    return <CustomError error={response.error} />;
   }
-  if (response.data) {
+
+  if (response.success) {
     const articleIntro = response.data;
     return (
       <>

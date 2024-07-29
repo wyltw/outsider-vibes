@@ -24,6 +24,7 @@ export const fetchWikiArticleIntroduction: TfetchWikiArticleIntroduction =
       }
       return { success: true, data: validatedResponse.data };
     } catch (error: unknown) {
+      console.error(error);
       return handleError(error);
     }
   };

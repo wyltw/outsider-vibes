@@ -1,7 +1,7 @@
 import WikiArticleIntro from "@/components/wiki-article-intro";
 import React from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import Fallback from "./fallback";
+import ErrorFallback from "./error-fallback";
 import { formatTitle } from "@/lib/utils";
 
 type GenrePageProps = { params: { genre: string } };
@@ -13,9 +13,11 @@ export default async function GenrePage({ params }: GenrePageProps) {
         {formatTitle(params.genre)}
       </h1>
 
-      <ErrorBoundary FallbackComponent={Fallback}>
-        <WikiArticleIntro genre={params.genre} />
-      </ErrorBoundary>
+      <WikiArticleIntro key={Math.random()} genre={params.genre} />
     </>
   );
+}
+
+function logErrorToService() {
+  console.log("say cheese");
 }
