@@ -7,9 +7,7 @@ import { fetchWikiArticleIntroduction } from "@/lib/server-utils";
 
 type WikiArticleIntroProps = { genre: string };
 
-export default async function WikiArticleIntro({
-  genre,
-}: WikiArticleIntroProps) {
+export default async function WikiSummary({ genre }: WikiArticleIntroProps) {
   await sleep(2000).then((data) => {
     console.log(data);
   });
