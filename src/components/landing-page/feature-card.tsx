@@ -23,7 +23,7 @@ export default function FeatureCard({
   duration,
 }: FeatureCardProps) {
   return (
-    <motion.section
+    <motion.div
       variants={sectionVariants}
       initial="hidden"
       whileInView={"visible"}
@@ -38,6 +38,6 @@ export default function FeatureCard({
       <p className="flex flex-col items-center text-xl after:content-[url('/images/underline.svg')]">
         {text}
       </p>
-    </motion.section>
+    </motion.div>
   );
 }

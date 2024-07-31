@@ -18,11 +18,3 @@ export type RouteItem = {
 export type WikiArticleIntroApiResponse = z.infer<
   typeof wikiArticleIntroSchema
 >;
-
-type fetchWikiArticleIntroductionResult =
-  | { success: true; data: WikiArticleIntroApiResponse }
-  | { success: false; error: string };
-
-export type TfetchWikiArticleIntroduction = (
-  genre: string,
-) => Promise<fetchWikiArticleIntroductionResult>;
