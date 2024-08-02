@@ -18,9 +18,7 @@ export default async function GenrePage({ params }: GenrePageProps) {
         <WikiSummary genre={params.genre} />
       </Suspense>
       <RelavantAlbums>
-        <li>
-          <Image />
-        </li>
+        <li></li>
         <li>hi</li>
         <li>hi</li>
         <li>hi</li>

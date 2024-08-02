@@ -5,16 +5,16 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const handleError = (
-  error: unknown,
-): { success: false; error: string } => {
+export const handleError = (error: unknown) => {
   let message;
   if (error instanceof Error) {
     message = error.message;
+  } else if (typeof error === "string") {
+    message = error;
   } else {
-    message = "Error occured.";
+    message = "Something went wrong.";
   }
-  return { success: false, error: message };
+  return message;
 };
 
 export const formatTitle = (queryString: string) => {
