@@ -16,7 +16,7 @@ export default function CustomError({ error }: CustomErrorProps) {
     <>
       <div className="flex h-24 items-center gap-x-2">
         <EmbarrassedIcon />
-        <p className="text-lg text-black/50">維基百科暫時沒有相關敘述</p>
+        <p className="text-lg text-black/50">{error}</p>
       </div>
     </>
   );

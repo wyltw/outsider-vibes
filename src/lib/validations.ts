@@ -57,7 +57,7 @@ export const discogsReleaseSchema = z.object({
       id: z.number(),
       barcode: z.array(z.string()),
       master_id: z.number(),
-      master_url: z.string(),
+      master_url: z.string().nullable(),
       uri: z.string(),
       catno: z.string(),
       title: z.string(),
