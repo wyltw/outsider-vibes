@@ -1,8 +1,13 @@
 import "server-only";
-import { discogsReleaseSchema, wikiArticleIntroSchema } from "./validations";
+import {
+  discogsArtistsSchema,
+  discogsReleasesSchema,
+  wikiArticleIntroSchema,
+} from "./validations";
 import { formatTitle, handleError } from "./utils";
 import {
-  DiscogsReleaseApiResponse,
+  DiscogsArtistsApiResponse,
+  DiscogsReleasesApiResponse,
   TfetchData,
   WikiArticleIntroApiResponse,
 } from "./types";
@@ -44,9 +49,22 @@ export const fetchDiscogsDataByReleases = async (
   perPage: number,
 ) => {
   const queryString = formatTitle(genre);
-  const result = await fetchData<DiscogsReleaseApiResponse>(
+  const result = await fetchData<DiscogsReleasesApiResponse>(
     `https://api.discogs.com/database/search?q=${queryString}&type=release&page=${page}&per_page=${perPage}&key=${process.env.NEXT_PUBLIC_DISCOGS_API_CONSUMER_KEY}&secret=${process.env.NEXT_PUBLIC_DISCOGS_API_CONSUMER_SECRET}`,
-    discogsReleaseSchema,
+    discogsReleasesSchema,
+  );
+  return result;
+};
+
+export const fetchDiscogsDataByArtists = async (
+  genre: string,
+  page: number,
+  perPage: number,
+) => {
+  const queryString = formatTitle(genre);
+  const result = await fetchData<DiscogsArtistsApiResponse>(
+    `https://api.discogs.com/database/search?q=${queryString}&type=artist&page=${page}&per_page=${perPage}&key=${process.env.NEXT_PUBLIC_DISCOGS_API_CONSUMER_KEY}&secret=${process.env.NEXT_PUBLIC_DISCOGS_API_CONSUMER_SECRET}`,
+    discogsArtistsSchema,
   );
   return result;
 };

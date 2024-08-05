@@ -27,7 +27,7 @@ export default async function WikiSummary({ genre }: WikiArticleIntroProps) {
       ) : (
         <>
           <p className="text-lg text-black/50">{articleIntro.description}</p>
-          <p className="mt-2">{articleIntro.extract}</p>
+          <p className="mt-2 leading-relaxed">{articleIntro.extract}</p>
           <p className="mt-4 self-end text-sm text-black/50">
             資料來源於維基百科
           </p>

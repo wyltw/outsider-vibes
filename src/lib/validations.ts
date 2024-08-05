@@ -37,13 +37,18 @@ export const wikiArticleIntroSchema = z.object({
   extract_html: z.string(),
 });
 
-export const discogsReleaseSchema = z.object({
+export const discogsReleasesSchema = z.object({
   pagination: z.object({
     page: z.number(),
     pages: z.number(),
     per_page: z.number(),
     items: z.number(),
-    urls: z.object({ last: z.string(), next: z.string() }),
+    urls: z.object({
+      first: z.string().optional(),
+      last: z.string().optional(),
+      prev: z.string().optional(),
+      next: z.string().optional(),
+    }),
   }),
   results: z.array(
     z.object({
@@ -73,6 +78,34 @@ export const discogsReleaseSchema = z.object({
           descriptions: z.array(z.string()),
         }),
       ),
+    }),
+  ),
+});
+
+export const discogsArtistsSchema = z.object({
+  pagination: z.object({
+    page: z.number(),
+    pages: z.number(),
+    per_page: z.number(),
+    items: z.number(),
+    urls: z.object({
+      first: z.string().optional(),
+      last: z.string().optional(),
+      prev: z.string().optional(),
+      next: z.string().optional(),
+    }),
+  }),
+  results: z.array(
+    z.object({
+      id: z.number(),
+      type: z.string(),
+      master_id: z.null(),
+      master_url: z.null(),
+      uri: z.string(),
+      title: z.string(),
+      thumb: z.string(),
+      cover_image: z.string(),
+      resource_url: z.string(),
     }),
   ),
 });

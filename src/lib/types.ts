@@ -1,5 +1,9 @@
 import { z, ZodSchema } from "zod";
-import { discogsReleaseSchema, wikiArticleIntroSchema } from "./validations";
+import {
+  discogsArtistsSchema,
+  discogsReleasesSchema,
+  wikiArticleIntroSchema,
+} from "./validations";
 
 export type RouteItem = {
   name: string;
@@ -19,7 +23,9 @@ export type WikiArticleIntroApiResponse = z.infer<
   typeof wikiArticleIntroSchema
 >;
 
-export type DiscogsReleaseApiResponse = z.infer<typeof discogsReleaseSchema>;
+export type DiscogsReleasesApiResponse = z.infer<typeof discogsReleasesSchema>;
+
+export type DiscogsArtistsApiResponse = z.infer<typeof discogsArtistsSchema>;
 
 export type fetchResult<T> =
   | { success: true; data: T }

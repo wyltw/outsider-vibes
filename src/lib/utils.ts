@@ -28,3 +28,7 @@ export async function sleep(ms: number) {
     }, ms),
   );
 }
+
+export function replaceWithDefaultAvatar(target: string) {
+  return target.includes("spacer") ? "/images/avatar.png" : target;
+}

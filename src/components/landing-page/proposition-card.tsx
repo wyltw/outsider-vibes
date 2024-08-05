@@ -68,7 +68,7 @@ export default function PropositionCard({
       <motion.div variants={divVariants} className={cn("max-w-sm", className)}>
         <PropositionCardlabel>{label}</PropositionCardlabel>
         {children}
-        <div className="mt-2 break-keep text-black/50">{textLines}</div>
+        <p className="mt-2 break-keep text-black/50">{textLines}</p>
       </motion.div>
     </motion.section>
   );

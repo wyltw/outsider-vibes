@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react";
 import toast from "react-hot-toast";
-import EmbarrassedIcon from "./embarrased-icon";
+import ErrorBlock from "./error-block";
 
 type CustomErrorProps = { error: string };
 
@@ -14,10 +14,7 @@ export default function CustomError({ error }: CustomErrorProps) {
 
   return (
     <>
-      <div className="flex h-24 items-center gap-x-2">
-        <EmbarrassedIcon />
-        <p className="text-lg text-black/50">{error}</p>
-      </div>
+      <ErrorBlock error={error} />
     </>
   );
 }

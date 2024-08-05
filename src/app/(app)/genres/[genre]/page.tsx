@@ -3,10 +3,11 @@ import { formatTitle } from "@/lib/utils";
 
 import WikiSummary from "@/components/wiki-summary";
 
-import RelavantAlbums from "@/components/relavant-albums";
+import RelavantReleases from "@/components/relavant-releases";
 
 import TextLoading from "@/components/text-loading";
 import CardLoading from "@/components/card-loading";
+import RelavantAritists from "@/components/relavant-artists";
 
 type GenrePageProps = { params: { genre: string } };
 
@@ -19,8 +20,17 @@ export default async function GenrePage({ params }: GenrePageProps) {
       <Suspense fallback={<TextLoading />}>
         <WikiSummary genre={params.genre} />
       </Suspense>
+      <h2 className="mt-10 text-2xl font-medium text-primary">
+        帶有此風格的專輯：
+      </h2>
       <Suspense fallback={<CardLoading />}>
-        <RelavantAlbums genre={params.genre}></RelavantAlbums>
+        <RelavantReleases genre={params.genre}></RelavantReleases>
+      </Suspense>
+      <h2 className="mt-10 text-2xl font-medium text-primary">
+        帶有此風格的藝人：
+      </h2>
+      <Suspense fallback={<CardLoading />}>
+        <RelavantAritists genre={params.genre}></RelavantAritists>
       </Suspense>
     </>
   );
