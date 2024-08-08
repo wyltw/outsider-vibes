@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { Card } from "./ui/card";
+import { Card } from "../ui/card";
 import Image from "next/image";
 import {
   DiscogsArtistsApiResponse,
@@ -53,7 +53,7 @@ export default function RelavantCard({ data }: RelavantCardProps) {
 
 function CardContainer({ children }: { children: ReactNode }) {
   return (
-    <Card className="flex h-full flex-col items-center gap-y-2 bg-white p-2 shadow">
+    <Card className="mx-auto flex h-full max-w-64 flex-col items-center gap-y-2 bg-white p-2 shadow sm:mx-0 sm:max-w-none">
       {children}
     </Card>
   );

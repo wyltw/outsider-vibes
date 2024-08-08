@@ -66,14 +66,10 @@ export default function PropositionCard({
         height={280}
       />
       <motion.div variants={divVariants} className={cn("max-w-sm", className)}>
-        <PropositionCardlabel>{label}</PropositionCardlabel>
+        <p className="text-sm tracking-wider text-secondary">{label}</p>
         {children}
         <p className="mt-2 break-keep text-black/50">{textLines}</p>
       </motion.div>
     </motion.section>
   );
-}
-
-function PropositionCardlabel({ children }: { children: React.ReactNode }) {
-  return <p className="text-sm tracking-wider text-secondary">{children}</p>;
 }

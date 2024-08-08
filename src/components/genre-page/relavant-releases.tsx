@@ -1,17 +1,17 @@
 import { fetchDiscogsDataByReleases } from "@/lib/server-utils";
 import React from "react";
-import CustomError from "./custom-error";
+import CustomError from "../custom-error";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "./ui/carousel";
+} from "../ui/carousel";
 import { sleep } from "@/lib/utils";
-import PageSection from "./page-section";
+import PageSection from "../page-section";
 import RelavantCard from "./relavant-card";
-import ErrorBlock from "./error-block";
+import ErrorBlock from "../error-block";
 
 type RelavantReleasesProps = { genre: string };
 
@@ -50,8 +50,8 @@ export default async function RelavantReleases({
             );
           })}
         </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
+        <CarouselPrevious className="-left-0 sm:-left-5" />
+        <CarouselNext className="-right-0 sm:-right-5" />
       </Carousel>
     </PageSection>
   );

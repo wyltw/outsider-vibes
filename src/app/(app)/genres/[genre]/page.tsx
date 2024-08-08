@@ -3,11 +3,11 @@ import { formatTitle } from "@/lib/utils";
 
 import WikiSummary from "@/components/wiki-summary";
 
-import RelavantReleases from "@/components/relavant-releases";
+import RelavantReleases from "@/components/genre-page/relavant-releases";
 
 import TextLoading from "@/components/text-loading";
 import CardLoading from "@/components/card-loading";
-import RelavantAritists from "@/components/relavant-artists";
+import RelavantAritists from "@/components/genre-page/relavant-artists";
 
 type GenrePageProps = { params: { genre: string } };
 
