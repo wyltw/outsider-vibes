@@ -5,7 +5,7 @@ import {
   DiscogsArtistsApiResponse,
   DiscogsReleasesApiResponse,
 } from "@/lib/types";
-import { replaceWithDefaultAvatar } from "@/lib/utils";
+import { cn, replaceWithDefaultAvatar } from "@/lib/utils";
 
 type RelavantCardProps = {
   data:
@@ -29,6 +29,7 @@ export default function RelavantCard({ data }: RelavantCardProps) {
           <CardContent
             type={"release"}
             title={release.title}
+            genre={release.genre}
             style={release.style}
             year={release.year}
           />
@@ -75,10 +76,17 @@ type CardContentProps = {
   type: string;
   title: string;
   style?: string[];
+  genre?: string[];
   year?: string;
 };
 
-function CardContent({ type, title, style, year }: CardContentProps) {
+function CardContent({
+  type,
+  title,
+  genre = [],
+  style = [],
+  year = "",
+}: CardContentProps) {
   return (
     <div className="flex flex-1 flex-col gap-y-2 self-start">
       <h4 className="font-medium text-primary">
@@ -91,12 +99,33 @@ function CardContent({ type, title, style, year }: CardContentProps) {
 
       {type === "release" && (
         <>
-          <ul className="flex flex-wrap gap-1 text-sm text-black/50">
-            {style?.map((style, i) => <span key={style + i}>{style}</span>)}
-          </ul>
+          <div>
+            <List list={genre} />
+            <List
+              list={style}
+              ulClassName="text-black/50"
+              liClassName="leading-tight"
+            />
+          </div>
           <p className="mt-auto">{year}</p>
         </>
       )}
     </div>
+  );
+}
+
+type ListProps = { ulClassName?: string; liClassName?: string; list: string[] };
+
+function List({ ulClassName, liClassName, list }: ListProps) {
+  return (
+    <>
+      <ul className={cn("flex flex-wrap gap-x-1 text-sm", ulClassName)}>
+        {list.map((item, i) => (
+          <li className={cn("inline", liClassName)} key={item + i}>
+            {item}
+          </li>
+        ))}
+      </ul>
+    </>
   );
 }
