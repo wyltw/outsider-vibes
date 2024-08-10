@@ -7,7 +7,7 @@ export default function BackgroundPattern({
   children,
 }: BackgroundPatternProps) {
   {
-    /* BackgroundPattern的大小依賴於section的內容。而Image則使用position:absolute跳出文檔流使自身不佔據空間，調整z-index，最終使container隱藏背景超出section的部分。需要注意Image組件的fill prop完成了大部分工作*/
+    /* BackgroundPattern的大小依賴於section的內容。而Image則使用position:absolute跳出文檔流使自身不佔據空間，調整z-index，最終使container隱藏背景超出section的部分。需要注意Image組件的fill prop完成了大部分工作,如position absolute*/
   }
   return (
     <div className="relative overflow-hidden">
