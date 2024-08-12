@@ -17,6 +17,20 @@ export const headerRoutes: RouteItem[] = [
   },
 ];
 
+export const footerRoutes: RouteItem[] = [
+  {
+    name: "Home",
+    path: "/home",
+  },
+  {
+    name: "Privacy policy",
+    path: "/",
+  },
+  {
+    name: "Terms & conditions",
+    path: "/",
+  },
+];
 export const featuredGenres: RouteItem[] = [
   {
     name: "Happy hardcore",

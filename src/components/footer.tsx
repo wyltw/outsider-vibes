@@ -5,24 +5,7 @@ import Image from "next/image";
 import { Button } from "./ui/button";
 import { RouteItem } from "@/lib/types";
 import Copyright from "./copyright";
-
-const routes: RouteItem[] = [
-  {
-    name: "Home",
-    path: "/home",
-  },
-  {
-    name: "Privacy policy",
-    path: "/",
-  },
-  {
-    name: "Terms & conditions",
-    path: "/",
-  },
-];
-
-const linkItemStyle =
-  "text-sm text-black/50 hover:underline transition underline-offset-4 hover:text-black/100";
+import { footerRoutes } from "@/lib/constants";
 
 export default function Footer() {
   return (
@@ -30,7 +13,7 @@ export default function Footer() {
       <div className="container flex w-full max-w-5xl flex-col justify-around md:flex-row md:items-center">
         <Logo width={224} height={133} className="mt-4" />
         <section className="mt-8 space-y-4">
-          <FooterInfoBlock title="OUTSIDERVIBES" routes={routes} />
+          <FooterInfoBlock title="OUTSIDERVIBES" routes={footerRoutes} />
           <FooterInfoBlock title="CONTACT">
             <li className="flex items-center">
               <Button variant="ghost" size={"icon"} className="h-7 w-7" asChild>
@@ -66,7 +49,10 @@ function FooterInfoBlock({ routes, title, children }: FooterInfoProps) {
         {routes &&
           routes.map((route) => (
             <li key={route.name}>
-              <Link href={route.path} className={linkItemStyle}>
+              <Link
+                href={route.path}
+                className="text-sm text-black/50 underline-offset-4 transition hover:text-black/100 hover:underline"
+              >
                 {route.name}
               </Link>
             </li>
