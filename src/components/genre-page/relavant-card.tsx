@@ -18,6 +18,7 @@ type RelavantCardProps = {
 export default function RelavantCard({ data }: RelavantCardProps) {
   const isRelease = data.type === "release";
   const isArtist = data.type === "artist";
+  //判斷傳入的是哪一種discogs類型查詢
   if (isRelease) {
     const release = data.release;
     return (
@@ -98,6 +99,7 @@ function CardContent({
       </h4>
 
       {type === "release" && (
+        //根據傳入的type決定是否渲染genre和style等資訊
         <>
           <div>
             <List list={genre} />

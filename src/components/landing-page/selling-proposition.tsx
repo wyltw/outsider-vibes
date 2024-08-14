@@ -18,7 +18,7 @@ export default function SellingProposition() {
             <span className="text-secondary">埋藏的</span>
             音樂寶藏
           </PropositionCardHeading>
-          {/* 標題包含span元素作為props會遇到轉型問題，所以用children props替代 */}
+          {/* 事實上，jsx結構完全可以作為props傳遞，不過對目前的children props已經感到滿意*/}
         </PropositionCard>
         <PropositionCard
           imageSrc="/images/discussion.svg"

@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { ReactNode, Suspense } from "react";
 import { formatTitle } from "@/lib/utils";
 
 import WikiSummary from "@/components/wiki-summary";
@@ -20,18 +20,20 @@ export default async function GenrePage({ params }: GenrePageProps) {
       <Suspense fallback={<TextLoading />}>
         <WikiSummary genre={params.genre} />
       </Suspense>
-      <h2 className="mt-10 text-2xl font-medium text-primary">
-        帶有此風格的專輯：
-      </h2>
+      <SecondHeading> 帶有此風格的專輯：</SecondHeading>
       <Suspense fallback={<CardLoading />}>
         <RelavantReleases genre={params.genre}></RelavantReleases>
       </Suspense>
-      <h2 className="mt-10 text-2xl font-medium text-primary">
-        帶有此風格的藝人：
-      </h2>
+      <SecondHeading> 帶有此風格的藝人：</SecondHeading>
       <Suspense fallback={<CardLoading />}>
         <RelavantAritists genre={params.genre}></RelavantAritists>
       </Suspense>
     </>
+  );
+}
+
+function SecondHeading({ children }: { children: ReactNode }) {
+  return (
+    <h2 className="mt-10 text-2xl font-medium text-primary">{children}</h2>
   );
 }
