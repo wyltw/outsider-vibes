@@ -1,24 +1,30 @@
 "use client";
 
 import { Search } from "lucide-react";
-import React from "react";
+import React, { use, useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { useSearchTextContext } from "@/lib/hooks";
 
 type SearchFormProps = { isHeaderSearchForm: boolean };
 
+type Params = { query: string };
+
 export default function SearchForm({ isHeaderSearchForm }: SearchFormProps) {
-  const { searchText, handleChangeSearchText } = useSearchTextContext();
   const router = useRouter();
+  const params: Params = useParams();
+  const [searchText, setSearchText] = useState("");
+  useEffect(() => {
+    setSearchText(decodeURIComponent(params.query));
+  }, [params.query]);
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    handleChangeSearchText(event.target.value);
+    setSearchText(event.target.value);
   };
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     router.push(`/search/${searchText}`);
+    console.log();
   };
   return (
     <form
