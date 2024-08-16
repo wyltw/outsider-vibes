@@ -1,5 +1,4 @@
 import React, { ReactNode, Suspense } from "react";
-import { formatTitle } from "@/lib/utils";
 
 import WikiSummary from "@/components/wiki-summary";
 
@@ -16,7 +15,7 @@ export default async function GenrePage({ params }: GenrePageProps) {
   return (
     <>
       <h1 className="text-4xl font-semibold text-primary">
-        {formatTitle(params.genre)}
+        {decodeURIComponent(params.genre)}
       </h1>
       <Suspense fallback={<TextLoading />}>
         <WikiSummary genre={params.genre} />
@@ -40,11 +39,5 @@ export default async function GenrePage({ params }: GenrePageProps) {
         <RelavantAritists genre={params.genre}></RelavantAritists>
       </Suspense>
     </>
-  );
-}
-
-function SecondHeading({ children }: { children: ReactNode }) {
-  return (
-    <h2 className="mt-10 text-2xl font-medium text-primary">{children}</h2>
   );
 }

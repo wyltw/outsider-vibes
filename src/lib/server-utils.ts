@@ -4,7 +4,7 @@ import {
   discogsReleasesSchema,
   wikiArticleIntroSchema,
 } from "./validations";
-import { formatTitle, handleError } from "./utils";
+import { handleError } from "./utils";
 import {
   DiscogsArtistsApiResponse,
   DiscogsReleasesApiResponse,
@@ -35,7 +35,7 @@ export const fetchData: TfetchData = async (
 };
 
 export const fetchWikiArticleIntroduction = async (genre: string) => {
-  const title = formatTitle(genre);
+  const title = decodeURIComponent(genre);
   const result = await fetchData<WikiArticleIntroApiResponse>(
     `https://en.wikipedia.org/api/rest_v1/page/summary/${title}`,
     wikiArticleIntroSchema,
