@@ -48,7 +48,7 @@ export const fetchDiscogsDataByReleases = async (
   page: number,
   perPage: number,
 ) => {
-  const queryString = formatTitle(genre);
+  const queryString = decodeURIComponent(genre);
   const result = await fetchData<DiscogsReleasesApiResponse>(
     `https://api.discogs.com/database/search?q=${queryString}&type=release&page=${page}&per_page=${perPage}&key=${process.env.NEXT_PUBLIC_DISCOGS_API_CONSUMER_KEY}&secret=${process.env.NEXT_PUBLIC_DISCOGS_API_CONSUMER_SECRET}`,
     discogsReleasesSchema,
@@ -61,7 +61,7 @@ export const fetchDiscogsDataByArtists = async (
   page: number,
   perPage: number,
 ) => {
-  const queryString = formatTitle(genre);
+  const queryString = decodeURIComponent(genre);
   const result = await fetchData<DiscogsArtistsApiResponse>(
     `https://api.discogs.com/database/search?q=${queryString}&type=artist&page=${page}&per_page=${perPage}&key=${process.env.NEXT_PUBLIC_DISCOGS_API_CONSUMER_KEY}&secret=${process.env.NEXT_PUBLIC_DISCOGS_API_CONSUMER_SECRET}`,
     discogsArtistsSchema,

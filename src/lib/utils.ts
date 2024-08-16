@@ -17,10 +17,6 @@ export const handleError = (error: unknown) => {
   return message;
 };
 
-export const formatTitle = (queryString: string) => {
-  return queryString.split("%20").join(" ");
-};
-
 export async function sleep(ms: number) {
   return new Promise((resolve) =>
     setTimeout(() => {

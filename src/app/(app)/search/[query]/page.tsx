@@ -8,7 +8,8 @@ export default function SearchPage({ params }: Props) {
   return (
     <>
       <SectionHeading level="h1" className="text-2xl font-medium text-primary">
-        <span className="text-3xl">“{params.query}”</span>的搜尋結果
+        <span className="text-3xl">“{decodeURIComponent(params.query)}”</span>
+        的搜尋結果
       </SectionHeading>
     </>
   );
