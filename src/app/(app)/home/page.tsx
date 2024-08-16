@@ -14,7 +14,7 @@ export default function HomePage() {
                 mainText="開始音樂"
                 highlightText="探索"
               />
-              <SearchForm isHeaderSearchForm={false} />
+              <SearchForm context="home" />
             </div>
             <Image
               className="col-start-3 col-end-5 row-start-1 row-end-2 opacity-80"

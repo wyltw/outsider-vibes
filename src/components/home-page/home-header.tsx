@@ -16,11 +16,8 @@ import SearchForm from "../search-form";
 export default function HomeHeader() {
   return (
     <>
-      <Header isLanding={false}>
-        <RouteList
-          routes={headerRoutes}
-          ulClassName="hidden items-center gap-x-4 md:flex"
-        />
+      <Header page="home">
+        <RouteList routes={headerRoutes} context="header" />
         <Sheet>
           <SheetTrigger asChild>
             <Button className="sm:hidden" variant="ghost" size="icon">
@@ -32,11 +29,8 @@ export default function HomeHeader() {
             <SheetHeader>
               <SheetTitle className="mb-4">Menu</SheetTitle>
             </SheetHeader>
-            <SearchForm isHeaderSearchForm={false} />
-            <RouteList
-              routes={headerRoutes}
-              ulClassName="flex flex-col gap-y-4"
-            />
+            <SearchForm context="header" />
+            <RouteList context="sheet" routes={headerRoutes} />
           </SheetContent>
         </Sheet>
       </Header>

@@ -15,11 +15,7 @@ export default function Sidebar() {
       </SidebarSection>
       <SidebarSection>
         <ThirdHeading>精選風格</ThirdHeading>
-        <RouteList
-          ulClassName="self-stretch"
-          buttonClassName="justify-start"
-          routes={featuredGenres}
-        />
+        <RouteList context="sidebar" routes={featuredGenres} />
       </SidebarSection>
       <SidebarSection>
         <ThirdHeading>藝人收藏</ThirdHeading>

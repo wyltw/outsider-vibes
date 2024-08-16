@@ -15,11 +15,8 @@ import Header from "../header";
 export default function LandingHeader() {
   return (
     <>
-      <Header>
-        <RouteList
-          routes={headerRoutes}
-          ulClassName="hidden items-center gap-x-4 sm:flex"
-        />
+      <Header page="landing">
+        <RouteList routes={headerRoutes} context="header" />
         <Sheet>
           <SheetTrigger asChild>
             <Button className="sm:hidden" variant="ghost" size="icon">
@@ -31,10 +28,7 @@ export default function LandingHeader() {
             <SheetHeader>
               <SheetTitle className="mb-4">Menu</SheetTitle>
             </SheetHeader>
-            <RouteList
-              routes={headerRoutes}
-              ulClassName="flex flex-col gap-y-4"
-            />
+            <RouteList routes={headerRoutes} context="sheet" />
           </SheetContent>
         </Sheet>
       </Header>

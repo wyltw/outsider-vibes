@@ -7,11 +7,11 @@ import { Input } from "./ui/input";
 import { useParams, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 
-type SearchFormProps = { isHeaderSearchForm: boolean };
+type SearchFormProps = { context: "header" | "home" };
 
 type Params = { query: string };
 
-export default function SearchForm({ isHeaderSearchForm }: SearchFormProps) {
+export default function SearchForm({ context }: SearchFormProps) {
   const router = useRouter();
   const params: Params = useParams();
   const [searchText, setSearchText] = useState("");
@@ -32,7 +32,7 @@ export default function SearchForm({ isHeaderSearchForm }: SearchFormProps) {
       onSubmit={handleSubmit}
       className={cn(
         "z-10 flex self-stretch",
-        isHeaderSearchForm && "hidden w-full max-w-lg md:flex",
+        context === "header" && "hidden w-full max-w-lg md:flex",
       )}
     >
       <label className="flex flex-1 justify-end">
@@ -42,17 +42,17 @@ export default function SearchForm({ isHeaderSearchForm }: SearchFormProps) {
           name="search"
           className={cn(
             "hover:w-50 rounded-e-none text-base placeholder:text-base focus-visible:ring-primary md:h-14",
-            isHeaderSearchForm &&
+            context === "header" &&
               "h-10 w-2/5 transition-all duration-700 focus-visible:w-full md:h-10",
           )}
           placeholder="輸入藝人或者專輯，找到喜歡的風格..."
         />
       </label>
       <Button
-        size={isHeaderSearchForm ? "icon" : "lg"}
+        size={context === "header" ? "icon" : "lg"}
         className={cn(
           "h-10 rounded-s-none md:h-14",
-          isHeaderSearchForm && "md:h-10",
+          context === "header" && "md:h-10",
         )}
       >
         <Search />
