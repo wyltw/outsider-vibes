@@ -16,7 +16,9 @@ export default function SearchForm({ isHeaderSearchForm }: SearchFormProps) {
   const params: Params = useParams();
   const [searchText, setSearchText] = useState("");
   useEffect(() => {
-    setSearchText(decodeURIComponent(params.query));
+    if (params.query) {
+      setSearchText(decodeURIComponent(params.query));
+    }
   }, [params.query]);
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(event.target.value);
@@ -24,14 +26,13 @@ export default function SearchForm({ isHeaderSearchForm }: SearchFormProps) {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     router.push(`/search/${searchText}`);
-    console.log();
   };
   return (
     <form
       onSubmit={handleSubmit}
       className={cn(
         "z-10 flex self-stretch",
-        isHeaderSearchForm && "w-full max-w-lg",
+        isHeaderSearchForm && "hidden w-full max-w-lg md:flex",
       )}
     >
       <label className="flex flex-1 justify-end">

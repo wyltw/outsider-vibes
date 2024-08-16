@@ -102,12 +102,8 @@ function CardContent({
         //根據傳入的type決定是否渲染genre和style等資訊
         <>
           <div>
-            <List list={genre} />
-            <List
-              list={style}
-              ulClassName="text-black/50"
-              liClassName="leading-tight"
-            />
+            <List list={genre} listType="genre" />
+            <List list={style} listType="style" />
           </div>
           <p className="mt-auto">{year}</p>
         </>
@@ -116,14 +112,22 @@ function CardContent({
   );
 }
 
-type ListProps = { ulClassName?: string; liClassName?: string; list: string[] };
+type ListProps = { listType: "style" | "genre"; list: string[] };
 
-function List({ ulClassName, liClassName, list }: ListProps) {
+function List({ listType, list }: ListProps) {
   return (
     <>
-      <ul className={cn("flex flex-wrap gap-x-1 text-sm", ulClassName)}>
+      <ul
+        className={cn(
+          "flex flex-wrap gap-x-1 text-sm",
+          listType === "style" && "text-black/50",
+        )}
+      >
         {list.map((item, i) => (
-          <li className={cn("inline", liClassName)} key={item + i}>
+          <li
+            className={cn("inline", listType === "style" && "leading-tight")}
+            key={item + i}
+          >
             {item}
           </li>
         ))}
