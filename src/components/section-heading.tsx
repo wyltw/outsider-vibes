@@ -1,7 +1,7 @@
-import React, { ReactNode } from "react";
+import React, { createElement, ReactNode } from "react";
 
 type SectionHeadingProps = {
-  level: string;
+  level: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
   className: string;
   children: ReactNode;
 };
@@ -10,7 +10,6 @@ export default function SectionHeading({
   level,
   className,
   children,
-}: SectionHeadingProps) {
-  const htmlTag = level;
-  return <>SectionHeading</>;
+}: SectionHeadingProps): React.ReactElement {
+  return createElement(level, { className: className }, children);
 }

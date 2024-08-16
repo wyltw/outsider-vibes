@@ -8,6 +8,7 @@ import RelavantReleases from "@/components/genre-page/relavant-releases";
 import TextLoading from "@/components/text-loading";
 import CardLoading from "@/components/card-loading";
 import RelavantAritists from "@/components/genre-page/relavant-artists";
+import SectionHeading from "@/components/section-heading";
 
 type GenrePageProps = { params: { genre: string } };
 
@@ -20,11 +21,21 @@ export default async function GenrePage({ params }: GenrePageProps) {
       <Suspense fallback={<TextLoading />}>
         <WikiSummary genre={params.genre} />
       </Suspense>
-      <SecondHeading> 帶有此風格的專輯：</SecondHeading>
+      <SectionHeading
+        level="h2"
+        className="mt-10 text-2xl font-medium text-primary"
+      >
+        帶有此風格的專輯：
+      </SectionHeading>
       <Suspense fallback={<CardLoading />}>
         <RelavantReleases genre={params.genre}></RelavantReleases>
       </Suspense>
-      <SecondHeading> 帶有此風格的藝人：</SecondHeading>
+      <SectionHeading
+        level="h2"
+        className="mt-10 text-2xl font-medium text-primary"
+      >
+        帶有此風格的藝人：
+      </SectionHeading>
       <Suspense fallback={<CardLoading />}>
         <RelavantAritists genre={params.genre}></RelavantAritists>
       </Suspense>

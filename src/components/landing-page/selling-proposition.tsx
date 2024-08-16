@@ -18,7 +18,7 @@ export default function SellingProposition() {
             <span className="text-secondary">埋藏的</span>
             音樂寶藏
           </PropositionCardHeading>
-          {/* 事實上，jsx結構完全可以作為props傳遞，不過對目前的children props已經感到滿意*/}
+          {/* 事實上，jsx結構完全可以作為props傳遞，先前的問題可能來自於未能正確處理作為props傳遞的jsx。不過對目前的children props已經感到滿意，不再變更*/}
         </PropositionCard>
         <PropositionCard
           imageSrc="/images/discussion.svg"

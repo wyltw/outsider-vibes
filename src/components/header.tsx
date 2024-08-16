@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import Logo from "./logo";
 import { cn } from "@/lib/utils";
+import SearchForm from "./search-form";
 
 type HeaderProps = {
   children: ReactNode;
@@ -18,7 +19,10 @@ export default function Header({ children, isLanding = true }: HeaderProps) {
         )}
       >
         <Logo width={128} height={76} />
-        <nav className="flex gap-x-4">{children}</nav>
+        <div className="flex flex-1 justify-end gap-x-4">
+          {!isLanding && <SearchForm isHeaderSearchForm={true} />}
+          <nav className="flex gap-x-4">{children}</nav>
+        </div>
       </div>
     </header>
   );

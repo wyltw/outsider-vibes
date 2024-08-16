@@ -1,8 +1,5 @@
 import FirstHeading from "@/components/first-heading";
 import SearchForm from "@/components/search-form";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
 import Image from "next/image";
 
 export default function HomePage() {
@@ -17,7 +14,7 @@ export default function HomePage() {
                 mainText="開始音樂"
                 highlightText="探索"
               />
-              <SearchForm />
+              <SearchForm isHeaderSearchForm={false} />
             </div>
             <Image
               className="col-start-3 col-end-5 row-start-1 row-end-2 opacity-80"
