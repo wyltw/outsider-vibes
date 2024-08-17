@@ -1,11 +1,12 @@
 import Footer from "@/components/footer";
-import LandingHeader from "@/components/landing-page/landing-header";
+import Header from "@/components/header";
+
 import React, { ReactNode } from "react";
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
     <>
-      <LandingHeader />
+      <Header page="landing" />
       <main>{children}</main>
       <Footer />
     </>
