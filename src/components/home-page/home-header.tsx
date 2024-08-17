@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Header from "../header";
 import RouteList from "../route-list";
@@ -12,15 +13,17 @@ import {
   Sheet,
 } from "../ui/sheet";
 import SearchForm from "../search-form";
+import { useSheetToggleContext } from "@/lib/hooks";
 
 export default function HomeHeader() {
+  const { isOpen, handleChangeSheetToggle } = useSheetToggleContext();
   return (
     <>
       <Header page="home">
         <RouteList routes={headerRoutes} context="header" />
-        <Sheet>
+        <Sheet open={isOpen} onOpenChange={handleChangeSheetToggle}>
           <SheetTrigger asChild>
-            <Button className="sm:hidden" variant="ghost" size="icon">
+            <Button className="md:hidden" variant="ghost" size="icon">
               <Menu className="text-primary" />
             </Button>
           </SheetTrigger>
@@ -29,8 +32,10 @@ export default function HomeHeader() {
             <SheetHeader>
               <SheetTitle className="mb-4">Menu</SheetTitle>
             </SheetHeader>
-            <SearchForm context="header" />
-            <RouteList context="sheet" routes={headerRoutes} />
+            <div className="space-y-4">
+              <SearchForm context="sheet" />
+              <RouteList context="sheet" routes={headerRoutes} />
+            </div>
           </SheetContent>
         </Sheet>
       </Header>

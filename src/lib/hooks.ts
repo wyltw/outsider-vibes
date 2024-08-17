@@ -1,10 +1,10 @@
-import { SearchTextContext } from "@/contexts/SearchTextContextProvider";
+import { SheetToggleContext } from "@/contexts/SheetToggleContextProvider";
 import { useContext } from "react";
 
-export const useSearchTextContext = () => {
-  const context = useContext(SearchTextContext);
+export const useSheetToggleContext = () => {
+  const context = useContext(SheetToggleContext);
   if (!context) {
-    throw new Error("check if SearchTextContextProvider is placing correctly");
+    throw new Error("check if SheetToggleContextProvider is placing correctly");
   }
   return context;
 };

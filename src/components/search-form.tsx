@@ -6,8 +6,9 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { useParams, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { useSheetToggleContext } from "@/lib/hooks";
 
-type SearchFormProps = { context: "header" | "home" };
+type SearchFormProps = { context: "header" | "home" | "sheet" };
 
 type Params = { query: string };
 
@@ -15,6 +16,7 @@ export default function SearchForm({ context }: SearchFormProps) {
   const router = useRouter();
   const params: Params = useParams();
   const [searchText, setSearchText] = useState("");
+  const { handleChangeSheetToggle } = useSheetToggleContext();
   useEffect(() => {
     if (params.query) {
       setSearchText(decodeURIComponent(params.query));
@@ -26,6 +28,7 @@ export default function SearchForm({ context }: SearchFormProps) {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     router.push(`/search/${searchText}`);
+    handleChangeSheetToggle(false);
   };
   return (
     <form
@@ -44,6 +47,7 @@ export default function SearchForm({ context }: SearchFormProps) {
             "hover:w-50 rounded-e-none text-base placeholder:text-base focus-visible:ring-primary md:h-14",
             context === "header" &&
               "h-10 w-2/5 transition-all duration-700 focus-visible:w-full md:h-10",
+            context === "sheet" && "rounded-e-md md:h-10",
           )}
           placeholder="輸入藝人或者專輯，找到喜歡的風格..."
         />
@@ -53,6 +57,7 @@ export default function SearchForm({ context }: SearchFormProps) {
         className={cn(
           "h-10 rounded-s-none md:h-14",
           context === "header" && "md:h-10",
+          context === "sheet" && "hidden",
         )}
       >
         <Search />

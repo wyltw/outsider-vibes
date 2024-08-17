@@ -16,7 +16,7 @@ export default function RouteList({ routes, context }: RouteListProps) {
         className={cn(
           context === "header" && "hidden items-center gap-x-4 md:flex",
           context === "sheet" && "flex flex-col gap-y-4",
-          context == "sidebar" && "self-stretch",
+          context === "sidebar" && "self-stretch",
         )}
       >
         {routes.map((route) => (

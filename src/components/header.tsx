@@ -22,7 +22,7 @@ export default function Header({ children, page }: HeaderProps) {
       >
         <Logo width={128} height={76} />
         <div className="flex flex-1 justify-end gap-x-4">
-          {page === "home" && <SearchForm context="home" />}
+          {page === "home" && <SearchForm context="header" />}
           <nav className="flex gap-x-4">{children}</nav>
         </div>
       </div>
