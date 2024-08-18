@@ -1,22 +1,26 @@
 "use client";
 
 import { Search } from "lucide-react";
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { useParams, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { useSheetToggleContext } from "@/lib/hooks";
 
-type SearchFormProps = { context: "header" | "home" | "sheet" };
+type SearchFormProps = {
+  context: "header" | "home" | "sheet";
+  onToggleSheet?: (open: boolean) => void;
+};
 
 type Params = { query: string };
 
-export default function SearchForm({ context }: SearchFormProps) {
+export default function SearchForm({
+  context,
+  onToggleSheet,
+}: SearchFormProps) {
   const router = useRouter();
   const params: Params = useParams();
   const [searchText, setSearchText] = useState("");
-  const { handleChangeSheetToggle } = useSheetToggleContext();
   useEffect(() => {
     if (params.query) {
       setSearchText(decodeURIComponent(params.query));
@@ -28,7 +32,9 @@ export default function SearchForm({ context }: SearchFormProps) {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     router.push(`/search/${searchText}`);
-    handleChangeSheetToggle(false);
+    if (onToggleSheet) {
+      onToggleSheet(false);
+    }
   };
   return (
     <form
@@ -44,7 +50,7 @@ export default function SearchForm({ context }: SearchFormProps) {
           value={searchText}
           name="search"
           className={cn(
-            "hover:w-50 rounded-e-none text-base placeholder:text-base focus-visible:ring-primary md:h-14",
+            "hover:w-50 rounded-e-none text-base transition-all placeholder:text-base focus-visible:ring-primary md:h-14",
             context === "header" &&
               "h-10 w-2/5 transition-all duration-700 focus-visible:w-full md:h-10",
             context === "sheet" && "rounded-e-md md:h-10",

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import {
   Sheet,
   SheetContent,
@@ -18,10 +18,13 @@ import { cn } from "@/lib/utils";
 type SheetContainerProps = { page: "home" | "landing" };
 
 export default function SheetContainer({ page }: SheetContainerProps) {
-  const { isOpen, handleChangeSheetToggle } = useSheetToggleContext();
+  const [isOpen, setIsOpen] = useState(false);
+  const handleToggleSheet = (open: boolean) => {
+    setIsOpen(open);
+  };
   return (
     <>
-      <Sheet open={isOpen} onOpenChange={handleChangeSheetToggle}>
+      <Sheet open={isOpen} onOpenChange={setIsOpen}>
         <SheetTrigger asChild>
           <Button
             className={cn(
@@ -44,7 +47,7 @@ export default function SheetContainer({ page }: SheetContainerProps) {
           )}
           {page === "home" && (
             <div className="space-y-4">
-              <SearchForm context="sheet" />
+              <SearchForm context="sheet" onToggleSheet={handleToggleSheet} />
               <RouteList page="home" context="sheet" routes={headerRoutes} />
             </div>
           )}

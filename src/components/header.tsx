@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import Logo from "./logo";
 import { cn } from "@/lib/utils";
 import SearchForm from "./search-form";
