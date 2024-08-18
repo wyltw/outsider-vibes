@@ -17,7 +17,7 @@ export default function Header({ page }: HeaderProps) {
     >
       <div
         className={cn(
-          "flex h-20 items-center justify-between",
+          "flex h-20 items-center justify-between gap-x-2",
           page === "landing" && "container",
           page === "home" && "px-8 shadow",
         )}

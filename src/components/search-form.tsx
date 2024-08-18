@@ -41,7 +41,7 @@ export default function SearchForm({
       onSubmit={handleSubmit}
       className={cn(
         "z-10 flex self-stretch",
-        context === "header" && "hidden w-full max-w-lg md:flex",
+        context === "header" && "hidden w-full max-w-lg sm:flex",
       )}
     >
       <label className="flex flex-1 justify-end">
