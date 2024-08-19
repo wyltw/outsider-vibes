@@ -7,8 +7,8 @@ type Props = { params: { query: string } };
 export default function SearchPage({ params }: Props) {
   return (
     <>
-      <SectionHeading level="h1" className="text-2xl font-medium text-primary">
-        <span className="text-3xl">{decodeURIComponent(params.query)}</span>
+      <SectionHeading level="h1" className="text-3xl font-medium text-primary">
+        {decodeURIComponent(params.query)}
       </SectionHeading>
     </>
   );

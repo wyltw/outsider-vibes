@@ -12,19 +12,16 @@ import { Menu } from "lucide-react";
 import RouteList from "./route-list";
 import SearchForm from "./search-form";
 import { Button } from "./ui/button";
-import { useSheetToggleContext } from "@/lib/hooks";
 import { cn } from "@/lib/utils";
+import { useSheetToggleContext } from "@/lib/hooks";
 
 type SheetContainerProps = { page: "home" | "landing" };
 
 export default function SheetContainer({ page }: SheetContainerProps) {
-  const [isOpen, setIsOpen] = useState(false);
-  const handleToggleSheet = (open: boolean) => {
-    setIsOpen(open);
-  };
+  const { isOpen, handleSheetToggle } = useSheetToggleContext();
   return (
     <>
-      <Sheet open={isOpen} onOpenChange={setIsOpen}>
+      <Sheet open={isOpen} onOpenChange={handleSheetToggle}>
         <SheetTrigger asChild>
           <Button
             className={cn(
@@ -47,7 +44,7 @@ export default function SheetContainer({ page }: SheetContainerProps) {
           )}
           {page === "home" && (
             <div className="space-y-4">
-              <SearchForm context="sheet" onToggleSheet={handleToggleSheet} />
+              <SearchForm context="sheet" onToggleSheet={handleSheetToggle} />
               <RouteList page="home" context="sheet" routes={headerRoutes} />
             </div>
           )}

@@ -1,5 +1,7 @@
 import { RouteItem } from "./types";
 
+export const DISCOGS_API = "https://api.discogs.com/database";
+
 export const headerRoutes: RouteItem[] = [
   {
     name: "首頁",

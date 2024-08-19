@@ -12,6 +12,7 @@ import {
   WikiArticleIntroApiResponse,
 } from "./types";
 import { ZodSchema } from "zod";
+import { DISCOGS_API } from "./constants";
 
 export const fetchData: TfetchData = async (
   url: string,
@@ -34,8 +35,8 @@ export const fetchData: TfetchData = async (
   }
 };
 
-export const fetchWikiArticleIntroduction = async (genre: string) => {
-  const title = decodeURIComponent(genre);
+export const fetchWikiArticleIntroduction = async (query: string) => {
+  const title = decodeURIComponent(query);
   const result = await fetchData<WikiArticleIntroApiResponse>(
     `https://en.wikipedia.org/api/rest_v1/page/summary/${title}`,
     wikiArticleIntroSchema,
@@ -44,11 +45,13 @@ export const fetchWikiArticleIntroduction = async (genre: string) => {
 };
 
 export const fetchDiscogsDataByReleases = async (
-  genre: string,
+  query: string,
   page: number,
   perPage: number,
 ) => {
-  const queryString = decodeURIComponent(genre);
+  const queryString = decodeURIComponent(query);
+  const baseURL = new URL("search", DISCOGS_API);
+  // const searchParams = new URLSearchParams({ q: query, page: page });
   const result = await fetchData<DiscogsReleasesApiResponse>(
     `https://api.discogs.com/database/search?q=${queryString}&type=release&page=${page}&per_page=${perPage}&key=${process.env.NEXT_PUBLIC_DISCOGS_API_CONSUMER_KEY}&secret=${process.env.NEXT_PUBLIC_DISCOGS_API_CONSUMER_SECRET}`,
     discogsReleasesSchema,
@@ -57,11 +60,11 @@ export const fetchDiscogsDataByReleases = async (
 };
 
 export const fetchDiscogsDataByArtists = async (
-  genre: string,
+  query: string,
   page: number,
   perPage: number,
 ) => {
-  const queryString = decodeURIComponent(genre);
+  const queryString = decodeURIComponent(query);
   const result = await fetchData<DiscogsArtistsApiResponse>(
     `https://api.discogs.com/database/search?q=${queryString}&type=artist&page=${page}&per_page=${perPage}&key=${process.env.NEXT_PUBLIC_DISCOGS_API_CONSUMER_KEY}&secret=${process.env.NEXT_PUBLIC_DISCOGS_API_CONSUMER_SECRET}`,
     discogsArtistsSchema,
