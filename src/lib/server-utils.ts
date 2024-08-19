@@ -44,16 +44,54 @@ export const fetchWikiArticleIntroduction = async (query: string) => {
   return result;
 };
 
-export const fetchDiscogsDataByReleases = async (
-  query: string,
-  page: number,
-  perPage: number,
+export const getDiscogsAPI = (
+  resourceType: "search" | "artist",
+  ...searchParams: Record<string, string>[]
 ) => {
-  const queryString = decodeURIComponent(query);
-  const baseURL = new URL("search", DISCOGS_API);
-  // const searchParams = new URLSearchParams({ q: query, page: page });
+  let baseURL = new URL(DISCOGS_API);
+  if (resourceType === "search") {
+    baseURL = new URL(resourceType, DISCOGS_API);
+  }
+  if (resourceType === "artist") {
+    baseURL = new URL(resourceType, DISCOGS_API);
+  }
+  if (process.env.NEXT_PUBLIC_DISCOGS_API_CONSUMER_KEY) {
+    baseURL.searchParams.append(
+      "key",
+      process.env.NEXT_PUBLIC_DISCOGS_API_CONSUMER_KEY,
+    );
+  }
+  if (process.env.NEXT_PUBLIC_DISCOGS_API_CONSUMER_SECRET) {
+    baseURL.searchParams.append(
+      "secret",
+      process.env.NEXT_PUBLIC_DISCOGS_API_CONSUMER_SECRET,
+    );
+  }
+  if (searchParams.length) {
+    searchParams.forEach((searchParam) => {
+      Object.entries(searchParam).forEach(([name, value]) => {
+        baseURL.searchParams.append(name, value);
+      });
+    });
+  }
+  return baseURL;
+};
+
+export const fetchDiscogsDataByReleases = async (
+  q: string,
+  type: "release" | "artist",
+  page: number,
+  per_Page: number,
+) => {
+  const queryString = decodeURIComponent(q);
+  const baseURL = getDiscogsAPI("search");
+  const searchParams = baseURL.searchParams;
+  searchParams.append("q", queryString);
+  searchParams.append("type", type);
+  searchParams.append("page", String(page));
+  searchParams.append("per_page", String(per_Page));
   const result = await fetchData<DiscogsReleasesApiResponse>(
-    `https://api.discogs.com/database/search?q=${queryString}&type=release&page=${page}&per_page=${perPage}&key=${process.env.NEXT_PUBLIC_DISCOGS_API_CONSUMER_KEY}&secret=${process.env.NEXT_PUBLIC_DISCOGS_API_CONSUMER_SECRET}`,
+    baseURL.toString(),
     discogsReleasesSchema,
   );
   return result;
