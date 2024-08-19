@@ -48,12 +48,13 @@ export const getDiscogsAPI = (
   resourceType: "search" | "artist",
   ...searchParams: Record<string, string>[]
 ) => {
-  let baseURL = new URL(DISCOGS_API);
-  if (resourceType === "search") {
-    baseURL = new URL(resourceType, DISCOGS_API);
-  }
-  if (resourceType === "artist") {
-    baseURL = new URL(resourceType, DISCOGS_API);
+  let baseURL = new URL(resourceType, DISCOGS_API);
+  if (searchParams.length) {
+    searchParams.forEach((searchParam) => {
+      Object.entries(searchParam).forEach(([name, value]) => {
+        baseURL.searchParams.append(name, value);
+      });
+    });
   }
   if (process.env.NEXT_PUBLIC_DISCOGS_API_CONSUMER_KEY) {
     baseURL.searchParams.append(
@@ -67,13 +68,6 @@ export const getDiscogsAPI = (
       process.env.NEXT_PUBLIC_DISCOGS_API_CONSUMER_SECRET,
     );
   }
-  if (searchParams.length) {
-    searchParams.forEach((searchParam) => {
-      Object.entries(searchParam).forEach(([name, value]) => {
-        baseURL.searchParams.append(name, value);
-      });
-    });
-  }
   return baseURL;
 };
 
@@ -84,12 +78,13 @@ export const fetchDiscogsDataByReleases = async (
   per_Page: number,
 ) => {
   const queryString = decodeURIComponent(q);
-  const baseURL = getDiscogsAPI("search");
-  const searchParams = baseURL.searchParams;
-  searchParams.append("q", queryString);
-  searchParams.append("type", type);
-  searchParams.append("page", String(page));
-  searchParams.append("per_page", String(per_Page));
+  const baseURL = getDiscogsAPI(
+    "search",
+    { q: queryString },
+    { type: type },
+    { page: String(page) },
+    { per_page: String(per_Page) },
+  );
   const result = await fetchData<DiscogsReleasesApiResponse>(
     baseURL.toString(),
     discogsReleasesSchema,
