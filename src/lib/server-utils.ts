@@ -75,7 +75,7 @@ export const fetchDiscogsDataByReleases = async (
   q: string,
   type: "release" | "artist",
   page: number,
-  per_Page: number,
+  perPage: number,
 ) => {
   const queryString = decodeURIComponent(q);
   const baseURL = getDiscogsAPI(
@@ -83,7 +83,8 @@ export const fetchDiscogsDataByReleases = async (
     { q: queryString },
     { type: type },
     { page: String(page) },
-    { per_page: String(per_Page) },
+    { per_page: String(perPage) },
+    //需要注意傳入的物件屬性名稱需要和api提供的params相同
   );
   const result = await fetchData<DiscogsReleasesApiResponse>(
     baseURL.toString(),
@@ -93,13 +94,21 @@ export const fetchDiscogsDataByReleases = async (
 };
 
 export const fetchDiscogsDataByArtists = async (
-  query: string,
+  q: string,
+  type: "release" | "artist",
   page: number,
   perPage: number,
 ) => {
-  const queryString = decodeURIComponent(query);
+  const queryString = decodeURIComponent(q);
+  const baseURL = getDiscogsAPI(
+    "search",
+    { q: queryString },
+    { type: type },
+    { page: String(page) },
+    { per_page: String(perPage) },
+  );
   const result = await fetchData<DiscogsArtistsApiResponse>(
-    `https://api.discogs.com/database/search?q=${queryString}&type=artist&page=${page}&per_page=${perPage}&key=${process.env.NEXT_PUBLIC_DISCOGS_API_CONSUMER_KEY}&secret=${process.env.NEXT_PUBLIC_DISCOGS_API_CONSUMER_SECRET}`,
+    baseURL.toString(),
     discogsArtistsSchema,
   );
   return result;
