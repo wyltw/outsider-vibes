@@ -2,6 +2,9 @@ import { fetchDiscogsDataByReleases } from "@/lib/server-utils";
 import React from "react";
 import CustomError from "./custom-error";
 import ErrorBlock from "./error-block";
+import { Button } from "./ui/button";
+import Link from "next/link";
+import SearchHeader from "./search-header";
 
 type SearchSectionProps = { query: string };
 
@@ -16,6 +19,7 @@ export default async function SearchResults({ query }: SearchSectionProps) {
   const searchResults = result.data.results;
   return (
     <>
+      <SearchHeader />
       <ul>
         {searchResults.map((result) => (
           <li key={result.id}>{result.title}</li>

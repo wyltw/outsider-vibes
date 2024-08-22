@@ -60,3 +60,16 @@ export const featuredGenres: RouteItem[] = [
     variant: "ghost",
   },
 ];
+
+export const searchTabs: RouteItem[] = [
+  {
+    name: "專輯",
+    path: "?type=release",
+    variant: "ghost",
+  },
+  {
+    name: "藝人",
+    path: "?type=artist",
+    variant: "ghost",
+  },
+];
