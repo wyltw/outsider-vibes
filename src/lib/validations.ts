@@ -53,7 +53,7 @@ export const discogsReleasesSchema = z.object({
   results: z.array(
     z.object({
       country: z.string(),
-      year: z.string(),
+      year: z.string().optional(),
       format: z.array(z.string()),
       label: z.array(z.string()),
       type: z.string(),

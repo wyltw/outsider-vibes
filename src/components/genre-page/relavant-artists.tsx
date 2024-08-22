@@ -1,12 +1,17 @@
 import { fetchDiscogsDataByArtists } from "@/lib/server-utils";
-import React from "react";
+import React, { ReactNode } from "react";
 import CustomError from "../custom-error";
 import PageSection from "../page-section";
-import { CarouselContent, CarouselItem } from "../ui/carousel";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "../ui/carousel";
 import RelavantCard from "./relavant-card";
 import { sleep } from "@/lib/utils";
 import ErrorBlock from "../error-block";
-import CarouselContainer from "../carousel-container";
 
 type RelavantAritistsProps = { genre: string };
 
@@ -41,5 +46,23 @@ export default async function RelavantAritists({
         </CarouselContent>
       </CarouselContainer>
     </PageSection>
+  );
+}
+
+type CarouselContainerProps = { children: ReactNode };
+
+function CarouselContainer({ children }: CarouselContainerProps) {
+  return (
+    <Carousel
+      className="max-w-xs md:max-w-2xl xl:max-w-4xl 2xl:max-w-5xl"
+      opts={{
+        align: "start",
+        loop: true,
+      }}
+    >
+      {children}
+      <CarouselPrevious className="-left-0 sm:-left-5" />
+      <CarouselNext className="-right-0 sm:-right-5" />
+    </Carousel>
   );
 }
