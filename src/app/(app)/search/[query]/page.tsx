@@ -9,7 +9,7 @@ export default function SearchPage({ params }: Props) {
     <section>
       <SectionHeading
         level="h1"
-        className="mb-4 text-3xl font-medium text-primary"
+        className="mb-4 text-4xl font-medium text-primary"
       >
         {decodeURIComponent(params.query)}
       </SectionHeading>

@@ -2,8 +2,6 @@ import { fetchDiscogsDataByReleases } from "@/lib/server-utils";
 import React from "react";
 import CustomError from "./custom-error";
 import ErrorBlock from "./error-block";
-import { Button } from "./ui/button";
-import Link from "next/link";
 import SearchHeader from "./search-header";
 
 type SearchSectionProps = { query: string };

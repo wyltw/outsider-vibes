@@ -31,7 +31,7 @@ export default function SearchForm({
   };
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    router.push(`/search/${searchText}`);
+    router.push(`/search/${searchText}?type=release`);
     if (onToggleSheet) {
       onToggleSheet(false);
     }
