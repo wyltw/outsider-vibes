@@ -9,7 +9,6 @@ import {
   CarouselPrevious,
 } from "../ui/carousel";
 import { sleep } from "@/lib/utils";
-import PageSection from "../page-section";
 import RelavantCard from "./relavant-card";
 import ErrorBlock from "../error-block";
 
@@ -30,22 +29,20 @@ export default async function RelavantReleases({
   }
   const releases = result.data.results;
   return (
-    <PageSection>
-      <CarouselContainer>
-        <CarouselContent>
-          {releases.map((release) => {
-            return (
-              <CarouselItem
-                key={release.id}
-                className="md:basis-1/3 xl:basis-1/4"
-              >
-                <RelavantCard data={{ type: "release", release: release }} />
-              </CarouselItem>
-            );
-          })}
-        </CarouselContent>
-      </CarouselContainer>
-    </PageSection>
+    <CarouselContainer>
+      <CarouselContent>
+        {releases.map((release) => {
+          return (
+            <CarouselItem
+              key={release.id}
+              className="md:basis-1/3 xl:basis-1/4"
+            >
+              <RelavantCard data={{ type: "release", release: release }} />
+            </CarouselItem>
+          );
+        })}
+      </CarouselContent>
+    </CarouselContainer>
   );
 }
 

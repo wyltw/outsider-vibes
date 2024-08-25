@@ -13,7 +13,9 @@ type HeaderProps = {
 export default function Header({ page }: HeaderProps) {
   return (
     <header
-      className={page === "landing" ? "bg--landing" : "sticky top-0 bg-white"}
+      className={
+        page === "landing" ? "bg--landing" : "sticky top-0 z-50 bg-white"
+      }
     >
       <div
         className={cn(

@@ -1,5 +1,4 @@
-import SearchResults from "@/components/search-results";
-import SectionHeading from "@/components/section-heading";
+import SearchResults from "@/components/search-page/search-results";
 import React from "react";
 
 type Props = { params: { query: string } };
@@ -7,12 +6,9 @@ type Props = { params: { query: string } };
 export default function SearchPage({ params }: Props) {
   return (
     <section>
-      <SectionHeading
-        level="h1"
-        className="mb-4 text-4xl font-medium text-primary"
-      >
+      <h1 className="mb-4 text-4xl font-medium text-primary">
         {decodeURIComponent(params.query)}
-      </SectionHeading>
+      </h1>
       <SearchResults query={params.query}></SearchResults>
     </section>
   );

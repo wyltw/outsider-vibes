@@ -1,7 +1,6 @@
 import { fetchDiscogsDataByArtists } from "@/lib/server-utils";
 import React, { ReactNode } from "react";
 import CustomError from "../custom-error";
-import PageSection from "../page-section";
 import {
   Carousel,
   CarouselContent,
@@ -30,22 +29,17 @@ export default async function RelavantAritists({
   }
   const artists = result.data.results;
   return (
-    <PageSection>
-      <CarouselContainer>
-        <CarouselContent>
-          {artists.map((artist) => {
-            return (
-              <CarouselItem
-                key={artist.id}
-                className="md:basis-1/3 xl:basis-1/4"
-              >
-                <RelavantCard data={{ type: "artist", artist: artist }} />
-              </CarouselItem>
-            );
-          })}
-        </CarouselContent>
-      </CarouselContainer>
-    </PageSection>
+    <CarouselContainer>
+      <CarouselContent>
+        {artists.map((artist) => {
+          return (
+            <CarouselItem key={artist.id} className="md:basis-1/3 xl:basis-1/4">
+              <RelavantCard data={{ type: "artist", artist: artist }} />
+            </CarouselItem>
+          );
+        })}
+      </CarouselContent>
+    </CarouselContainer>
   );
 }
 
