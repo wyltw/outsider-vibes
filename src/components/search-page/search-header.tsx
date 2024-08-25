@@ -2,20 +2,20 @@
 
 import React from "react";
 import { Button } from "../ui/button";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";
 import { searchTabs } from "@/lib/constants";
-import { SlidersHorizontal } from "lucide-react";
 
 import SortDropdown from "../sort-dropdown";
+import SearchFilter from "../search-filter";
 
-export default function SearchHeader() {
+type SearchHeaderProps = { genreList: string[]; styleList: string[] };
+
+export default function SearchHeader({
+  genreList,
+  styleList,
+}: SearchHeaderProps) {
   const searchParams = useSearchParams();
   const type = searchParams.get("type");
 
@@ -45,18 +45,7 @@ export default function SearchHeader() {
           </div>
           <SortDropdown />
         </div>
-        <Collapsible className="border-b py-2">
-          <CollapsibleTrigger asChild>
-            <Button variant={"ghost"} size={"sm"} className="gap-x-2">
-              <SlidersHorizontal />
-              <span className="text-base text-primary">篩選條件</span>
-            </Button>
-          </CollapsibleTrigger>
-          <CollapsibleContent>
-            Yes. Free to use for personal and commercial projects. No
-            attribution required.
-          </CollapsibleContent>
-        </Collapsible>
+        <SearchFilter genreList={genreList} styleList={styleList} />
       </section>
     </>
   );

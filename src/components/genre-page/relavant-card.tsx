@@ -1,19 +1,16 @@
 import React, { ReactNode } from "react";
 import { Card } from "../ui/card";
 import Image from "next/image";
-import {
-  DiscogsArtistsApiResponse,
-  DiscogsReleasesApiResponse,
-} from "@/lib/types";
+import { DiscogsReleasesResult, DiscogsArtistsResult } from "@/lib/types";
 import { cn, replaceWithDefaultAvatar } from "@/lib/utils";
 
 type RelavantCardProps = {
   data:
     | {
         type: "release";
-        release: DiscogsReleasesApiResponse["results"][0];
+        release: DiscogsReleasesResult;
       }
-    | { type: "artist"; artist: DiscogsArtistsApiResponse["results"][0] };
+    | { type: "artist"; artist: DiscogsArtistsResult };
 };
 export default function RelavantCard({ data }: RelavantCardProps) {
   const isRelease = data.type === "release";

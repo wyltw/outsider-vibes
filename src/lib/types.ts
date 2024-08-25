@@ -27,6 +27,9 @@ export type DiscogsReleasesApiResponse = z.infer<typeof discogsReleasesSchema>;
 
 export type DiscogsArtistsApiResponse = z.infer<typeof discogsArtistsSchema>;
 
+export type DiscogsReleasesResult = DiscogsReleasesApiResponse["results"][0];
+export type DiscogsArtistsResult = DiscogsArtistsApiResponse["results"][0];
+
 export type fetchResult<T> =
   | { success: true; data: T }
   | { success: false; error: string };

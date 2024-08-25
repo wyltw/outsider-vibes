@@ -9,7 +9,10 @@ import { ArrowDownUp } from "lucide-react";
 import React from "react";
 import { Button } from "./ui/button";
 
-const dropdownItemList = [{ text: "按年份排序", value: "year" }];
+const dropdownItemList = [
+  { text: "按年份排序", value: "year" },
+  { text: "按字母排序", value: "alphabet" },
+];
 
 export default function SortDropdown() {
   return (

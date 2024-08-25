@@ -1,5 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { DiscogsReleasesResult } from "./types";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -28,3 +29,8 @@ export async function sleep(ms: number) {
 export function replaceWithDefaultAvatar(target: string) {
   return target.includes("spacer") ? "/images/avatar.png" : target;
 }
+
+export const getUniqueGenres = (
+  searchResults: DiscogsReleasesResult[],
+  key: "genre" | "style",
+) => Array.from(new Set(searchResults.map((result) => result[key]).flat()));
