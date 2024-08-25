@@ -4,9 +4,9 @@ import CustomError from "../custom-error";
 import ErrorBlock from "../error-block";
 import SearchHeader from "./search-header";
 
-type SearchSectionProps = { query: string };
+type SearchResultsProps = { query: string };
 
-export default async function SearchResults({ query }: SearchSectionProps) {
+export default async function SearchResults({ query }: SearchResultsProps) {
   const result = await fetchDiscogsDataByReleases(query, "release", 1, 10);
   if (!result.success) {
     return <CustomError error={result.error} />;

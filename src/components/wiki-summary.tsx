@@ -4,9 +4,9 @@ import CustomError from "./custom-error";
 import EmbarrassedIcon from "./embarrased-icon";
 import { fetchWikiArticleIntroduction } from "@/lib/server-utils";
 
-type WikiArticleIntroProps = { genre: string };
+type WikiSummaryProps = { genre: string };
 
-export default async function WikiSummary({ genre }: WikiArticleIntroProps) {
+export default async function WikiSummary({ genre }: WikiSummaryProps) {
   await sleep(2000).then((data) => {
     console.log(data);
   });
