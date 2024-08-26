@@ -8,8 +8,6 @@ import {
 import { ChevronLeft, ChevronRight, SlidersHorizontal } from "lucide-react";
 import React, { ReactNode, RefObject, useRef } from "react";
 import { Button } from "./ui/button";
-import { ScrollArea, ScrollBar } from "./ui/scroll-area";
-import * as ScrollAreaPrimitive from "@radix-ui/react-scroll-area";
 
 type SearchFilterProps = { genreList: string[]; styleList: string[] };
 
@@ -46,7 +44,7 @@ export default function SearchFilter({
 type FilterProps = { children: ReactNode; text: string };
 
 function Filter({ children, text }: FilterProps) {
-  const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const divRef = useRef<HTMLDivElement>(null);
   const handleScroll = (
     ref: RefObject<HTMLDivElement>,
     scrollOffset: number,
@@ -71,20 +69,20 @@ function Filter({ children, text }: FilterProps) {
       <p className="mb-2 text-nowrap">{text} </p>
       <div className="flex">
         <Button
-          onClick={() => handleScroll(scrollAreaRef, 20, "left")}
+          onClick={() => handleScroll(divRef, 50, "left")}
           size={"icon"}
           variant={"ghost"}
         >
           <ChevronLeft className="" />
         </Button>
-        <ScrollArea ref={scrollAreaRef} className="feather-edge rounded-3xl">
-          <div className="flex justify-start gap-x-2 py-2">
-            {children}
-            <ScrollBar orientation="horizontal" />
-          </div>
-        </ScrollArea>
+        <div
+          ref={divRef}
+          className="feather-edge flex justify-start gap-x-2 overflow-x-auto scroll-smooth py-2"
+        >
+          {children}
+        </div>
         <Button
-          onClick={() => handleScroll(scrollAreaRef, 20, "right")}
+          onClick={() => handleScroll(divRef, 50, "right")}
           size={"icon"}
           variant={"ghost"}
         >

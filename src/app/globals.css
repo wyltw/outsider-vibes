@@ -20,16 +20,24 @@
     );
   }
   ::-webkit-scrollbar {
-    width: 8px;
+    height: 6px;
+    width: 6px;
+  }
+
+  .invisible-scrollbar::-webkit-scrollbar {
+    display: none;
   }
 
   ::-webkit-scrollbar-track {
-    background: rgba(226, 190, 229, 0.3);
+    background-color: rgba(226, 190, 229, 0.3);
   }
 
   ::-webkit-scrollbar-thumb {
     background: #712375;
-    border-radius: 5px;
+    border-radius: 16px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #8c2e91;
   }
 }
 
