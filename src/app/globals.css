@@ -19,6 +19,18 @@
       rgba(226, 228, 236, 0.1) 98%
     );
   }
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(226, 190, 229, 0.3);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #712375;
+    border-radius: 5px;
+  }
 }
 
 @layer base {

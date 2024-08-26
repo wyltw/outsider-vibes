@@ -6,7 +6,7 @@ import Copyright from "./copyright";
 
 export default function Sidebar() {
   return (
-    <aside className="fixed left-0 top-[80px] z-50 col-span-1 mt-[1px] hidden h-[calc(100vh_-_80px)] flex-col gap-y-4 overflow-y-auto bg-white px-4 py-8 shadow lg:block">
+    <aside className="fixed left-0 top-[80px] z-50 col-span-1 mt-[1px] hidden h-[calc(100vh_-_80px)] flex-col gap-y-4 overflow-y-auto bg-white px-4 py-8 shadow lg:flex">
       <SidebarSection>
         <ThirdHeading>個人資料</ThirdHeading>
         <div className="h-16 w-16 rounded-full bg-slate-200"></div>
