@@ -23,7 +23,7 @@ export default function SearchFilter({
             <span className="text-base text-primary">篩選條件</span>
           </Button>
         </CollapsibleTrigger>
-        <CollapsibleContent className="mt-2 max-w-max space-y-3 rounded-md bg-white py-4 shadow">
+        <CollapsibleContent className="mt-2 space-y-3 rounded-md bg-white py-4 shadow">
           <Filter text="流派：">
             {genreList.map((genre) => (
               <PillButton>{genre}</PillButton>
