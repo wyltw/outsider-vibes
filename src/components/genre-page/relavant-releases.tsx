@@ -20,7 +20,9 @@ export default async function RelavantReleases({
   await sleep(3000).then((data) => {
     console.log(data);
   });
-  const result = await fetchDiscogsDataByReleases(genre, "release", 1, 10);
+  const result = await fetchDiscogsDataByReleases(genre, 1, 10, {
+    type: "release",
+  });
   if (!result.success) {
     return <CustomError error={result.error} />;
   }

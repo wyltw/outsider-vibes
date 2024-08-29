@@ -20,7 +20,9 @@ export default async function RelavantAritists({
   await sleep(5000).then((data) => {
     console.log(data);
   });
-  const result = await fetchDiscogsDataByArtists(genre, "artist", 1, 10);
+  const result = await fetchDiscogsDataByArtists(genre, 1, 10, {
+    type: "artist",
+  });
   if (!result.success) {
     return <CustomError error={result.error} />;
   }

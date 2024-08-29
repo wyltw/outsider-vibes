@@ -1,15 +1,20 @@
-import { fetchDiscogsDataByReleases } from "@/lib/server-utils";
+import { fetchDiscogsDataByReleases, getDiscogsAPI } from "@/lib/server-utils";
 import React from "react";
 import CustomError from "../custom-error";
 import ErrorBlock from "../error-block";
 import SearchHeader from "./search-header";
-import { DiscogsReleasesResult } from "@/lib/types";
 import { getUniqueGenres } from "@/lib/utils";
 
-type SearchResultsProps = { query: string };
+type SearchResultsProps = {
+  query: string;
+  searchParams: { genre: string; style: string };
+};
 
-export default async function SearchResults({ query }: SearchResultsProps) {
-  const result = await fetchDiscogsDataByReleases(query, "release", 1, 10);
+export default async function SearchResults({
+  query,
+  searchParams,
+}: SearchResultsProps) {
+  const result = await fetchDiscogsDataByReleases(query, 1, 10, searchParams);
   if (!result.success) {
     return <CustomError error={result.error} />;
   }

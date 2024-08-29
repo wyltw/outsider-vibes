@@ -8,6 +8,8 @@ import {
 import { ChevronLeft, ChevronRight, SlidersHorizontal } from "lucide-react";
 import React, { ReactNode, RefObject, useRef } from "react";
 import { Button } from "./ui/button";
+import Link from "next/link";
+import { useUpdatedSearchParams } from "@/lib/hooks";
 
 type SearchFilterProps = { genreList: string[]; styleList: string[] };
 
@@ -15,6 +17,7 @@ export default function SearchFilter({
   genreList,
   styleList,
 }: SearchFilterProps) {
+  const { updateSearchParams } = useUpdatedSearchParams();
   return (
     <>
       <Collapsible className="border-b py-2">
@@ -27,12 +30,16 @@ export default function SearchFilter({
         <CollapsibleContent className="mt-2 space-y-3 rounded-md bg-white py-4 shadow">
           <Filter text="流派：">
             {genreList.map((genre, index) => (
-              <PillButton key={genre + index}>{genre}</PillButton>
+              <PillButton key={genre + index}>
+                <Link href={updateSearchParams("genre", genre)}>{genre}</Link>
+              </PillButton>
             ))}
           </Filter>
           <Filter text="風格：">
             {styleList.map((style, index) => (
-              <PillButton key={style + index}>{style}</PillButton>
+              <PillButton key={style + index}>
+                <Link href={updateSearchParams("style", style)}>{style}</Link>
+              </PillButton>
             ))}
           </Filter>
         </CollapsibleContent>
@@ -55,13 +62,9 @@ function Filter({ children, text }: FilterProps) {
     }
     if (direction === "left") {
       ref.current.scrollLeft -= scrollOffset;
-      console.log(scrollOffset);
-      console.log(ref.current.scrollLeft);
     }
     if (direction === "right") {
       ref.current.scrollLeft += scrollOffset;
-      console.log(scrollOffset);
-      console.log(ref.current.scrollLeft);
     }
   };
   return (
@@ -95,7 +98,7 @@ function Filter({ children, text }: FilterProps) {
 
 function PillButton({ children }: { children: ReactNode }) {
   return (
-    <Button className="h-7 rounded-full" size="sm" variant="outline">
+    <Button asChild className="h-7 rounded-full" size="sm" variant="outline">
       {children}
     </Button>
   );

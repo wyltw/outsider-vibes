@@ -19,8 +19,8 @@ export default function SheetToggleContextProvider({
   const pathName = usePathname();
   const searchParams = useSearchParams();
   const [isOpen, setIsOpen] = useState(false);
-  const handleSheetToggle = (open: boolean) => {
-    setIsOpen(open);
+  const handleSheetToggle = (isOpen: boolean) => {
+    setIsOpen(isOpen);
   };
   useEffect(() => {
     handleSheetToggle(false);
