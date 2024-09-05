@@ -102,26 +102,26 @@ export const fetchDiscogsData = async <
   return result;
 };
 
-async function fetchAndValidateDiscogsData(
-  genre: string,
-  type: "release" | "artist",
-) {
-  const schema =
-    type === "release" ? discogsReleasesSchema : discogsArtistsSchema;
+// export async function fetchAndValidateDiscogsData(
+//   genre: string,
+//   type: "release" | "artist",
+// ) {
+//   const schema =
+//     type === "release" ? discogsReleasesSchema : discogsArtistsSchema;
 
-  // 根據 type 設定 API 返回的類型
-  const result = await fetchDiscogsData<
-    DiscogsReleasesApiResponse | DiscogsArtistsApiResponse
-  >(genre, 1, 10, { type }, schema);
+//   // 根據 type 設定 API 返回的類型
+//   const result = await fetchDiscogsData<
+//     DiscogsReleasesApiResponse | DiscogsArtistsApiResponse
+//   >(genre, 1, 10, { type }, schema);
 
-  if (!result.success) {
-    return { error: result.error, results: null };
-  }
+//   if (!result.success) {
+//     return { error: result.error, results: null };
+//   }
 
-  if (!result.data.pagination.items) {
-    return { error: "沒有相關的搜尋結果，建議更換搜尋關鍵字", results: null };
-  }
+//   if (!result.data.pagination.items) {
+//     return { error: "沒有相關的搜尋結果，建議更換搜尋關鍵字", results: null };
+//   }
 
-  // 成功時返回結果
-  return { error: null, results: result.data.results };
-}
+//   // 成功時返回結果
+//   return { error: null, results: result.data.results, type: type };
+// }
