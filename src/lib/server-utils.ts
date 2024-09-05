@@ -79,7 +79,6 @@ export const getDiscogsAPI = (
   return baseURL;
 };
 
-//To do:需要在未來看看能不能順利整合兩個類似的fetch function
 export const fetchDiscogsData = async <
   T extends DiscogsReleasesApiResponse | DiscogsArtistsApiResponse,
 >(

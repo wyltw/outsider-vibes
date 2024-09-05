@@ -6,6 +6,7 @@ import SearchHeader from "./search-header";
 import { getUniqueGenres } from "@/lib/utils";
 import { discogsReleasesSchema } from "@/lib/validations";
 import { DiscogsReleasesResult } from "@/lib/types";
+import SelectedFilter from "../selected-filter";
 
 type SearchResultsProps = {
   query: string;
@@ -34,11 +35,14 @@ export default async function SearchResults({
 
   const genreList = getUniqueGenres(searchResults, "genre");
   const styleList = getUniqueGenres(searchResults, "style");
-  console.log(searchResults);
+  //在這裡不使用early return是因為避免錯誤發生時除了錯誤沒有其他ui
   return (
     <>
       <SearchHeader genreList={genreList} styleList={styleList} />
-
+      <SelectedFilter />
+      {resultsCount !== 0 ? (
+        <span className="text-sm text-black/50">共有{resultsCount}筆結果</span>
+      ) : null}
       <ul>
         {!result.success && <CustomError error={result.error} />}
         {resultsCount === 0 ? (

@@ -46,6 +46,7 @@ export default function SearchHeader({
           <SortDropdown />
         </div>
         <SearchFilter genreList={genreList} styleList={styleList} />
+        {/* props drilling here. */}
       </section>
     </>
   );
