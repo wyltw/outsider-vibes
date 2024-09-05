@@ -2,11 +2,9 @@ import React, { ReactNode, Suspense } from "react";
 
 import WikiSummary from "@/components/wiki-summary";
 
-import RelavantReleases from "@/components/genre-page/relavant-releases";
-
 import TextLoading from "@/components/text-loading";
 import CardLoading from "@/components/card-loading";
-import RelavantAritists from "@/components/genre-page/relavant-artists";
+import RelavantSection from "@/components/genre-page/relavant-section";
 
 type GenrePageProps = { params: { genre: string } };
 
@@ -22,13 +20,13 @@ export default async function GenrePage({ params }: GenrePageProps) {
       <Section>
         <SecondHeading> 帶有此風格的專輯：</SecondHeading>
         <Suspense fallback={<CardLoading />}>
-          <RelavantReleases genre={params.genre}></RelavantReleases>
+          <RelavantSection genre={params.genre} type="release" />
         </Suspense>
       </Section>
       <Section>
         <SecondHeading> 帶有此風格的藝人：</SecondHeading>
         <Suspense fallback={<CardLoading />}>
-          <RelavantAritists genre={params.genre}></RelavantAritists>
+          <RelavantSection genre={params.genre} type="artist" />
         </Suspense>
       </Section>
     </>

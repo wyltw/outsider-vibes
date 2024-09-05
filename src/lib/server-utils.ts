@@ -8,7 +8,9 @@ import { handleError } from "./utils";
 import {
   DiscogsArtistsApiResponse,
   DiscogsReleasesApiResponse,
+  DiscogsSearchParams,
   TfetchData,
+  TfetchDiscogsData,
   WikiArticleIntroApiResponse,
 } from "./types";
 import { ZodSchema } from "zod";
@@ -30,7 +32,6 @@ export const fetchData: TfetchData = async (
     }
     return { success: true, data: validatedData.data };
   } catch (error) {
-    console.error(error);
     return { success: false, error: handleError(error) };
   }
 };
@@ -56,9 +57,11 @@ export const getDiscogsAPI = (
     });
   };
   if (searchParams) {
+    //當url改變從useSearchParams自動獲取的如filter等searchParams
     setSearchParams(searchParams);
   }
   if (baseSearchParams.length) {
+    //在呼叫fetch函式時手動傳入的searchParams如關鍵字，頁碼等
     baseSearchParams.forEach(setSearchParams);
   }
   if (process.env.NEXT_PUBLIC_DISCOGS_API_CONSUMER_KEY) {
@@ -76,11 +79,15 @@ export const getDiscogsAPI = (
   return baseURL;
 };
 
-export const fetchDiscogsDataByReleases = async (
+//To do:需要在未來看看能不能順利整合兩個類似的fetch function
+export const fetchDiscogsData = async <
+  T extends DiscogsReleasesApiResponse | DiscogsArtistsApiResponse,
+>(
   q: string,
   page: number,
   perPage: number,
-  searchParams: Record<string, string>,
+  searchParams: DiscogsSearchParams,
+  schema: ZodSchema<any>,
 ) => {
   const queryString = decodeURIComponent(q);
   const baseURL = getDiscogsAPI(
@@ -89,33 +96,32 @@ export const fetchDiscogsDataByReleases = async (
     { q: queryString },
     { page: String(page) },
     { per_page: String(perPage) },
-    //需要注意傳入的物件屬性名稱需要和api提供的params相同
   );
-  const result = await fetchData<DiscogsReleasesApiResponse>(
-    baseURL.toString(),
-    discogsReleasesSchema,
-  );
+
+  const result = await fetchData<T>(baseURL.toString(), schema);
   return result;
 };
 
-export const fetchDiscogsDataByArtists = async (
-  q: string,
-  page: number,
-  perPage: number,
-  searchParams: Record<string, string>,
-) => {
-  const queryString = decodeURIComponent(q);
-  const baseURL = getDiscogsAPI(
-    "search",
-    searchParams,
-    { q: queryString },
-    { page: String(page) },
-    { per_page: String(perPage) },
-  );
-  const result = await fetchData<DiscogsArtistsApiResponse>(
-    baseURL.toString(),
-    discogsArtistsSchema,
-  );
-  return result;
-};
-//To do:需要再未來看看能不能順利整合兩個類似的fetch function
+async function fetchAndValidateDiscogsData(
+  genre: string,
+  type: "release" | "artist",
+) {
+  const schema =
+    type === "release" ? discogsReleasesSchema : discogsArtistsSchema;
+
+  // 根據 type 設定 API 返回的類型
+  const result = await fetchDiscogsData<
+    DiscogsReleasesApiResponse | DiscogsArtistsApiResponse
+  >(genre, 1, 10, { type }, schema);
+
+  if (!result.success) {
+    return { error: result.error, results: null };
+  }
+
+  if (!result.data.pagination.items) {
+    return { error: "沒有相關的搜尋結果，建議更換搜尋關鍵字", results: null };
+  }
+
+  // 成功時返回結果
+  return { error: null, results: result.data.results };
+}

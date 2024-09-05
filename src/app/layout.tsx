@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${dmSans.variable} ${notoSansTC.variable} bg-[#FDFBFE]`}
+        className={`${dmSans.className} ${notoSansTC.className} bg-[#FDFBFE]`}
       >
         <SheetToggleContextProvider>{children}</SheetToggleContextProvider>
         <Toaster position="bottom-right" reverseOrder={false} />

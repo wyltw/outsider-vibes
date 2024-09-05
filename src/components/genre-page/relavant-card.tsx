@@ -8,16 +8,16 @@ type RelavantCardProps = {
   data:
     | {
         type: "release";
-        release: DiscogsReleasesResult;
+        result: DiscogsReleasesResult;
       }
-    | { type: "artist"; artist: DiscogsArtistsResult };
+    | { type: "artist"; result: DiscogsArtistsResult };
 };
 export default function RelavantCard({ data }: RelavantCardProps) {
   const isRelease = data.type === "release";
   const isArtist = data.type === "artist";
   //判斷傳入的是哪一種discogs類型查詢
   if (isRelease) {
-    const release = data.release;
+    const release = data.result;
     return (
       <>
         <CardContainer>
@@ -25,7 +25,7 @@ export default function RelavantCard({ data }: RelavantCardProps) {
             coverImage={replaceWithDefaultAvatar(release.cover_image)}
           />
           <CardContent
-            type={"release"}
+            type={data.type}
             title={release.title}
             genre={release.genre}
             style={release.style}
@@ -36,14 +36,14 @@ export default function RelavantCard({ data }: RelavantCardProps) {
     );
   }
   if (isArtist) {
-    const artist = data.artist;
+    const artist = data.result;
     return (
       <>
         <CardContainer>
           <CardImage
             coverImage={replaceWithDefaultAvatar(artist.cover_image)}
           />
-          <CardContent type={"artist"} title={artist.title} />
+          <CardContent type={data.type} title={artist.title} />
         </CardContainer>
       </>
     );
