@@ -1,16 +1,11 @@
 import "server-only";
-import {
-  discogsArtistsSchema,
-  discogsReleasesSchema,
-  wikiArticleIntroSchema,
-} from "./validations";
+import { wikiArticleIntroSchema } from "./validations";
 import { handleError } from "./utils";
 import {
   DiscogsArtistsApiResponse,
   DiscogsReleasesApiResponse,
   DiscogsSearchParams,
   TfetchData,
-  TfetchDiscogsData,
   WikiArticleIntroApiResponse,
 } from "./types";
 import { ZodSchema } from "zod";
@@ -50,7 +45,7 @@ export const getDiscogsAPI = (
   searchParams: Record<string, string>,
   ...baseSearchParams: Record<string, string>[]
 ) => {
-  let baseURL = new URL(resourceType, DISCOGS_API);
+  const baseURL = new URL(resourceType, DISCOGS_API);
   const setSearchParams = (searchParam: Record<string, string>) => {
     Object.entries(searchParam).forEach(([name, value]) => {
       baseURL.searchParams.set(name, value);
