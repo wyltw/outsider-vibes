@@ -30,7 +30,7 @@ export default function CallToAction() {
             </Button>
           </div>
         </div>
-        <div className="-z-10 order-first max-w-[18.75rem] self-start opacity-80 md:order-none md:max-w-full">
+        <div className="-z-10 order-first max-w-80 self-start opacity-80 md:order-none md:max-w-full">
           <Image
             src="/images/headphone-amico.svg"
             alt="headphone"

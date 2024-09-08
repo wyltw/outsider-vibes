@@ -53,15 +53,13 @@ export default async function SearchResults({
         ) : null}
         {searchResults.map((result) => (
           <Card className="flex gap-x-4" key={result.id}>
-            <div className="h-48 w-48 rounded-s-lg">
-              <Image
-                className="object-cover"
-                width={192}
-                height={192}
-                src={result.cover_image}
-                alt="album cover"
-              />
-            </div>
+            <Image
+              className="h-48 w-48 rounded-lg object-cover"
+              width={192}
+              height={192}
+              src={result.cover_image}
+              alt="album cover"
+            />
             <div className="flex flex-col p-2">
               <h2 className="text-2xl text-primary">
                 {splitArtistAndAlbumTitle(result.title).map(
@@ -79,6 +77,7 @@ export default async function SearchResults({
                 <GenreList list={result.genre} listType="genre" />
                 <GenreList list={result.style} listType="style" />
               </div>
+              <p className="mt-auto text-xl">{result.year}</p>
             </div>
           </Card>
         ))}
