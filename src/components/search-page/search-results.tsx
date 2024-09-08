@@ -1,12 +1,15 @@
 import { fetchDiscogsData } from "@/lib/server-utils";
-import React from "react";
+import React, { Fragment } from "react";
 import CustomError from "../custom-error";
 import ErrorBlock from "../error-block";
 import SearchHeader from "./search-header";
-import { getUniqueGenres } from "@/lib/utils";
+import { getUniqueGenres, splitArtistAndAlbumTitle } from "@/lib/utils";
 import { discogsReleasesSchema } from "@/lib/validations";
 import { DiscogsReleasesResult } from "@/lib/types";
 import SelectedFilter from "../selected-filter";
+import { Card, CardTitle } from "../ui/card";
+import Image from "next/image";
+import GenreList from "../genre-list";
 
 type SearchResultsProps = {
   query: string;
@@ -20,7 +23,7 @@ export default async function SearchResults({
   const result = await fetchDiscogsData(
     query,
     1,
-    1,
+    10,
     searchParams,
     discogsReleasesSchema,
   );
@@ -43,13 +46,41 @@ export default async function SearchResults({
       {resultsCount !== 0 ? (
         <span className="text-sm text-black/50">共有{resultsCount}筆結果</span>
       ) : null}
-      <ul>
+      <ul className="flex flex-col gap-y-4">
         {!result.success && <CustomError error={result.error} />}
         {resultsCount === 0 ? (
           <ErrorBlock error="沒有相關的搜尋結果，建議更換搜尋關鍵字" />
         ) : null}
         {searchResults.map((result) => (
-          <li key={result.id}>{result.title}</li>
+          <Card className="flex gap-x-4" key={result.id}>
+            <div className="h-48 w-48 rounded-s-lg">
+              <Image
+                className="object-cover"
+                width={192}
+                height={192}
+                src={result.cover_image}
+                alt="album cover"
+              />
+            </div>
+            <div className="flex flex-col p-2">
+              <h2 className="text-2xl text-primary">
+                {splitArtistAndAlbumTitle(result.title).map(
+                  ([albumName, artist], i) => (
+                    <Fragment key={albumName + artist + i}>
+                      <span className="block">{albumName}</span>
+                      <span className="block text-sm text-black/50">
+                        {artist}
+                      </span>
+                    </Fragment>
+                  ),
+                )}
+              </h2>
+              <div>
+                <GenreList list={result.genre} listType="genre" />
+                <GenreList list={result.style} listType="style" />
+              </div>
+            </div>
+          </Card>
         ))}
       </ul>
     </>

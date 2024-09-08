@@ -34,3 +34,7 @@ export const getUniqueGenres = (
   searchResults: DiscogsReleasesResult[],
   key: "genre" | "style",
 ) => Array.from(new Set(searchResults.map((result) => result[key]).flat()));
+
+export const splitArtistAndAlbumTitle = (title: string) => {
+  return [title.split(" - ").reverse()];
+};

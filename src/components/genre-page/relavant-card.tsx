@@ -1,8 +1,13 @@
-import React, { ReactNode } from "react";
+import React, { Fragment, ReactNode } from "react";
 import { Card } from "../ui/card";
 import Image from "next/image";
 import { DiscogsReleasesResult, DiscogsArtistsResult } from "@/lib/types";
-import { cn, replaceWithDefaultAvatar } from "@/lib/utils";
+import {
+  cn,
+  replaceWithDefaultAvatar,
+  splitArtistAndAlbumTitle,
+} from "@/lib/utils";
+import GenreList from "../genre-list";
 
 type RelavantCardProps = {
   data:
@@ -88,10 +93,11 @@ function CardContent({
   return (
     <div className="flex flex-1 flex-col gap-y-2 self-start">
       <h4 className="font-medium text-primary">
-        {title.split(" - ").map((part, i) => (
-          <span key={part + i} className="block">
-            {part}
-          </span>
+        {splitArtistAndAlbumTitle(title).map(([albumName, artist], i) => (
+          <Fragment key={albumName + artist + i}>
+            <span className="block">{albumName}</span>
+            <span className="block">{artist}</span>
+          </Fragment>
         ))}
       </h4>
 
@@ -99,36 +105,12 @@ function CardContent({
         //根據傳入的type決定是否渲染genre和style等資訊
         <>
           <div>
-            <List list={genre} listType="genre" />
-            <List list={style} listType="style" />
+            <GenreList list={genre} listType="genre" />
+            <GenreList list={style} listType="style" />
           </div>
           <p className="mt-auto">{year}</p>
         </>
       )}
     </div>
-  );
-}
-
-type ListProps = { listType: "style" | "genre"; list: string[] };
-
-function List({ listType, list }: ListProps) {
-  return (
-    <>
-      <ul
-        className={cn(
-          "flex flex-wrap gap-x-1 text-sm",
-          listType === "style" && "text-black/50",
-        )}
-      >
-        {list.map((item, i) => (
-          <li
-            className={cn("inline", listType === "style" && "leading-tight")}
-            key={item + i}
-          >
-            {item}
-          </li>
-        ))}
-      </ul>
-    </>
   );
 }
