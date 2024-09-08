@@ -3,7 +3,12 @@ import React from "react";
 
 type SearchPageProps = {
   params: { query: string };
-  searchParams: { type: "release" | "artist"; genre: string; style: string };
+  searchParams: {
+    type: "release" | "artist";
+    genre: string;
+    style: string;
+    page: string;
+  };
 };
 
 export default function SearchPage({ params, searchParams }: SearchPageProps) {

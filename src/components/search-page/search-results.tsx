@@ -7,14 +7,22 @@ import { getUniqueGenres, splitArtistAndAlbumTitle } from "@/lib/utils";
 import { discogsReleasesSchema } from "@/lib/validations";
 import { DiscogsReleasesResult } from "@/lib/types";
 import SelectedFilter from "../selected-filter";
-import { Card, CardTitle } from "../ui/card";
+import { Card } from "../ui/card";
 import Image from "next/image";
 import GenreList from "../genre-list";
+import PaginationControll from "../pagination-controll";
 
 type SearchResultsProps = {
   query: string;
-  searchParams: { genre: string; style: string; type: "release" | "artist" };
+  searchParams: {
+    genre: string;
+    style: string;
+    page: string;
+    type: "release" | "artist";
+  };
 };
+//對params進行操作改變url->page組件獲得更新params->params props給fetch function
+//注意fetchDiscogsData可以透過getDiscogsApi處理一整個searchParams物件，個別傳入的record目前是保留給genre page的。
 
 export default async function SearchResults({
   query,
@@ -82,6 +90,7 @@ export default async function SearchResults({
           </Card>
         ))}
       </ul>
+      <PaginationControll />
     </>
   );
 }

@@ -78,8 +78,8 @@ export const fetchDiscogsData = async <
   T extends DiscogsReleasesApiResponse | DiscogsArtistsApiResponse,
 >(
   q: string,
-  page: number,
-  perPage: number,
+  page: number = 1,
+  perPage: number = 10,
   searchParams: DiscogsSearchParams,
   schema: ZodSchema<any>,
 ) => {
