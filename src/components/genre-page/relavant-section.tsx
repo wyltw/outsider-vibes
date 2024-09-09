@@ -31,12 +31,12 @@ export default async function RelavantSection({
   if (type === "release") {
     const result = await fetchDiscogsData<DiscogsReleasesApiResponse>(
       genre,
-      1,
-      10,
       {
         type,
       },
       discogsReleasesSchema,
+      1,
+      10,
     );
     if (!result.success) {
       return <CustomError error={result.error} />;
@@ -66,12 +66,12 @@ export default async function RelavantSection({
   if (type === "artist") {
     const result = await fetchDiscogsData<DiscogsArtistsApiResponse>(
       genre,
-      1,
-      10,
       {
         type,
       },
       discogsArtistsSchema,
+      1,
+      10,
     );
     if (!result.success) {
       return <CustomError error={result.error} />;

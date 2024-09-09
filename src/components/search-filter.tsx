@@ -17,7 +17,7 @@ export default function SearchFilter({
   genreList,
   styleList,
 }: SearchFilterProps) {
-  const { updateSearchParams } = useUpdatedSearchParams();
+  const { getFilterSearchParams } = useUpdatedSearchParams();
   return (
     <>
       <Collapsible className="border-b py-2">
@@ -31,14 +31,18 @@ export default function SearchFilter({
           <Filter text="流派：">
             {genreList.map((genre, index) => (
               <PillButton key={genre + index}>
-                <Link href={updateSearchParams("genre", genre)}>{genre}</Link>
+                <Link href={getFilterSearchParams("genre", genre)}>
+                  {genre}
+                </Link>
               </PillButton>
             ))}
           </Filter>
           <Filter text="風格：">
             {styleList.map((style, index) => (
               <PillButton key={style + index}>
-                <Link href={updateSearchParams("style", style)}>{style}</Link>
+                <Link href={getFilterSearchParams("style", style)}>
+                  {style}
+                </Link>
               </PillButton>
             ))}
           </Filter>

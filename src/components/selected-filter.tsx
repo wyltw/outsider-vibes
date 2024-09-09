@@ -4,10 +4,11 @@ import { useSelectedFilter, useUpdatedSearchParams } from "@/lib/hooks";
 import React from "react";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
+import Link from "next/link";
 
 export default function SelectedFilter() {
   const { selectedFilterArray } = useSelectedFilter();
-  const { deleteSearchParams } = useUpdatedSearchParams();
+  const { getResetSearchParams } = useUpdatedSearchParams();
   return (
     <>
       <p>目前的篩選條件：</p>
@@ -22,12 +23,12 @@ export default function SelectedFilter() {
           ))}
         </ul>
         <Button
-          onClick={deleteSearchParams}
           className="ms-auto flex"
           size={"sm"}
           variant={"outline"}
+          asChild
         >
-          清空篩選
+          <Link href={getResetSearchParams()}>清空篩選</Link>
         </Button>
       </div>
     </>

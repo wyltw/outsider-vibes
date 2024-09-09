@@ -30,8 +30,6 @@ export default async function SearchResults({
 }: SearchResultsProps) {
   const result = await fetchDiscogsData(
     query,
-    1,
-    10,
     searchParams,
     discogsReleasesSchema,
   );
@@ -90,7 +88,7 @@ export default async function SearchResults({
           </Card>
         ))}
       </ul>
-      <PaginationControll />
+      <PaginationControll page={Number(searchParams.page)} />
     </>
   );
 }

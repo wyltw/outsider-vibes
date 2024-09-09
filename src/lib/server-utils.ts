@@ -78,18 +78,18 @@ export const fetchDiscogsData = async <
   T extends DiscogsReleasesApiResponse | DiscogsArtistsApiResponse,
 >(
   q: string,
-  page: number = 1,
-  perPage: number = 10,
   searchParams: DiscogsSearchParams,
   schema: ZodSchema<any>,
+  page: number = 1,
+  perPage: number = 10,
 ) => {
   const queryString = decodeURIComponent(q);
   const baseURL = getDiscogsAPI(
     "search",
-    searchParams,
-    { q: queryString },
     { page: String(page) },
     { per_page: String(perPage) },
+    searchParams,
+    { q: queryString },
   );
 
   const result = await fetchData<T>(baseURL.toString(), schema);

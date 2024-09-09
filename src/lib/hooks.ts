@@ -1,6 +1,6 @@
 import { SheetToggleContext } from "@/contexts/SheetToggleContextProvider";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useContext, useState } from "react";
+import { usePathname, useSearchParams } from "next/navigation";
+import { useCallback, useContext } from "react";
 
 export function useSheetToggleContext() {
   const context = useContext(SheetToggleContext);
@@ -13,9 +13,8 @@ export function useSheetToggleContext() {
 export function useUpdatedSearchParams() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const router = useRouter();
   //先取得當下的searchParams後進行後續操作
-  const updateSearchParams = useCallback(
+  const getFilterSearchParams = useCallback(
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams.toString());
       const previousValue = params.get(name) || "";
@@ -31,23 +30,24 @@ export function useUpdatedSearchParams() {
     },
     [searchParams],
   );
-  const deleteSearchParams = () => {
+  const getResetSearchParams = () => {
     const params = new URLSearchParams(searchParams.toString());
     params.delete("style");
     params.delete("genre");
-    router.push(`${pathname}?${params.toString()}`);
+    return `${pathname}?${params.toString()}`;
   };
-  return { updateSearchParams, deleteSearchParams };
+  return { getFilterSearchParams, getResetSearchParams };
 }
 
 export function useSelectedFilter() {
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams.toString());
   params.delete("type");
+  params.delete("page");
   const selectedFilterArray: string[] = [];
   for (const value of params.values()) {
     selectedFilterArray.push(...value.split(" "));
-    //push可以接受多個參數
+    //push可以接受多個參數,因此展開陣列正好
   }
   return { selectedFilterArray };
 }
