@@ -26,6 +26,7 @@ export function useUpdatedSearchParams() {
           .join(" ");
         params.set(name, filteredValueArray);
       }
+      params.set("page", "1");
       return "?" + params.toString();
     },
     [searchParams],
@@ -34,9 +35,23 @@ export function useUpdatedSearchParams() {
     const params = new URLSearchParams(searchParams.toString());
     params.delete("style");
     params.delete("genre");
+    params.set("page", "1");
     return `${pathname}?${params.toString()}`;
   };
-  return { getFilterSearchParams, getResetSearchParams };
+  const getPageSearchParams = (type: "previous" | "next") => {
+    const params = new URLSearchParams(searchParams.toString());
+    let page = Number(params.get("page"));
+    if (type === "previous" && page !== 0) {
+      page = page - 1;
+    }
+    if (type === "next") {
+      page = page + 1;
+    }
+    params.set("page", String(page));
+    return `${pathname}?${params.toString()}`;
+  };
+
+  return { getFilterSearchParams, getResetSearchParams, getPageSearchParams };
 }
 
 export function useSelectedFilter() {

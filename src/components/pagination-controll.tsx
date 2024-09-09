@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import {
   Pagination,
@@ -8,16 +10,18 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { useUpdatedSearchParams } from "@/lib/hooks";
 
 type PaginationControllProps = { page: number };
 
 export default function PaginationControll({ page }: PaginationControllProps) {
+  const { getPageSearchParams } = useUpdatedSearchParams();
   return (
     <>
       <Pagination>
         <PaginationContent>
           <PaginationItem>
-            <PaginationPrevious href="#" />
+            <PaginationPrevious href={getPageSearchParams("previous")} />
           </PaginationItem>
           <PaginationItem>
             <PaginationLink href="#">1</PaginationLink>
@@ -26,7 +30,7 @@ export default function PaginationControll({ page }: PaginationControllProps) {
             <PaginationEllipsis />
           </PaginationItem>
           <PaginationItem>
-            <PaginationNext href="#" />
+            <PaginationNext href={getPageSearchParams("next")} />
           </PaginationItem>
         </PaginationContent>
       </Pagination>

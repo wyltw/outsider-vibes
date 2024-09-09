@@ -75,7 +75,7 @@ export const discogsReleasesSchema = z.object({
         z.object({
           name: z.string(),
           qty: z.string(),
-          descriptions: z.array(z.string()),
+          descriptions: z.array(z.string()).optional(),
         }),
       ),
     }),
