@@ -11,7 +11,12 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { useUpdatedSearchParams } from "@/lib/hooks";
-import { DEFAULT_PERPAGE, DISCOGS_PAGES_LIMIT } from "@/lib/constants";
+import {
+  DEFAULT_PAGE,
+  DEFAULT_PERPAGE,
+  DISCOGS_PAGES_LIMIT,
+} from "@/lib/constants";
+import { cn } from "@/lib/utils";
 
 type PaginationControllProps = {
   resultsCount: number | undefined;
@@ -19,24 +24,21 @@ type PaginationControllProps = {
 };
 
 export default function PaginationControll({ page }: PaginationControllProps) {
-  const { getPageSearchParams } = useUpdatedSearchParams();
+  const { switchPageParams } = useUpdatedSearchParams();
   return (
-    <>
+    <section className="mt-4">
       <Pagination>
         <PaginationContent>
           {page > 1 && (
             <PaginationItem>
-              <PaginationPrevious href={getPageSearchParams("previous")} />
+              <PaginationPrevious href={switchPageParams("previous")} />
             </PaginationItem>
           )}
-
-          {Array.from({ length: 4 }).map((_, index) => (
-            <PaginationItem>
-              <PaginationLink href={getPageSearchParams(_, index)}>
-                {index + 1}
-              </PaginationLink>
-            </PaginationItem>
-          ))}
+          <PaginationItem>
+            <PaginationLink isActive={page === DEFAULT_PAGE} href={""}>
+              {DEFAULT_PAGE}
+            </PaginationLink>
+          </PaginationItem>
           <PaginationItem>
             <PaginationEllipsis />
           </PaginationItem>
@@ -45,11 +47,11 @@ export default function PaginationControll({ page }: PaginationControllProps) {
           </PaginationItem>
           {page < DISCOGS_PAGES_LIMIT && (
             <PaginationItem>
-              <PaginationNext href={getPageSearchParams("next")} />
+              <PaginationNext href={switchPageParams("next")} />
             </PaginationItem>
           )}
         </PaginationContent>
       </Pagination>
-    </>
+    </section>
   );
 }
