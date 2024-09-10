@@ -31,6 +31,7 @@ export function useUpdatedSearchParams() {
     },
     [searchParams],
   );
+
   const getResetSearchParams = () => {
     const params = new URLSearchParams(searchParams.toString());
     params.delete("style");
@@ -38,16 +39,16 @@ export function useUpdatedSearchParams() {
     params.set("page", "1");
     return `${pathname}?${params.toString()}`;
   };
-  const getPageSearchParams = (type: "previous" | "next") => {
+
+  const getPageSearchParams = (type?: "previous" | "next") => {
     const params = new URLSearchParams(searchParams.toString());
-    let page = Number(params.get("page"));
-    if (type === "previous" && page !== 0) {
-      page = page - 1;
+    let currentPage = Number(params.get("page"));
+    if (type === "previous") {
+      currentPage = currentPage - 1;
+    } else if (type === "next") {
+      currentPage = currentPage + 1;
     }
-    if (type === "next") {
-      page = page + 1;
-    }
-    params.set("page", String(page));
+    params.set("page", String(currentPage));
     return `${pathname}?${params.toString()}`;
   };
 

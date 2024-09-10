@@ -16,6 +16,7 @@ import {
   DiscogsArtistsApiResponse,
   DiscogsReleasesApiResponse,
 } from "@/lib/types";
+import { DEFAULT_PAGE, DEFAULT_PERPAGE } from "@/lib/constants";
 
 type RelavantSectionProps = { genre: string; type: "release" | "artist" };
 
@@ -35,8 +36,8 @@ export default async function RelavantSection({
         type,
       },
       discogsReleasesSchema,
-      1,
-      10,
+      DEFAULT_PAGE,
+      DEFAULT_PERPAGE,
     );
     if (!result.success) {
       return <CustomError error={result.error} />;
@@ -70,8 +71,8 @@ export default async function RelavantSection({
         type,
       },
       discogsArtistsSchema,
-      1,
-      10,
+      DEFAULT_PAGE,
+      DEFAULT_PERPAGE,
     );
     if (!result.success) {
       return <CustomError error={result.error} />;

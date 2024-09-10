@@ -66,8 +66,7 @@ function Filter({ children, text }: FilterProps) {
     }
     if (direction === "left") {
       ref.current.scrollLeft -= scrollOffset;
-    }
-    if (direction === "right") {
+    } else if (direction === "right") {
       ref.current.scrollLeft += scrollOffset;
     }
   };

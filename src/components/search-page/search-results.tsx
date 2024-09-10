@@ -88,7 +88,10 @@ export default async function SearchResults({
           </Card>
         ))}
       </ul>
-      <PaginationControll page={Number(searchParams.page)} />
+      <PaginationControll
+        resultsCount={resultsCount}
+        page={Number(searchParams.page)}
+      />
     </>
   );
 }

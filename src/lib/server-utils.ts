@@ -9,7 +9,7 @@ import {
   WikiArticleIntroApiResponse,
 } from "./types";
 import { ZodSchema } from "zod";
-import { DISCOGS_API } from "./constants";
+import { DEFAULT_PAGE, DEFAULT_PERPAGE, DISCOGS_API } from "./constants";
 
 export const fetchData: TfetchData = async (
   url: string,
@@ -80,8 +80,8 @@ export const fetchDiscogsData = async <
   q: string,
   searchParams: DiscogsSearchParams,
   schema: ZodSchema<any>,
-  page: number = 1,
-  perPage: number = 10,
+  page: number = DEFAULT_PAGE,
+  perPage: number = DEFAULT_PERPAGE,
 ) => {
   const queryString = decodeURIComponent(q);
   const baseURL = getDiscogsAPI(
@@ -91,7 +91,7 @@ export const fetchDiscogsData = async <
     searchParams,
     { q: queryString },
   );
-
+  console.log(baseURL);
   const result = await fetchData<T>(baseURL.toString(), schema);
   return result;
 };
