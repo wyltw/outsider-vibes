@@ -40,7 +40,7 @@ export function useUpdatedSearchParams() {
     return `${pathname}?${params.toString()}`;
   };
 
-  const switchPageParams = (type: "previous" | "next") => {
+  const getSwitchedPageParams = (type: "previous" | "next") => {
     const params = new URLSearchParams(searchParams.toString());
     let currentPage = Number(params.get("page"));
     if (type === "previous") {
@@ -52,7 +52,7 @@ export function useUpdatedSearchParams() {
     return `${pathname}?${params.toString()}`;
   };
 
-  return { getFilterSearchParams, getResetSearchParams, switchPageParams };
+  return { getFilterSearchParams, getResetSearchParams, getSwitchedPageParams };
 }
 
 export function useSelectedFilter() {

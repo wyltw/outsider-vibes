@@ -91,7 +91,6 @@ export const fetchDiscogsData = async <
     searchParams,
     { q: queryString },
   );
-  console.log(baseURL);
   const result = await fetchData<T>(baseURL.toString(), schema);
   return result;
 };
