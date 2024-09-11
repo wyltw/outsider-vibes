@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/pagination";
 import { useUpdatedSearchParams } from "@/lib/hooks";
 import { DEFAULT_PAGE, DISCOGS_PAGES_LIMIT } from "@/lib/constants";
-import next from "next";
 
 type PaginationControllProps = {
   resultsCount: number | undefined;
@@ -24,12 +23,12 @@ export default function PaginationControll({ page }: PaginationControllProps) {
   const getPageArray = (currentPage: number, count: number) => {
     const previousPage = currentPage - 1;
     const nextPage = currentPage + 1;
-    let pageArray = [];
+    let pageArray: number[] = [];
     if (currentPage - count === DEFAULT_PAGE) {
-      for (let i = count; i > DEFAULT_PAGE; i--) {
+      for (let i = currentPage; i > DEFAULT_PAGE; i--) {
         pageArray.push(i);
       }
-      return pageArray;
+      return pageArray.reverse();
     }
     if (currentPage + count === DISCOGS_PAGES_LIMIT) {
       for (let i = currentPage; i < DISCOGS_PAGES_LIMIT; i++) {
@@ -37,31 +36,46 @@ export default function PaginationControll({ page }: PaginationControllProps) {
       }
       return pageArray;
     }
-    return (pageArray = [previousPage, currentPage, nextPage]);
+    if (currentPage - 1 === DEFAULT_PAGE) {
+      return [currentPage, nextPage];
+    }
+    if (currentPage + 1 === DISCOGS_PAGES_LIMIT) {
+      return [previousPage, currentPage];
+    }
+    if (currentPage === DEFAULT_PAGE || currentPage === DISCOGS_PAGES_LIMIT) {
+      return pageArray;
+    }
+    pageArray = [previousPage, currentPage, nextPage];
+    return pageArray;
   };
   const { getSwitchedPageParams } = useUpdatedSearchParams();
   return (
     <section className="mt-4">
       <Pagination>
         <PaginationContent>
-          {page > 1 && (
+          {page > DEFAULT_PAGE && (
             <PaginationItem>
               <PaginationPrevious href={getSwitchedPageParams("previous")} />
             </PaginationItem>
           )}
-          <PaginationItem>
-            <PaginationLink isActive={page === DEFAULT_PAGE} href={""}>
-              {DEFAULT_PAGE}
-            </PaginationLink>
-          </PaginationItem>
+          {page >= DEFAULT_PAGE && (
+            <PaginationItem>
+              <PaginationLink isActive={page === DEFAULT_PAGE} href={""}>
+                {DEFAULT_PAGE}
+              </PaginationLink>
+            </PaginationItem>
+          )}
+
           {page - DEFAULT_PAGE > siblingCount && (
             <PaginationItem>
               <PaginationEllipsis />
             </PaginationItem>
           )}
-          {getPageArray(page, siblingCount).map((page) => (
-            <PaginationItem key={page}>
-              <PaginationLink href={""}>{page}</PaginationLink>
+          {getPageArray(page, siblingCount).map((currentPage) => (
+            <PaginationItem key={currentPage}>
+              <PaginationLink isActive={currentPage === page} href={""}>
+                {currentPage}
+              </PaginationLink>
             </PaginationItem>
           ))}
           {DISCOGS_PAGES_LIMIT - page > siblingCount && (
@@ -69,11 +83,14 @@ export default function PaginationControll({ page }: PaginationControllProps) {
               <PaginationEllipsis />
             </PaginationItem>
           )}
-          <PaginationItem>
-            <PaginationLink isActive={page === DISCOGS_PAGES_LIMIT} href={""}>
-              {DISCOGS_PAGES_LIMIT}
-            </PaginationLink>
-          </PaginationItem>
+          {page <= DISCOGS_PAGES_LIMIT && (
+            <PaginationItem>
+              <PaginationLink isActive={page === DISCOGS_PAGES_LIMIT} href={""}>
+                {DISCOGS_PAGES_LIMIT}
+              </PaginationLink>
+            </PaginationItem>
+          )}
+
           {page < DISCOGS_PAGES_LIMIT && (
             <PaginationItem>
               <PaginationNext href={getSwitchedPageParams("next")} />
