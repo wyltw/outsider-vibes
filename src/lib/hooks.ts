@@ -11,7 +11,6 @@ export function useSheetToggleContext() {
 }
 
 export function useUpdatedSearchParams() {
-  const pathname = usePathname();
   const searchParams = useSearchParams();
   //先取得當下的searchParams後進行後續操作
   const getFilterSearchParams = useCallback(
@@ -37,7 +36,7 @@ export function useUpdatedSearchParams() {
     params.delete("style");
     params.delete("genre");
     params.set("page", "1");
-    return `${pathname}?${params.toString()}`;
+    return "?" + params.toString();
   };
 
   const getSwitchedPageParams = (type: "previous" | "next") => {
@@ -49,7 +48,13 @@ export function useUpdatedSearchParams() {
       currentPage = currentPage + 1;
     }
     params.set("page", String(currentPage));
-    return `${pathname}?${params.toString()}`;
+    return "?" + params.toString();
+  };
+
+  const getPageParams = () => {
+    const params = new URLSearchParams(searchParams.toString());
+    const page = params.get("page");
+    return "?" + params.toString();
   };
 
   return { getFilterSearchParams, getResetSearchParams, getSwitchedPageParams };
