@@ -51,13 +51,18 @@ export function useUpdatedSearchParams() {
     return "?" + params.toString();
   };
 
-  const getPageParams = () => {
+  const getPageParams = (page: number) => {
     const params = new URLSearchParams(searchParams.toString());
-    const page = params.get("page");
+    params.set("page", String(page));
     return "?" + params.toString();
   };
 
-  return { getFilterSearchParams, getResetSearchParams, getSwitchedPageParams };
+  return {
+    getFilterSearchParams,
+    getResetSearchParams,
+    getSwitchedPageParams,
+    getPageParams,
+  };
 }
 
 export function useSelectedFilter() {
