@@ -11,15 +11,26 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { useUpdatedSearchParams } from "@/lib/hooks";
-import { DEFAULT_PAGE, DISCOGS_PAGES_LIMIT } from "@/lib/constants";
+import {
+  DEFAULT_PAGE,
+  DEFAULT_PERPAGE,
+  DISCOGS_PAGES_LIMIT,
+} from "@/lib/constants";
 import { getPageArray } from "@/lib/utils";
 type PaginationControllProps = {
   resultsCount: number | undefined;
   page: number;
 };
 
-export default function PaginationControll({ page }: PaginationControllProps) {
+export default function PaginationControll({
+  page,
+  resultsCount = 0,
+}: PaginationControllProps) {
   const siblingCount = 3;
+  const totalPage =
+    Math.ceil(resultsCount / DEFAULT_PERPAGE) > DISCOGS_PAGES_LIMIT
+      ? DISCOGS_PAGES_LIMIT
+      : Math.ceil(resultsCount / DEFAULT_PERPAGE);
   const { getSwitchedPageParams, getPageParams } = useUpdatedSearchParams();
   return (
     <Pagination className="mt-4">
@@ -45,7 +56,7 @@ export default function PaginationControll({ page }: PaginationControllProps) {
             <PaginationEllipsis />
           </PaginationItem>
         )}
-        {getPageArray(page, siblingCount).map((currentPage) => (
+        {getPageArray(page, siblingCount, totalPage).map((currentPage) => (
           <PaginationItem key={currentPage}>
             <PaginationLink
               isActive={currentPage === page}
@@ -55,23 +66,23 @@ export default function PaginationControll({ page }: PaginationControllProps) {
             </PaginationLink>
           </PaginationItem>
         ))}
-        {DISCOGS_PAGES_LIMIT - page > siblingCount && (
+        {totalPage - page > siblingCount && (
           <PaginationItem>
             <PaginationEllipsis />
           </PaginationItem>
         )}
-        {page <= DISCOGS_PAGES_LIMIT && (
+        {page <= totalPage && (
           <PaginationItem>
             <PaginationLink
-              isActive={page === DISCOGS_PAGES_LIMIT}
-              href={getPageParams(DISCOGS_PAGES_LIMIT)}
+              isActive={page === totalPage}
+              href={getPageParams(totalPage)}
             >
-              {DISCOGS_PAGES_LIMIT}
+              {totalPage}
             </PaginationLink>
           </PaginationItem>
         )}
 
-        {page < DISCOGS_PAGES_LIMIT && (
+        {page < totalPage && (
           <PaginationItem>
             <PaginationNext href={getSwitchedPageParams("next")} />
           </PaginationItem>

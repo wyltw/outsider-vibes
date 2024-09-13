@@ -1,7 +1,7 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { DiscogsArtistsResult, DiscogsReleasesResult } from "./types";
-import { DEFAULT_PAGE, DISCOGS_PAGES_LIMIT } from "./constants";
+import { DEFAULT_PAGE } from "./constants";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -40,7 +40,11 @@ export const splitArtistAndAlbumTitle = (title: string) => {
   return [title.split(" - ").reverse()];
 };
 
-export const getPageArray = (currentPage: number, count: number) => {
+export const getPageArray = (
+  currentPage: number,
+  count: number,
+  totalPage: number,
+) => {
   const previousPage = currentPage - 1;
   const nextPage = currentPage + 1;
   let pageArray: number[] = [];
@@ -50,8 +54,8 @@ export const getPageArray = (currentPage: number, count: number) => {
     }
     return pageArray.reverse();
   }
-  if (currentPage + count === DISCOGS_PAGES_LIMIT) {
-    for (let i = currentPage; i < DISCOGS_PAGES_LIMIT; i++) {
+  if (currentPage + count === totalPage) {
+    for (let i = currentPage; i < totalPage; i++) {
       pageArray.push(i);
     }
     return pageArray;
@@ -59,10 +63,10 @@ export const getPageArray = (currentPage: number, count: number) => {
   if (currentPage - 1 === DEFAULT_PAGE) {
     return [currentPage, nextPage];
   }
-  if (currentPage + 1 === DISCOGS_PAGES_LIMIT) {
+  if (currentPage + 1 === totalPage) {
     return [previousPage, currentPage];
   }
-  if (currentPage === DEFAULT_PAGE || currentPage === DISCOGS_PAGES_LIMIT) {
+  if (currentPage === DEFAULT_PAGE || currentPage === totalPage) {
     return pageArray;
   }
   pageArray = [previousPage, currentPage, nextPage];
