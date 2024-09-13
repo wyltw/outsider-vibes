@@ -3,7 +3,7 @@ import { Card } from "../ui/card";
 import Image from "next/image";
 import { DiscogsReleasesResult, DiscogsArtistsResult } from "@/lib/types";
 import {
-  replaceWithDefaultAvatar,
+  replaceWithDefaultPicture,
   splitArtistAndAlbumTitle,
 } from "@/lib/utils";
 import GenreList from "../genre-list";
@@ -24,7 +24,10 @@ export default function RelavantCard({ result }: RelavantCardProps) {
       <>
         <CardContainer>
           <CardImage
-            coverImage={replaceWithDefaultAvatar(release.cover_image)}
+            coverImage={replaceWithDefaultPicture(
+              release.cover_image,
+              result.type,
+            )}
           />
           <CardContent
             type={result.type}
@@ -43,7 +46,10 @@ export default function RelavantCard({ result }: RelavantCardProps) {
       <>
         <CardContainer>
           <CardImage
-            coverImage={replaceWithDefaultAvatar(artist.cover_image)}
+            coverImage={replaceWithDefaultPicture(
+              artist.cover_image,
+              result.type,
+            )}
           />
           <CardContent type={result.type} title={artist.title} />
         </CardContainer>

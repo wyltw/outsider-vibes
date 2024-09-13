@@ -1,5 +1,5 @@
 import {
-  replaceWithDefaultAvatar,
+  replaceWithDefaultPicture,
   splitArtistAndAlbumTitle,
 } from "@/lib/utils";
 import React, { Fragment, ReactNode } from "react";
@@ -23,7 +23,12 @@ export default function SearchResult({ result }: SearchResultProps) {
     return (
       <>
         <CardContainer key={release.id}>
-          <CardImage coverImage={release.cover_image} />
+          <CardImage
+            coverImage={replaceWithDefaultPicture(
+              release.cover_image,
+              result.type,
+            )}
+          />
           <CardContent
             title={release.title}
             type={result.type}
@@ -40,7 +45,10 @@ export default function SearchResult({ result }: SearchResultProps) {
       <>
         <CardContainer>
           <CardImage
-            coverImage={replaceWithDefaultAvatar(artist.cover_image)}
+            coverImage={replaceWithDefaultPicture(
+              artist.cover_image,
+              result.type,
+            )}
           />
           <CardContent type={result.type} title={artist.title} />
         </CardContainer>

@@ -1,6 +1,10 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { DiscogsArtistsResult, DiscogsReleasesResult } from "./types";
+import {
+  DiscogsArtistsResult,
+  DiscogsReleasesResult,
+  DiscogsSearchType,
+} from "./types";
 import { DEFAULT_PAGE } from "./constants";
 
 export function cn(...inputs: ClassValue[]) {
@@ -27,8 +31,18 @@ export async function sleep(ms: number) {
   );
 }
 
-export function replaceWithDefaultAvatar(target: string) {
-  return target.includes("spacer") ? "/images/avatar.png" : target;
+export function replaceWithDefaultPicture(
+  target: string,
+  type: DiscogsSearchType,
+) {
+  const isSpacer = target.includes("spacer");
+  if (type === "release") {
+    return isSpacer ? "/images/music-note.png" : target;
+  }
+  if (type === "artist") {
+    return isSpacer ? "/images/avatar.png" : target;
+  }
+  return target;
 }
 
 export const getUniqueGenres = (
