@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/collapsible";
 import { ChevronLeft, ChevronRight, SlidersHorizontal } from "lucide-react";
 import React, { ReactNode, RefObject, useRef } from "react";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import Link from "next/link";
 import { useUpdatedSearchParams } from "@/lib/hooks";
 

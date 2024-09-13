@@ -1,7 +1,7 @@
 import React from "react";
 import Logo from "./logo";
 import { cn } from "@/lib/utils";
-import SearchForm from "./search-form";
+import SearchForm from "./search-page/search-form";
 import RouteList from "./route-list";
 import { headerRoutes } from "@/lib/constants";
 import SheetContainer from "./sheet-container";

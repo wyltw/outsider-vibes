@@ -1,37 +1,34 @@
-import React, { Fragment, ReactNode } from "react";
-import { Card } from "../ui/card";
-import Image from "next/image";
-import { DiscogsReleasesResult, DiscogsArtistsResult } from "@/lib/types";
 import {
   replaceWithDefaultAvatar,
   splitArtistAndAlbumTitle,
 } from "@/lib/utils";
+import React, { Fragment, ReactNode } from "react";
 import GenreList from "../genre-list";
+import { Card } from "../ui/card";
+import Image from "next/image";
+import { DiscogsArtistsResult, DiscogsReleasesResult } from "@/lib/types";
 
-type RelavantCardProps = {
+type SearchResultProps = {
   result:
     | { type: "release"; data: DiscogsReleasesResult }
     | { type: "artist"; data: DiscogsArtistsResult };
 };
-export default function RelavantCard({ result }: RelavantCardProps) {
+
+export default function SearchResult({ result }: SearchResultProps) {
   const isRelease = result.type === "release";
   const isArtist = result.type === "artist";
-  //判斷傳入的是哪一種discogs類型查詢
-  const CardData = isRelease;
+
   if (isRelease) {
     const release = result.data;
     return (
       <>
-        <CardContainer>
-          <CardImage
-            coverImage={replaceWithDefaultAvatar(release.cover_image)}
-          />
+        <CardContainer key={release.id}>
+          <CardImage coverImage={release.cover_image} />
           <CardContent
-            type={result.type}
             title={release.title}
+            type={result.type}
             genre={release.genre}
             style={release.style}
-            year={release.year}
           />
         </CardContainer>
       </>
@@ -53,17 +50,13 @@ export default function RelavantCard({ result }: RelavantCardProps) {
 }
 
 function CardContainer({ children }: { children: ReactNode }) {
-  return (
-    <Card className="mx-auto flex h-full max-w-64 flex-col items-center gap-y-2 bg-white p-2 shadow sm:mx-0 sm:max-w-none">
-      {children}
-    </Card>
-  );
+  return <Card className="flex gap-x-4">{children}</Card>;
 }
 
 function CardImage({ coverImage }: { coverImage: string }) {
   return (
     <Image
-      className="h-48 w-48 max-w-full object-cover"
+      className="h-48 w-48 max-w-full rounded-s-lg object-cover"
       src={coverImage}
       alt="release cover"
       width={192}
@@ -72,11 +65,11 @@ function CardImage({ coverImage }: { coverImage: string }) {
   );
 }
 
-type CardContentProps = {
-  type: string;
+type CardContainerProps = {
   title: string;
-  style?: string[];
+  type: string;
   genre?: string[];
+  style?: string[];
   year?: string;
 };
 
@@ -86,28 +79,25 @@ function CardContent({
   genre = [],
   style = [],
   year = "",
-}: CardContentProps) {
+}: CardContainerProps) {
   return (
-    <div className="flex flex-1 flex-col gap-y-2 self-start">
-      <h4 className="font-medium text-primary">
+    <div className="flex flex-col gap-y-2 p-2">
+      <h2 className="text-2xl text-primary">
         {splitArtistAndAlbumTitle(title).map(([albumName, artist], i) => (
           <Fragment key={albumName + artist + i}>
             <span className="block">{albumName}</span>
-            <span className="block">{artist}</span>
+            <span className="block text-base text-black/50">{artist}</span>
           </Fragment>
         ))}
-      </h4>
-
+      </h2>
       {type === "release" && (
-        //根據傳入的type決定是否渲染genre和style等資訊
-        <>
-          <div>
-            <GenreList list={genre} listType="genre" />
-            <GenreList list={style} listType="style" />
-          </div>
-          <p className="mt-auto">{year}</p>
-        </>
+        <div className="text-sm">
+          <GenreList list={genre} listType="genre" />
+          <GenreList list={style} listType="style" />
+        </div>
       )}
+
+      <p className="mt-auto text-xl">{year}</p>
     </div>
   );
 }

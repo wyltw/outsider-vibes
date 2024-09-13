@@ -56,7 +56,7 @@ export default async function RelavantSection({
                   key={result.id}
                   className="md:basis-1/3 xl:basis-1/4"
                 >
-                  <RelavantCard data={{ type: type, result: result }} />
+                  <RelavantCard result={{ type: type, data: result }} />
                 </CarouselItem>
               );
             })}
@@ -91,7 +91,7 @@ export default async function RelavantSection({
                   key={result.id}
                   className="md:basis-1/3 xl:basis-1/4"
                 >
-                  <RelavantCard data={{ type: type, result: result }} />
+                  <RelavantCard result={{ type: type, data: result }} />
                 </CarouselItem>
               );
             })}

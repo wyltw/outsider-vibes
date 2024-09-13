@@ -1,10 +1,11 @@
 import SearchResults from "@/components/search-page/search-results";
+import { DiscogsSearchType } from "@/lib/types";
 import React from "react";
 
 type SearchPageProps = {
   params: { query: string };
   searchParams: {
-    type: "release" | "artist";
+    type: DiscogsSearchType;
     genre: string;
     style: string;
     page: string;

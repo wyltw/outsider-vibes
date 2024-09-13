@@ -8,13 +8,13 @@ import { useSearchParams } from "next/navigation";
 import { searchTabs } from "@/lib/constants";
 
 import SortDropdown from "../sort-dropdown";
-import SearchFilter from "../search-filter";
+import SearchFilter from "./search-filter";
 
-type SearchHeaderProps = { genreList: string[]; styleList: string[] };
+type SearchHeaderProps = { genreList?: string[]; styleList?: string[] };
 
 export default function SearchHeader({
-  genreList,
-  styleList,
+  genreList = [],
+  styleList = [],
 }: SearchHeaderProps) {
   const searchParams = useSearchParams();
   const type = searchParams.get("type");
@@ -45,7 +45,9 @@ export default function SearchHeader({
           </div>
           <SortDropdown />
         </div>
-        <SearchFilter genreList={genreList} styleList={styleList} />
+        {type === "release" && (
+          <SearchFilter genreList={genreList} styleList={styleList} />
+        )}
         {/* props drilling here. */}
       </section>
     </>

@@ -1,5 +1,5 @@
 import FirstHeading from "@/components/first-heading";
-import SearchForm from "@/components/search-form";
+import SearchForm from "@/components/search-page/search-form";
 import Image from "next/image";
 
 export default function HomePage() {

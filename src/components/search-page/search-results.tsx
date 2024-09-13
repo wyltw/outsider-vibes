@@ -1,16 +1,18 @@
 import { fetchDiscogsData } from "@/lib/server-utils";
-import React, { Fragment } from "react";
+import React from "react";
 import CustomError from "../custom-error";
 import ErrorBlock from "../error-block";
 import SearchHeader from "./search-header";
-import { getUniqueGenres, splitArtistAndAlbumTitle } from "@/lib/utils";
-import { discogsReleasesSchema } from "@/lib/validations";
-import { DiscogsReleasesResult } from "@/lib/types";
+import { getUniqueGenres } from "@/lib/utils";
+import { discogsArtistsSchema, discogsReleasesSchema } from "@/lib/validations";
+import {
+  DiscogsArtistsApiResponse,
+  DiscogsReleasesApiResponse,
+  DiscogsSearchType,
+} from "@/lib/types";
 import SelectedFilter from "../selected-filter";
-import { Card } from "../ui/card";
-import Image from "next/image";
-import GenreList from "../genre-list";
 import PaginationControll from "../pagination-controll";
+import SearchResult from "./search-result";
 
 type SearchResultsProps = {
   query: string;
@@ -18,7 +20,7 @@ type SearchResultsProps = {
     genre: string;
     style: string;
     page: string;
-    type: "release" | "artist";
+    type: DiscogsSearchType;
   };
 };
 //對params進行操作改變url->page組件獲得更新params->params props給fetch function
@@ -28,70 +30,87 @@ export default async function SearchResults({
   query,
   searchParams,
 }: SearchResultsProps) {
-  const result = await fetchDiscogsData(
-    query,
-    searchParams,
-    discogsReleasesSchema,
-  );
+  if (searchParams.type === "release") {
+    const result = await fetchDiscogsData<DiscogsReleasesApiResponse>(
+      query,
+      searchParams,
+      discogsReleasesSchema,
+    );
 
-  let resultsCount;
-  if (result.success) {
-    resultsCount = result.data.pagination.items;
-  }
-  const searchResults = result.success
-    ? (result.data.results as DiscogsReleasesResult[])
-    : [];
+    let resultsCount;
+    if (result.success) {
+      resultsCount = result.data.pagination.items;
+    }
 
-  const genreList = getUniqueGenres(searchResults, "genre");
-  const styleList = getUniqueGenres(searchResults, "style");
-  //在這裡不使用early return是因為避免錯誤發生時除了錯誤沒有其他ui
-  return (
-    <>
-      <SearchHeader genreList={genreList} styleList={styleList} />
-      <SelectedFilter />
-      {resultsCount !== 0 ? (
-        <span className="text-sm text-black/50">共有{resultsCount}筆結果</span>
-      ) : null}
-      <ul className="flex flex-col gap-y-4">
-        {!result.success && <CustomError error={result.error} />}
-        {resultsCount === 0 ? (
-          <ErrorBlock error="沒有相關的搜尋結果，建議更換搜尋關鍵字" />
+    const searchResults = result.success ? result.data.results : [];
+
+    const genreList = getUniqueGenres(searchResults, "genre");
+    const styleList = getUniqueGenres(searchResults, "style");
+    //在這裡不使用early return是因為避免錯誤發生時除了錯誤沒有其他ui
+    return (
+      <>
+        <SearchHeader genreList={genreList} styleList={styleList} />
+        <SelectedFilter />
+        {resultsCount !== 0 ? (
+          <p className="mt-2 text-sm text-black/50">共有{resultsCount}筆結果</p>
         ) : null}
-        {searchResults.map((result) => (
-          <Card className="flex gap-x-4" key={result.id}>
-            <Image
-              className="h-48 w-48 rounded-lg object-cover"
-              width={192}
-              height={192}
-              src={result.cover_image}
-              alt="album cover"
+        <ul className="flex flex-col gap-y-4">
+          {!result.success && <CustomError error={result.error} />}
+          {resultsCount === 0 ? (
+            <ErrorBlock error="沒有相關的搜尋結果，建議更換搜尋關鍵字" />
+          ) : null}
+          {searchResults.map((result) => (
+            <SearchResult
+              key={result.id}
+              result={{ type: "release", data: result }}
             />
-            <div className="flex flex-col p-2">
-              <h2 className="text-2xl text-primary">
-                {splitArtistAndAlbumTitle(result.title).map(
-                  ([albumName, artist], i) => (
-                    <Fragment key={albumName + artist + i}>
-                      <span className="block">{albumName}</span>
-                      <span className="block text-sm text-black/50">
-                        {artist}
-                      </span>
-                    </Fragment>
-                  ),
-                )}
-              </h2>
-              <div>
-                <GenreList list={result.genre} listType="genre" />
-                <GenreList list={result.style} listType="style" />
-              </div>
-              <p className="mt-auto text-xl">{result.year}</p>
-            </div>
-          </Card>
-        ))}
-      </ul>
-      <PaginationControll
-        resultsCount={resultsCount}
-        page={Number(searchParams.page)}
-      />
-    </>
-  );
+          ))}
+        </ul>
+        <PaginationControll
+          resultsCount={resultsCount}
+          page={Number(searchParams.page)}
+        />
+      </>
+    );
+  }
+  if (searchParams.type === "artist") {
+    const result = await fetchDiscogsData<DiscogsArtistsApiResponse>(
+      query,
+      searchParams,
+      discogsArtistsSchema,
+    );
+
+    let resultsCount;
+    if (result.success) {
+      resultsCount = result.data.pagination.items;
+    }
+
+    const searchResults = result.success ? result.data.results : [];
+
+    //在這裡不使用early return是因為避免錯誤發生時除了錯誤沒有其他ui
+    return (
+      <>
+        <SearchHeader />
+        {resultsCount !== 0 ? (
+          <p className="mt-2 text-sm text-black/50">共有{resultsCount}筆結果</p>
+        ) : null}
+        <ul className="flex flex-col gap-y-4">
+          {!result.success && <CustomError error={result.error} />}
+          {resultsCount === 0 ? (
+            <ErrorBlock error="沒有相關的搜尋結果，建議更換搜尋關鍵字" />
+          ) : null}
+          {searchResults.map((result) => (
+            <SearchResult
+              key={result.id}
+              result={{ type: "artist", data: result }}
+            />
+          ))}
+        </ul>
+        <PaginationControll
+          resultsCount={resultsCount}
+          page={Number(searchParams.page)}
+        />
+      </>
+    );
+  }
 }

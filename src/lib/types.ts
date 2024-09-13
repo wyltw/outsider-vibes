@@ -30,11 +30,10 @@ export type DiscogsArtistsApiResponse = z.infer<typeof discogsArtistsSchema>;
 export type DiscogsReleasesResult = DiscogsReleasesApiResponse["results"][0];
 export type DiscogsArtistsResult = DiscogsArtistsApiResponse["results"][0];
 
-export type DiscogsApiResponse<T extends "release" | "artist"> =
-  T extends "release" ? DiscogsReleasesApiResponse : DiscogsArtistsApiResponse;
+export type DiscogsSearchType = "release" | "artist";
 
 export type DiscogsSearchParams = {
-  type: "release" | "artist";
+  type: DiscogsSearchType;
 } & Record<string, string>;
 
 export type fetchResult<T> =

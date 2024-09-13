@@ -10,7 +10,7 @@ import {
 import { headerRoutes } from "@/lib/constants";
 import { Menu } from "lucide-react";
 import RouteList from "./route-list";
-import SearchForm from "./search-form";
+import SearchForm from "./search-page/search-form";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
 import { useSheetToggleContext } from "@/lib/hooks";
