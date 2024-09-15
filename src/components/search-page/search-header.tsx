@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -9,10 +9,16 @@ import { searchTabs } from "@/lib/constants";
 
 import SortDropdown from "../sort-dropdown";
 import SearchFilter from "./search-filter";
+import { DiscogsArtistsResult, DiscogsReleasesResult } from "@/lib/types";
 
-type SearchHeaderProps = { genreList?: string[]; styleList?: string[] };
+type SearchHeaderProps = {
+  genreList?: string[];
+  styleList?: string[];
+  results?: DiscogsReleasesResult[] | DiscogsArtistsResult[];
+};
 
 export default function SearchHeader({
+  results,
   genreList = [],
   styleList = [],
 }: SearchHeaderProps) {

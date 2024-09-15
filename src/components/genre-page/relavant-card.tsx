@@ -17,7 +17,6 @@ export default function RelavantCard({ result }: RelavantCardProps) {
   const isRelease = result.type === "release";
   const isArtist = result.type === "artist";
   //判斷傳入的是哪一種discogs類型查詢
-  const CardData = isRelease;
   if (isRelease) {
     const release = result.data;
     return (

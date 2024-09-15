@@ -1,5 +1,5 @@
 import { SheetToggleContext } from "@/contexts/SheetToggleContextProvider";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useCallback, useContext } from "react";
 
 export function useSheetToggleContext() {

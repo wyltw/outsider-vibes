@@ -32,6 +32,7 @@ export default function PaginationControll({
       ? DISCOGS_PAGES_LIMIT
       : Math.ceil(resultsCount / DEFAULT_PERPAGE);
   const { getSwitchedPageParams, getPageParams } = useUpdatedSearchParams();
+  console.log(page);
   return (
     <Pagination className="mt-4">
       <PaginationContent>
@@ -50,7 +51,6 @@ export default function PaginationControll({
             </PaginationLink>
           </PaginationItem>
         )}
-
         {page - DEFAULT_PAGE > siblingCount && (
           <PaginationItem>
             <PaginationEllipsis />

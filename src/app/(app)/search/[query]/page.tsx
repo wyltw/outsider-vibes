@@ -1,4 +1,5 @@
 import SearchResults from "@/components/search-page/search-results";
+import SearchResultsWrapper from "@/components/search-page/search-results-wrapper";
 import { DiscogsSearchType } from "@/lib/types";
 import React from "react";
 
@@ -18,7 +19,7 @@ export default function SearchPage({ params, searchParams }: SearchPageProps) {
       <h1 className="mb-4 text-4xl font-medium text-primary">
         {decodeURIComponent(params.query)}
       </h1>
-      <SearchResults query={params.query} searchParams={searchParams} />
+      <SearchResultsWrapper query={params.query} searchParams={searchParams} />
     </section>
   );
 }
