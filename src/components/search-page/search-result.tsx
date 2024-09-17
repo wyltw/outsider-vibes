@@ -6,20 +6,32 @@ import React, { Fragment, ReactNode } from "react";
 import GenreList from "../genre-list";
 import { Card } from "../ui/card";
 import Image from "next/image";
-import { DiscogsArtistsResult, DiscogsReleasesResult } from "@/lib/types";
+import {
+  DiscogsArtistsResult,
+  DiscogsReleasesResult,
+  DiscogsSearchType,
+} from "@/lib/types";
 
-type SearchResultProps = {
+type SearchResultProps<T extends DiscogsSearchType> = {
   result:
-    | { type: "release"; data: DiscogsReleasesResult }
-    | { type: "artist"; data: DiscogsArtistsResult };
+    | {
+        type: T;
+        data: T extends "release" ? DiscogsReleasesResult : null;
+      }
+    | {
+        type: T;
+        data: T extends "artist" ? DiscogsArtistsResult : null;
+      };
 };
 
-export default function SearchResult({ result }: SearchResultProps) {
+export default function SearchResult<T extends DiscogsSearchType>({
+  result,
+}: SearchResultProps<T>) {
   const isRelease = result.type === "release";
   const isArtist = result.type === "artist";
 
-  if (isRelease) {
-    const release = result.data;
+  if (result.data && isRelease) {
+    const release = result.data as DiscogsReleasesResult;
     return (
       <>
         <CardContainer key={release.id}>
@@ -39,8 +51,8 @@ export default function SearchResult({ result }: SearchResultProps) {
       </>
     );
   }
-  if (isArtist) {
-    const artist = result.data;
+  if (result.data && isArtist) {
+    const artist = result.data as DiscogsArtistsResult;
     return (
       <>
         <CardContainer>
