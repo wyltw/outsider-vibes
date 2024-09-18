@@ -33,7 +33,11 @@ export default function ResultListContextProvider({
 
   const sortedResultList = () => {
     if (sortBy === "year") {
-      return;
+      return [...resultList].sort((a, b) => {
+        const yearA = "year" in a ? Number(a.year) : 0;
+        const yearB = "year" in b ? Number(b.year) : 0;
+        return yearA - yearB;
+      });
     } else if (sortBy === "title") {
       return [...resultList].sort((a, b) => {
         const titleA = a.title.toUpperCase();
