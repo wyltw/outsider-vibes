@@ -30,7 +30,6 @@ export default function SearchResults<T>({
   const searchParams = useSearchParams();
   const page = Number(searchParams.get("page"));
   const type = searchParams.get("type");
-  const [resultList, setResultList] = useState(searchResults);
 
   return (
     <>

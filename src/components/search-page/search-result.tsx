@@ -31,7 +31,7 @@ export default function SearchResult<T extends DiscogsSearchType>({
   const isArtist = result.type === "artist";
 
   if (result.data && isRelease) {
-    const release = result.data as DiscogsReleasesResult;
+    const release = result.data;
     return (
       <>
         <CardContainer key={release.id}>
@@ -44,15 +44,15 @@ export default function SearchResult<T extends DiscogsSearchType>({
           <CardContent
             title={release.title}
             type={result.type}
-            genre={release.genre}
-            style={release.style}
+            genre={"genre" in release ? release.genre : []}
+            style={"style" in release ? release.style : []}
           />
         </CardContainer>
       </>
     );
   }
   if (result.data && isArtist) {
-    const artist = result.data as DiscogsArtistsResult;
+    const artist = result.data;
     return (
       <>
         <CardContainer>
