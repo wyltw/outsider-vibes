@@ -30,6 +30,7 @@ export default function SearchResults<T>({
 }: SearchResultsProps<T>) {
   const { handleChangeList, sortedResultsList } = useResultsListContext();
   handleChangeList(searchResults);
+
   const searchParams = useSearchParams();
   const page = Number(searchParams.get("page"));
   const type = searchParams.get("type");

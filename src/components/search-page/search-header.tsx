@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -10,6 +10,7 @@ import { searchTabs } from "@/lib/constants";
 import SortDropdown from "../sort-dropdown";
 import SearchFilter from "./search-filter";
 import { DiscogsArtistsResult, DiscogsReleasesResult } from "@/lib/types";
+import { useResultsListContext } from "@/lib/hooks";
 
 type SearchHeaderProps = {
   genreList?: string[];
@@ -18,12 +19,17 @@ type SearchHeaderProps = {
 };
 
 export default function SearchHeader({
-  results,
   genreList = [],
   styleList = [],
 }: SearchHeaderProps) {
+  const { handleChangeSortBy, sortBy } = useResultsListContext();
   const searchParams = useSearchParams();
   const type = searchParams.get("type");
+  const handleClick = () => {
+    if (sortBy !== "default") {
+      handleChangeSortBy("default");
+    }
+  };
 
   return (
     <>
@@ -33,6 +39,7 @@ export default function SearchHeader({
             {searchTabs.map((tab) => (
               <div key={tab.name} className="relative">
                 <Button
+                  onClick={handleClick}
                   className="text-base"
                   variant={tab.variant}
                   size={"default"}

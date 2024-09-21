@@ -6,6 +6,7 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { useParams, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { useResultsListContext } from "@/lib/hooks";
 
 type SearchFormProps = {
   context: "header" | "home" | "sheet";
@@ -18,6 +19,7 @@ export default function SearchForm({
   context,
   onToggleSheet,
 }: SearchFormProps) {
+  const { handleChangeSortBy, sortBy } = useResultsListContext();
   const router = useRouter();
   const params: Params = useParams();
   const [searchText, setSearchText] = useState("");
@@ -34,6 +36,9 @@ export default function SearchForm({
     router.push(`/search/${searchText}?type=release&page=1`);
     if (onToggleSheet) {
       onToggleSheet(false);
+    }
+    if (sortBy !== "default") {
+      handleChangeSortBy("default");
     }
   };
   return (
