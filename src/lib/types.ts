@@ -30,7 +30,15 @@ export type DiscogsArtistsApiResponse = z.infer<typeof discogsArtistsSchema>;
 export type DiscogsReleasesResult = DiscogsReleasesApiResponse["results"][0];
 export type DiscogsArtistsResult = DiscogsArtistsApiResponse["results"][0];
 
+export type DiscogsResultsList = (
+  | DiscogsReleasesResult
+  | DiscogsArtistsResult
+)[];
+//temporary solution for sorting, might need to be strict in future.
+
 export type DiscogsSearchType = "release" | "artist";
+
+export type TSortType = "default" | "year" | "title";
 
 export type DiscogsSearchParams = {
   type: DiscogsSearchType;

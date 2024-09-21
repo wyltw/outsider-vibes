@@ -8,6 +8,7 @@ import SelectedFilter from "../selected-filter";
 import PaginationControll from "../pagination-controll";
 import SearchResult from "./search-result";
 import { useSearchParams } from "next/navigation";
+import { useResultsListContext } from "@/lib/hooks";
 
 type SearchResultsProps<T> = {
   searchResults: T extends "release"
@@ -27,6 +28,8 @@ export default function SearchResults<T>({
   genreList,
   styleList,
 }: SearchResultsProps<T>) {
+  const { handleChangeList, sortedResultsList } = useResultsListContext();
+  handleChangeList(searchResults);
   const searchParams = useSearchParams();
   const page = Number(searchParams.get("page"));
   const type = searchParams.get("type");
@@ -48,7 +51,7 @@ export default function SearchResults<T>({
         ) : null}
         {!type && <ErrorBlock error="缺少搜尋字串，請重新搜尋" />}
         {type === "release" &&
-          searchResults.map((result) => (
+          sortedResultsList.map((result) => (
             <SearchResult<"release">
               key={result.id}
               result={{
@@ -58,7 +61,7 @@ export default function SearchResults<T>({
             />
           ))}
         {type === "artist" &&
-          searchResults.map((result) => (
+          sortedResultsList.map((result) => (
             <SearchResult<"artist">
               key={result.id}
               result={{

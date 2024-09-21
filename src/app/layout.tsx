@@ -3,6 +3,7 @@ import { Toaster } from "react-hot-toast";
 import { DM_Sans, Noto_Sans_TC } from "next/font/google";
 import "./globals.css";
 import SheetToggleContextProvider from "@/contexts/SheetToggleContextProvider";
+import ResultsListContextProvider from "@/contexts/ResultsListContextProvider";
 
 const notoSansTC = Noto_Sans_TC({
   subsets: ["latin"],
@@ -30,7 +31,10 @@ export default function RootLayout({
       <body
         className={`${dmSans.className} ${notoSansTC.className} bg-[#FDFBFE]`}
       >
-        <SheetToggleContextProvider>{children}</SheetToggleContextProvider>
+        <SheetToggleContextProvider>
+          <ResultsListContextProvider>{children} </ResultsListContextProvider>
+        </SheetToggleContextProvider>
+
         <Toaster position="bottom-right" reverseOrder={false} />
       </body>
     </html>

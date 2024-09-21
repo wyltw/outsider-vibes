@@ -1,3 +1,4 @@
+import { ResultsListContext } from "@/contexts/ResultsListContextProvider";
 import { SheetToggleContext } from "@/contexts/SheetToggleContextProvider";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useContext } from "react";
@@ -6,6 +7,14 @@ export function useSheetToggleContext() {
   const context = useContext(SheetToggleContext);
   if (!context) {
     throw new Error("check if SheetToggleContextProvider is placing correctly");
+  }
+  return context;
+}
+
+export function useResultsListContext() {
+  const context = useContext(ResultsListContext);
+  if (!context) {
+    throw new Error("check if ResultsListContextProvider is placing correctly");
   }
   return context;
 }
@@ -22,7 +31,9 @@ export function useUpdatedSearchParams() {
       if (!valueArray[0].includes(value)) {
         const filteredValueArray = [...valueArray, value]
           .filter((elem) => elem)
+          //排除空字串
           .join(" ");
+        //以空格作為每個filter的間隔
         params.set(name, filteredValueArray);
       }
       params.set("page", "1");

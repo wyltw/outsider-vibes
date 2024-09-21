@@ -46,6 +46,7 @@ export default function SearchResult<T extends DiscogsSearchType>({
             type={result.type}
             genre={"genre" in release ? release.genre : []}
             style={"style" in release ? release.style : []}
+            year={"year" in release ? release.year : ""}
           />
         </CardContainer>
       </>

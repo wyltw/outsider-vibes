@@ -1,3 +1,5 @@
+"use client";
+
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -8,13 +10,21 @@ import {
 import { ArrowDownUp } from "lucide-react";
 import React from "react";
 import { Button } from "./ui/button";
+import { useResultsListContext } from "@/lib/hooks";
+import { TSortType } from "@/lib/types";
+import { cn } from "@/lib/utils";
+import { useSearchParams } from "next/navigation";
 
-const dropdownItemList = [
+type TDropdownItemList = { text: string; value: TSortType };
+const dropdownItemList: TDropdownItemList[] = [
+  { text: "按默認排序", value: "default" },
   { text: "按年份排序", value: "year" },
-  { text: "按字母排序", value: "alphabet" },
+  { text: "按字母排序", value: "title" },
 ];
 
 export default function SortDropdown() {
+  const { handleChangeSortBy, sortBy } = useResultsListContext();
+  const searchParams = useSearchParams();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -25,11 +35,27 @@ export default function SortDropdown() {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
         <DropdownMenuRadioGroup>
-          {dropdownItemList.map((item) => (
-            <DropdownMenuRadioItem key={item.text} value={item.value}>
-              {item.text}
-            </DropdownMenuRadioItem>
-          ))}
+          {dropdownItemList.map((item) => {
+            if (
+              searchParams.get("type") === "artist" &&
+              item.value === "year"
+            ) {
+              return null;
+            }
+            //排除搜尋類別為藝人時的年份篩選
+            return (
+              <DropdownMenuRadioItem
+                className={cn(sortBy === item.value && "bg-primary-50/30")}
+                onClick={() => {
+                  handleChangeSortBy(item.value);
+                }}
+                key={item.text}
+                value={sortBy}
+              >
+                {item.text}
+              </DropdownMenuRadioItem>
+            );
+          })}
         </DropdownMenuRadioGroup>
       </DropdownMenuContent>
     </DropdownMenu>
