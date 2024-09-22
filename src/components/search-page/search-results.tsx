@@ -42,7 +42,7 @@ export default function SearchResults<T>({
         styleList={styleList}
         results={searchResults}
       />
-      <SelectedFilter />
+      {type === "release" && <SelectedFilter />}
       {resultsCount !== 0 ? (
         <p className="mt-2 text-sm text-black/50">共有{resultsCount}筆結果</p>
       ) : null}
