@@ -1,10 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import {
-  DiscogsArtistsResult,
-  DiscogsReleasesResult,
-  DiscogsSearchType,
-} from "./types";
+import { DiscogsReleasesResult, DiscogsSearchType } from "./types";
 import { DEFAULT_PAGE } from "./constants";
 
 export function cn(...inputs: ClassValue[]) {
@@ -70,7 +66,7 @@ export const getPageArray = (
     return pageArray;
   } else if (currentPage === totalPage) {
     for (let i = totalPage; i >= currentPage - siblingCount * 2; i--) {
-      pageArray.push(i);
+      if (i > 0) pageArray.push(i);
     }
     return pageArray.reverse();
   }
@@ -80,6 +76,5 @@ export const getPageArray = (
     //考慮邊界情況，如出現0或者超過最大頁數
   }
   //一般頁碼渲染邏輯
-  console.log(pageArray);
   return pageArray;
 };
