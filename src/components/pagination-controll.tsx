@@ -17,6 +17,7 @@ import {
   DISCOGS_PAGES_LIMIT,
 } from "@/lib/constants";
 import { getPageArray } from "@/lib/utils";
+import { ChevronsLeft, ChevronsRight } from "lucide-react";
 type PaginationControllProps = {
   resultsCount: number | undefined;
   page: number;
@@ -26,7 +27,7 @@ export default function PaginationControll({
   page,
   resultsCount = 0,
 }: PaginationControllProps) {
-  const siblingCount = 3;
+  const siblingCount = 2;
   const totalPage =
     Math.ceil(resultsCount / DEFAULT_PERPAGE) > DISCOGS_PAGES_LIMIT
       ? DISCOGS_PAGES_LIMIT
@@ -35,26 +36,23 @@ export default function PaginationControll({
   return (
     <Pagination className="mt-4">
       <PaginationContent>
-        {page > DEFAULT_PAGE && (
-          <PaginationItem>
-            <PaginationPrevious href={getSwitchedPageParams("previous")} />
-          </PaginationItem>
-        )}
-        {page >= DEFAULT_PAGE && (
+        {page - DEFAULT_PAGE > siblingCount && (
           <PaginationItem>
             <PaginationLink
               isActive={page === DEFAULT_PAGE}
               href={getPageParams(DEFAULT_PAGE)}
             >
-              {DEFAULT_PAGE}
+              <ChevronsLeft />
             </PaginationLink>
           </PaginationItem>
         )}
-        {page - DEFAULT_PAGE > siblingCount && (
+        {/* 當前頁碼減去第一頁大於siblingCount的時候，代表頁碼陣列的渲染範圍已經不包括第一頁，如當前第四頁，陣列為[2, 3, 4, 5, 6]*/}
+        {page > DEFAULT_PAGE && (
           <PaginationItem>
-            <PaginationEllipsis />
+            <PaginationPrevious href={getSwitchedPageParams("previous")} />
           </PaginationItem>
         )}
+
         {getPageArray(page, siblingCount, totalPage).map((currentPage) => (
           <PaginationItem key={currentPage}>
             <PaginationLink
@@ -65,25 +63,20 @@ export default function PaginationControll({
             </PaginationLink>
           </PaginationItem>
         ))}
-        {totalPage - page > siblingCount && (
+
+        {page < totalPage && (
           <PaginationItem>
-            <PaginationEllipsis />
+            <PaginationNext href={getSwitchedPageParams("next")} />
           </PaginationItem>
         )}
-        {page <= totalPage && (
+        {totalPage - page > siblingCount && (
           <PaginationItem>
             <PaginationLink
               isActive={page === totalPage}
               href={getPageParams(totalPage)}
             >
-              {totalPage}
+              <ChevronsRight />
             </PaginationLink>
-          </PaginationItem>
-        )}
-
-        {page < totalPage && (
-          <PaginationItem>
-            <PaginationNext href={getSwitchedPageParams("next")} />
           </PaginationItem>
         )}
       </PaginationContent>

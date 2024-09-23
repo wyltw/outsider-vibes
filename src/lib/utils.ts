@@ -56,33 +56,30 @@ export const splitArtistAndAlbumTitle = (title: string) => {
 
 export const getPageArray = (
   currentPage: number,
-  count: number,
+  siblingCount: number,
   totalPage: number,
 ) => {
-  const previousPage = currentPage - 1;
-  const nextPage = currentPage + 1;
+  const previousPage = currentPage - siblingCount;
+  const nextPage = currentPage + siblingCount;
+  //使頁碼根據siblingCount決定渲染的頁碼數量
   let pageArray: number[] = [];
-  if (currentPage - count === DEFAULT_PAGE) {
-    for (let i = currentPage; i > DEFAULT_PAGE; i--) {
+  if (currentPage === DEFAULT_PAGE) {
+    for (let i = currentPage; i < currentPage + siblingCount * 2; i++) {
+      if (i <= totalPage) pageArray.push(i);
+    }
+    return pageArray;
+  } else if (currentPage === totalPage) {
+    for (let i = totalPage; i >= currentPage - siblingCount * 2; i--) {
       pageArray.push(i);
     }
     return pageArray.reverse();
   }
-  if (currentPage + count === totalPage) {
-    for (let i = currentPage; i < totalPage; i++) {
-      pageArray.push(i);
-    }
-    return pageArray;
+  //確保首頁和尾頁的頁碼渲染
+  for (let i = previousPage; i <= nextPage; i++) {
+    if (i !== 0 && i <= totalPage) pageArray.push(i);
+    //考慮邊界情況，如出現0或者超過最大頁數
   }
-  if (currentPage - 1 === DEFAULT_PAGE) {
-    return [currentPage, nextPage];
-  }
-  if (currentPage + 1 === totalPage) {
-    return [previousPage, currentPage];
-  }
-  if (currentPage === DEFAULT_PAGE || currentPage === totalPage) {
-    return pageArray;
-  }
-  pageArray = [previousPage, currentPage, nextPage];
+  //一般頁碼渲染邏輯
+  console.log(pageArray);
   return pageArray;
 };
