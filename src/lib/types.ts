@@ -70,3 +70,12 @@ export type ValidatedSearchParams = (searchParams: ReadonlyURLSearchParams) =>
       };
     }
   | { success: false; error: string };
+
+export type GoogleUserData = {
+  user: {
+    name: string;
+    email: string;
+    image: string;
+  };
+  expires: string;
+};

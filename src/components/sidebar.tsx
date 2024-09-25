@@ -1,23 +1,48 @@
 import React, { ReactNode } from "react";
-import { Button } from "./ui/button";
 import RouteList from "./route-list";
 import { featuredGenres } from "@/lib/constants";
 import Copyright from "./copyright";
 import SignIn from "./sign-in";
+import { auth } from "@/auth";
+import Image from "next/image";
 
-export default function Sidebar() {
+export default async function Sidebar() {
+  let userData;
+  const session = await auth();
+  if (session?.user) {
+    userData = session.user;
+  }
   return (
-    <aside className="fixed left-0 top-[80px] z-50 col-span-1 mt-[1px] hidden h-[calc(100vh_-_80px)] flex-col gap-y-4 overflow-y-auto bg-white px-4 py-8 shadow lg:flex">
+    <aside className="fixed left-0 top-[80px] z-50 col-span-1 mt-[1px] hidden h-[calc(100vh_-_80px)] w-72 flex-col gap-y-4 overflow-y-auto bg-white px-4 py-8 shadow lg:flex">
       <SidebarSection>
         <ThirdHeading>個人資料</ThirdHeading>
-        <div className="h-16 w-16 rounded-full bg-slate-200"></div>
+        {userData ? (
+          <Image
+            className="rounded-full"
+            alt="user avatar"
+            width={64}
+            height={64}
+            src={userData.image || ""}
+          />
+        ) : (
+          <div className="h-16 w-16 rounded-full bg-slate-200"></div>
+        )}
         <SignIn />
-        <p className="text-center text-sm text-black/50">登入以添加收藏</p>
+        {userData ? (
+          <p className="text-center text-sm text-black/50">
+            歡迎回來，{userData.name}
+          </p>
+        ) : (
+          <p className="text-center text-sm text-black/50">登入以添加收藏</p>
+        )}
       </SidebarSection>
-      <SidebarSection>
-        <ThirdHeading>精選風格</ThirdHeading>
-        <RouteList context="sidebar" routes={featuredGenres} />
-      </SidebarSection>
+      {userData ? null : (
+        <SidebarSection>
+          <ThirdHeading>精選風格</ThirdHeading>
+          <RouteList context="sidebar" routes={featuredGenres} />
+        </SidebarSection>
+      )}
+
       <SidebarSection>
         <ThirdHeading>藝人收藏</ThirdHeading>
         <ul>
