@@ -1,15 +1,15 @@
 "use client";
 
 import { DiscogsResultsList, TSortType } from "@/lib/types";
+import { useSearchParams } from "next/navigation";
 import React, { createContext, ReactNode, useMemo, useState } from "react";
 
 type ResultsListContextProviderProps = { children: ReactNode };
 
 type TResultsListContext = {
   sortedResultsList: DiscogsResultsList;
-  sortBy: TSortType;
+  sortBy: TSortType | string;
   handleChangeList: (resultList: DiscogsResultsList) => void;
-  handleChangeSortBy: (sortBy: TSortType) => void;
 };
 
 export const ResultsListContext = createContext<TResultsListContext | null>(
@@ -20,13 +20,10 @@ export default function ResultsListContextProvider({
   children,
 }: ResultsListContextProviderProps) {
   const [resultsList, setResultsList] = useState<DiscogsResultsList>([]);
-  const [sortBy, setSortBy] = useState<TSortType>("default");
-
+  const searchParams = useSearchParams();
+  const sortBy = searchParams.get("sortBy") || "default";
   const handleChangeList = (ResultsList: DiscogsResultsList) => {
     setResultsList(ResultsList);
-  };
-  const handleChangeSortBy = (sortBy: TSortType) => {
-    setSortBy(sortBy);
   };
 
   const sortedResultsList = useMemo(
@@ -40,22 +37,21 @@ export default function ResultsListContextProvider({
         } else if (sortBy === "title") {
           const titleA = a.title.toUpperCase();
           const titleB = b.title.toUpperCase();
-          return titleA.localeCompare(titleB);
+          return titleB.localeCompare(titleA);
         }
         return 0;
       }),
     [resultsList, sortBy],
   );
 
+  const context = {
+    handleChangeList,
+    sortedResultsList,
+    sortBy,
+  };
+
   return (
-    <ResultsListContext.Provider
-      value={{
-        handleChangeList,
-        handleChangeSortBy,
-        sortedResultsList,
-        sortBy,
-      }}
-    >
+    <ResultsListContext.Provider value={context}>
       {children}
     </ResultsListContext.Provider>
   );

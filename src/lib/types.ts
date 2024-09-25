@@ -4,6 +4,7 @@ import {
   discogsReleasesSchema,
   wikiArticleIntroSchema,
 } from "./validations";
+import { ReadonlyURLSearchParams } from "next/navigation";
 
 export type RouteItem = {
   name: string;
@@ -60,3 +61,12 @@ export type TfetchDiscogsData = <T>(
   searchParams: DiscogsSearchParams,
   schema: ZodSchema<any>,
 ) => Promise<fetchResult<T>>;
+
+export type ValidatedSearchParams = (searchParams: ReadonlyURLSearchParams) =>
+  | {
+      success: true;
+      searchParams: {
+        sortBy: "year" | "title" | "default";
+      };
+    }
+  | { success: false; error: string };

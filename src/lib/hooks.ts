@@ -2,6 +2,7 @@ import { ResultsListContext } from "@/contexts/ResultsListContextProvider";
 import { SheetToggleContext } from "@/contexts/SheetToggleContextProvider";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useContext } from "react";
+import { TSortType } from "./types";
 
 export function useSheetToggleContext() {
   const context = useContext(SheetToggleContext);
@@ -50,7 +51,7 @@ export function useUpdatedSearchParams() {
     return "?" + params.toString();
   };
 
-  const getSwitchedPageParams = (type: "previous" | "next") => {
+  const getSwitchedPageSearchParams = (type: "previous" | "next") => {
     const params = new URLSearchParams(searchParams.toString());
     let currentPage = Number(params.get("page"));
     if (type === "previous") {
@@ -62,17 +63,24 @@ export function useUpdatedSearchParams() {
     return "?" + params.toString();
   };
 
-  const getPageParams = (page: number) => {
+  const getPageSearchParams = (page: number) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set("page", String(page));
+    return "?" + params.toString();
+  };
+
+  const getSortBySearchParams = (sortBy: TSortType) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("sortBy", String(sortBy));
     return "?" + params.toString();
   };
 
   return {
     getFilterSearchParams,
     getResetSearchParams,
-    getSwitchedPageParams,
-    getPageParams,
+    getSwitchedPageSearchParams,
+    getPageSearchParams,
+    getSortBySearchParams,
   };
 }
 
@@ -81,6 +89,7 @@ export function useSelectedFilter() {
   const params = new URLSearchParams(searchParams.toString());
   params.delete("type");
   params.delete("page");
+  params.delete("sortBy");
   const selectedFilterArray: string[] = [];
   for (const value of params.values()) {
     selectedFilterArray.push(...value.split(" "));

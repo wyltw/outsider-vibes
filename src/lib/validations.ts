@@ -109,3 +109,7 @@ export const discogsArtistsSchema = z.object({
     }),
   ),
 });
+
+export const searchParamsSchema = z.object({
+  sortBy: z.enum(["default", "year", "title"]),
+});

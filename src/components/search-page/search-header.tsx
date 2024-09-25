@@ -10,7 +10,6 @@ import { searchTabs } from "@/lib/constants";
 import SortDropdown from "../sort-dropdown";
 import SearchFilter from "./search-filter";
 import { DiscogsArtistsResult, DiscogsReleasesResult } from "@/lib/types";
-import { useResultsListContext } from "@/lib/hooks";
 
 type SearchHeaderProps = {
   genreList?: string[];
@@ -22,14 +21,8 @@ export default function SearchHeader({
   genreList = [],
   styleList = [],
 }: SearchHeaderProps) {
-  const { handleChangeSortBy, sortBy } = useResultsListContext();
   const searchParams = useSearchParams();
   const type = searchParams.get("type");
-  const handleClick = () => {
-    if (sortBy !== "default") {
-      handleChangeSortBy("default");
-    }
-  };
 
   return (
     <>
@@ -39,7 +32,6 @@ export default function SearchHeader({
             {searchTabs.map((tab) => (
               <div key={tab.name} className="relative">
                 <Button
-                  onClick={handleClick}
                   className="text-base"
                   variant={tab.variant}
                   size={"default"}

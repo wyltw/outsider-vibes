@@ -31,7 +31,8 @@ export default function PaginationControll({
     Math.ceil(resultsCount / DEFAULT_PERPAGE) > DISCOGS_PAGES_LIMIT
       ? DISCOGS_PAGES_LIMIT
       : Math.ceil(resultsCount / DEFAULT_PERPAGE);
-  const { getSwitchedPageParams, getPageParams } = useUpdatedSearchParams();
+  const { getSwitchedPageSearchParams, getPageSearchParams } =
+    useUpdatedSearchParams();
   return (
     <Pagination className="mt-4">
       <PaginationContent>
@@ -39,7 +40,7 @@ export default function PaginationControll({
           <PaginationItem>
             <PaginationLink
               isActive={page === DEFAULT_PAGE}
-              href={getPageParams(DEFAULT_PAGE)}
+              href={getPageSearchParams(DEFAULT_PAGE)}
             >
               <ChevronsLeft />
             </PaginationLink>
@@ -48,7 +49,9 @@ export default function PaginationControll({
         {/* 當前頁碼減去第一頁大於siblingCount的時候，代表頁碼陣列的渲染範圍已經不包括第一頁，如當前第四頁，陣列為[2, 3, 4, 5, 6]*/}
         {page > DEFAULT_PAGE && (
           <PaginationItem>
-            <PaginationPrevious href={getSwitchedPageParams("previous")} />
+            <PaginationPrevious
+              href={getSwitchedPageSearchParams("previous")}
+            />
           </PaginationItem>
         )}
 
@@ -56,7 +59,7 @@ export default function PaginationControll({
           <PaginationItem key={currentPage}>
             <PaginationLink
               isActive={currentPage === page}
-              href={getPageParams(currentPage)}
+              href={getPageSearchParams(currentPage)}
             >
               {currentPage}
             </PaginationLink>
@@ -65,14 +68,14 @@ export default function PaginationControll({
 
         {page < totalPage && (
           <PaginationItem>
-            <PaginationNext href={getSwitchedPageParams("next")} />
+            <PaginationNext href={getSwitchedPageSearchParams("next")} />
           </PaginationItem>
         )}
         {totalPage - page > siblingCount && (
           <PaginationItem>
             <PaginationLink
               isActive={page === totalPage}
-              href={getPageParams(totalPage)}
+              href={getPageSearchParams(totalPage)}
             >
               <ChevronsRight />
             </PaginationLink>

@@ -51,6 +51,7 @@ export const splitArtistAndAlbumTitle = (title: string) => {
 };
 
 export const getPageArray = (
+  // still can be refactored
   currentPage: number,
   siblingCount: number,
   totalPage: number,
@@ -78,3 +79,20 @@ export const getPageArray = (
   //一般頁碼渲染邏輯
   return pageArray;
 };
+
+// export const getValidatedSearchParams = (
+//   searchParams: ReadonlyURLSearchParams,
+// ) => {
+//   const searchParamsObject = Object.fromEntries(searchParams);
+//   const validatedSearchParams =
+//     searchParamsSchema.safeParse(searchParamsObject);
+//   try {
+//     if (!validatedSearchParams.success) {
+//       // 驗證成功
+//       throw new Error("sort type is not available");
+//     }
+//     return { success: true, searchParams: validatedSearchParams.data };
+//   } catch (error) {
+//     return { success: false, error: handleError(error) };
+//   }
+// };

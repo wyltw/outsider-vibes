@@ -1,5 +1,4 @@
 "use client";
-import React, { useState } from "react";
 import {
   Sheet,
   SheetContent,
@@ -14,6 +13,7 @@ import SearchForm from "./search-page/search-form";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
 import { useSheetToggleContext } from "@/lib/hooks";
+import ClientSignIn from "./client-signin";
 
 type SheetContainerProps = { page: "home" | "landing" };
 
@@ -46,6 +46,7 @@ export default function SheetContainer({ page }: SheetContainerProps) {
             <div className="space-y-4">
               <SearchForm context="sheet" onToggleSheet={handleSheetToggle} />
               <RouteList page="home" context="sheet" routes={headerRoutes} />
+              <ClientSignIn />
             </div>
           )}
         </SheetContent>

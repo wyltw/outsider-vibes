@@ -3,6 +3,7 @@ import { Button } from "./ui/button";
 import RouteList from "./route-list";
 import { featuredGenres } from "@/lib/constants";
 import Copyright from "./copyright";
+import SignIn from "./sign-in";
 
 export default function Sidebar() {
   return (
@@ -10,7 +11,7 @@ export default function Sidebar() {
       <SidebarSection>
         <ThirdHeading>個人資料</ThirdHeading>
         <div className="h-16 w-16 rounded-full bg-slate-200"></div>
-        <Button size="sm">登入</Button>
+        <SignIn />
         <p className="text-center text-sm text-black/50">登入以添加收藏</p>
       </SidebarSection>
       <SidebarSection>

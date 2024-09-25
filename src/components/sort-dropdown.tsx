@@ -10,10 +10,11 @@ import {
 import { ArrowDownUp } from "lucide-react";
 import React from "react";
 import { Button } from "./ui/button";
-import { useResultsListContext } from "@/lib/hooks";
+import { useResultsListContext, useUpdatedSearchParams } from "@/lib/hooks";
 import { TSortType } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 
 type TDropdownItemList = { text: string; value: TSortType };
 const dropdownItemList: TDropdownItemList[] = [
@@ -23,8 +24,9 @@ const dropdownItemList: TDropdownItemList[] = [
 ];
 
 export default function SortDropdown() {
-  const { handleChangeSortBy, sortBy } = useResultsListContext();
+  const { sortBy } = useResultsListContext();
   const searchParams = useSearchParams();
+  const { getSortBySearchParams } = useUpdatedSearchParams();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -46,13 +48,15 @@ export default function SortDropdown() {
             return (
               <DropdownMenuRadioItem
                 className={cn(sortBy === item.value && "bg-primary-50/30")}
-                onClick={() => {
-                  handleChangeSortBy(item.value);
-                }}
+                // onClick={() => {
+                //   handleChangeSortBy(item.value);
+                // }}
                 key={item.text}
                 value={sortBy}
               >
-                {item.text}
+                <Link href={getSortBySearchParams(item.value)}>
+                  {item.text}
+                </Link>
               </DropdownMenuRadioItem>
             );
           })}

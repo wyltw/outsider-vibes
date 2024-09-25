@@ -11,15 +11,6 @@ export const headerRoutes: RouteItem[] = [
     path: "/home",
     variant: "ghost",
   },
-  {
-    name: "Log in",
-    path: "/log-in",
-    variant: "ghost",
-  },
-  {
-    name: "Sign up",
-    path: "/sign-up",
-  },
 ];
 
 export const footerRoutes: RouteItem[] = [

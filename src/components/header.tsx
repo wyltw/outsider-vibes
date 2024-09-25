@@ -5,6 +5,7 @@ import SearchForm from "./search-page/search-form";
 import RouteList from "./route-list";
 import { headerRoutes } from "@/lib/constants";
 import SheetContainer from "./sheet-container";
+import SignIn from "./sign-in";
 
 type HeaderProps = {
   page: "landing" | "home";
@@ -29,6 +30,7 @@ export default function Header({ page }: HeaderProps) {
           {page === "home" && <SearchForm context="header" />}
           <nav className="flex gap-x-4">
             <RouteList page={page} routes={headerRoutes} context="header" />
+            <SignIn />
             <SheetContainer page={page} />
           </nav>
         </div>
