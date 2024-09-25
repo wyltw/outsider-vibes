@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { ReactNode } from "react";
 import { Button } from "./ui/button";
 import { signOut, useSession, signIn } from "next-auth/react";
 
@@ -8,7 +8,21 @@ export default function ClientSignIn() {
   const { data: session } = useSession();
   console.dir("hello");
   if (session?.user) {
-    return <Button onClick={() => signOut()}>登出</Button>;
+    return <ClientAuthButton onClick={() => signOut()}>登出</ClientAuthButton>;
   }
-  return <Button onClick={() => signIn("google")}> Signin with Google</Button>;
+  return (
+    <ClientAuthButton onClick={() => signIn("google")}>
+      Signin with Google
+    </ClientAuthButton>
+  );
+}
+
+type AuthButtonProps = { children: ReactNode; onClick: () => void };
+
+function ClientAuthButton({ onClick, children }: AuthButtonProps) {
+  return (
+    <Button className="w-full" onClick={onClick}>
+      {children}
+    </Button>
+  );
 }

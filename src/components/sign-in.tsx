@@ -1,31 +1,40 @@
 import { signIn, signOut, auth } from "@/auth";
 import { Button } from "./ui/button";
+import { ReactNode } from "react";
 
 export default async function SignIn() {
   const session = await auth();
   if (session?.user) {
     return (
-      <form
+      <ServerAuthButton
         action={async () => {
           "use server";
           await signOut();
         }}
       >
-        <Button type="submit" className="hidden md:block">
-          登出
-        </Button>
-      </form>
+        登出
+      </ServerAuthButton>
     );
   }
   return (
-    <form
+    <ServerAuthButton
       action={async () => {
         "use server";
         await signIn("google");
       }}
     >
+      Signin with Google
+    </ServerAuthButton>
+  );
+}
+
+type ServerAuthButtonProps = { children: ReactNode; action: () => void };
+
+function ServerAuthButton({ children, action }: ServerAuthButtonProps) {
+  return (
+    <form action={action}>
       <Button type="submit" className="hidden md:block">
-        Signin with Google
+        {children}
       </Button>
     </form>
   );
