@@ -48,9 +48,6 @@ export default function SortDropdown() {
             return (
               <DropdownMenuRadioItem
                 className={cn(sortBy === item.value && "bg-primary-50/30")}
-                // onClick={() => {
-                //   handleChangeSortBy(item.value);
-                // }}
                 key={item.text}
                 value={sortBy}
               >
