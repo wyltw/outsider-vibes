@@ -15,13 +15,14 @@ import { discogsArtistsSchema, discogsReleasesSchema } from "@/lib/validations";
 import {
   DiscogsArtistsApiResponse,
   DiscogsReleasesApiResponse,
+  DiscogsSearchType,
 } from "@/lib/types";
 import { DEFAULT_PAGE, DEFAULT_PERPAGE } from "@/lib/constants";
 
-type RelavantSectionProps = { genre: string; type: "release" | "artist" };
+type RelavantSectionProps = { query: string; type: DiscogsSearchType };
 
 export default async function RelavantSection({
-  genre,
+  query,
   type,
 }: RelavantSectionProps) {
   await sleep(5000).then((data) => {
@@ -31,7 +32,7 @@ export default async function RelavantSection({
   let results;
   if (type === "release") {
     const result = await fetchDiscogsData<DiscogsReleasesApiResponse>(
-      genre,
+      query,
       {
         type,
       },
@@ -66,7 +67,7 @@ export default async function RelavantSection({
   }
   if (type === "artist") {
     const result = await fetchDiscogsData<DiscogsArtistsApiResponse>(
-      genre,
+      query,
       {
         type,
       },

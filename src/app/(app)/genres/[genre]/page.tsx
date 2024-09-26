@@ -20,13 +20,13 @@ export default async function GenrePage({ params }: GenrePageProps) {
       <Section>
         <SecondHeading> 帶有此風格的專輯：</SecondHeading>
         <Suspense fallback={<CardLoading />}>
-          <RelavantSection genre={params.genre} type="release" />
+          <RelavantSection query={params.genre} type="release" />
         </Suspense>
       </Section>
       <Section>
         <SecondHeading> 帶有此風格的藝人：</SecondHeading>
         <Suspense fallback={<CardLoading />}>
-          <RelavantSection genre={params.genre} type="artist" />
+          <RelavantSection query={params.genre} type="artist" />
         </Suspense>
       </Section>
     </>
