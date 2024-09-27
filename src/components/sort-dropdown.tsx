@@ -13,8 +13,9 @@ import { Button } from "./ui/button";
 import { useResultsListContext, useUpdatedSearchParams } from "@/lib/hooks";
 import { TSortType } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 type TDropdownItemList = { text: string; value: TSortType };
 const dropdownItemList: TDropdownItemList[] = [
@@ -23,7 +24,12 @@ const dropdownItemList: TDropdownItemList[] = [
   { text: "按字母排序", value: "title" },
 ];
 
+const handleClick = (router: AppRouterInstance, sortBy: string) => {
+  router.push(sortBy);
+};
+
 export default function SortDropdown() {
+  const router = useRouter();
   const { sortBy } = useResultsListContext();
   const searchParams = useSearchParams();
   const { getSortBySearchParams } = useUpdatedSearchParams();
@@ -50,10 +56,11 @@ export default function SortDropdown() {
                 className={cn(sortBy === item.value && "bg-primary-50/30")}
                 key={item.text}
                 value={sortBy}
+                onClick={() => {
+                  handleClick(router, getSortBySearchParams(item.value));
+                }}
               >
-                <Link href={getSortBySearchParams(item.value)}>
-                  {item.text}
-                </Link>
+                {item.text}
               </DropdownMenuRadioItem>
             );
           })}

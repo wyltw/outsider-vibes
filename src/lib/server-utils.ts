@@ -71,7 +71,6 @@ export const getDiscogsAPI = (
       process.env.NEXT_PUBLIC_DISCOGS_API_CONSUMER_SECRET,
     );
   }
-  console.log(baseURL);
   return baseURL;
 };
 
