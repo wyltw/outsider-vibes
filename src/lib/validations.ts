@@ -110,6 +110,26 @@ export const discogsArtistsSchema = z.object({
   ),
 });
 
-export const searchParamsSchema = z.object({
-  sortBy: z.enum(["default", "year", "title"]),
+export const userReleaseSchema = z.object({
+  id: z.string(),
+  releaseId: z.string(),
+  userId: z.string(),
+  addedAt: z.object({
+    seconds: z.number(),
+    nanoseconds: z.number(),
+  }),
 });
+
+export const userReleaseArraySchema = z.array(userReleaseSchema);
+
+export const userArtistSchema = z.object({
+  id: z.string(),
+  artistId: z.string(),
+  userId: z.string(),
+  addedAt: z.object({
+    seconds: z.number(),
+    nanoseconds: z.number(),
+  }),
+});
+
+export const userArtistArraySchema = z.array(userArtistSchema);

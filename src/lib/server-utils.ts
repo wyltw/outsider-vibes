@@ -2,16 +2,24 @@ import "server-only";
 import { wikiArticleIntroSchema } from "./validations";
 import { handleError } from "./utils";
 import {
+  CollectionDocKey,
+  CollectionId,
   DiscogsArtistsApiResponse,
   DiscogsReleasesApiResponse,
   DiscogsSearchParams,
-  TfetchData,
+  TFetchData,
+  TFetchDiscogsData,
+  UserArtist,
+  UserRelease,
   WikiArticleIntroApiResponse,
 } from "./types";
 import { ZodSchema } from "zod";
 import { DEFAULT_PAGE, DEFAULT_PERPAGE, DISCOGS_API } from "./constants";
 
-export const fetchData: TfetchData = async (
+import { collection, getDocs, QuerySnapshot } from "firebase/firestore";
+import { db } from "@/firebase";
+
+export const fetchData: TFetchData = async (
   url: string,
   schema: ZodSchema<any>,
 ) => {
@@ -40,12 +48,11 @@ export const fetchWikiArticleIntroduction = async (query: string) => {
   return result;
 };
 
-export const getDiscogsAPI = (
-  resourceType: "search" | "artist",
+export const getDiscogsSearchAPI = (
   searchParams: Record<string, string>,
   ...baseSearchParams: Record<string, string>[]
 ) => {
-  const baseURL = new URL(resourceType, DISCOGS_API);
+  const baseURL = new URL("search", DISCOGS_API);
   const setSearchParams = (searchParam: Record<string, string>) => {
     Object.entries(searchParam).forEach(([name, value]) => {
       baseURL.searchParams.set(name, value);
@@ -84,8 +91,7 @@ export const fetchDiscogsData = async <
   perPage: number = DEFAULT_PERPAGE,
 ) => {
   const queryString = decodeURIComponent(q);
-  const baseURL = getDiscogsAPI(
-    "search",
+  const baseURL = getDiscogsSearchAPI(
     { page: String(page) },
     { per_page: String(perPage) },
     searchParams,
@@ -93,4 +99,41 @@ export const fetchDiscogsData = async <
   );
   const result = await fetchData<T>(baseURL.toString(), schema);
   return result;
+};
+
+export const simplifyQuerySnapshot = <T extends UserRelease | UserArtist>(
+  querySnapshot: QuerySnapshot<any>,
+  schema: ZodSchema<any>,
+): T[] | [] => {
+  const simplifiedData = querySnapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
+  const validatedData = schema.safeParse(simplifiedData);
+  console.log("validatedData", validatedData.data);
+  try {
+    if (!validatedData.success) {
+      throw new Error(validatedData.error.message);
+    }
+  } catch (error) {
+    console.error(handleError(error));
+    return [];
+  }
+  return validatedData.data;
+};
+
+export const getUserCollectionList = async <T extends UserRelease | UserArtist>(
+  collectionId: CollectionId,
+  schema: ZodSchema<any>,
+  key: keyof T,
+) => {
+  const userCollectionRef = collection(db, collectionId);
+  try {
+    const data = await getDocs(userCollectionRef);
+    const simplifiedData = simplifyQuerySnapshot<T>(data, schema);
+    const collectionList = simplifiedData.map((doc) => doc[key]);
+    return collectionList;
+  } catch (error) {
+    console.error(handleError(error));
+  }
 };

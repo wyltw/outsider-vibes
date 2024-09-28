@@ -14,7 +14,6 @@ import { useResultsListContext, useUpdatedSearchParams } from "@/lib/hooks";
 import { TSortType } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { useRouter, useSearchParams } from "next/navigation";
-import Link from "next/link";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 type TDropdownItemList = { text: string; value: TSortType };
@@ -55,7 +54,7 @@ export default function SortDropdown() {
               <DropdownMenuRadioItem
                 className={cn(sortBy === item.value && "bg-primary-50/30")}
                 key={item.text}
-                value={sortBy}
+                value={item.value}
                 onClick={() => {
                   handleClick(router, getSortBySearchParams(item.value));
                 }}

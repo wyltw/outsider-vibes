@@ -2,9 +2,11 @@ import { z, ZodSchema } from "zod";
 import {
   discogsArtistsSchema,
   discogsReleasesSchema,
+  userArtistSchema,
+  userReleaseSchema,
   wikiArticleIntroSchema,
 } from "./validations";
-import { ReadonlyURLSearchParams } from "next/navigation";
+import { QuerySnapshot } from "firebase/firestore";
 
 export type RouteItem = {
   name: string;
@@ -49,33 +51,46 @@ export type fetchResult<T> =
   | { success: true; data: T }
   | { success: false; error: string };
 
-export type TfetchData = <T>(
+export type TFetchData = <T>(
   url: string,
   schema: ZodSchema<any>,
 ) => Promise<fetchResult<T>>;
 
-export type TfetchDiscogsData = <T>(
+export type TFetchDiscogsData = <
+  T extends DiscogsReleasesApiResponse | DiscogsArtistsApiResponse,
+>(
   q: string,
-  page: number,
-  perPage: number,
   searchParams: DiscogsSearchParams,
   schema: ZodSchema<any>,
+  page: number,
+  perPage: number,
 ) => Promise<fetchResult<T>>;
 
-export type ValidatedSearchParams = (searchParams: ReadonlyURLSearchParams) =>
-  | {
-      success: true;
-      searchParams: {
-        sortBy: "year" | "title" | "default";
-      };
-    }
-  | { success: false; error: string };
+// export type ValidatedSearchParams = (searchParams: ReadonlyURLSearchParams) =>
+//   | {
+//       success: true;
+//       searchParams: {
+//         sortBy: "year" | "title" | "default";
+//       };
+//     }
+//   | { success: false; error: string };
 
-export type GoogleUserData = {
-  user: {
-    name: string;
-    email: string;
-    image: string;
-  };
-  expires: string;
-};
+//type for firebase
+
+export type UserRelease = z.infer<typeof userReleaseSchema>;
+
+export type UserArtist = z.infer<typeof userArtistSchema>;
+
+export type TSimplifyQuerySnapshot<T extends UserRelease | UserArtist> = (
+  querySnapshot: QuerySnapshot<T>,
+  schema: ZodSchema<any>,
+) => T[];
+
+export type CollectionId = "userReleases" | "UserArtist";
+
+export type CollectionDocKey<T> = "releaseId" | "artistId";
+
+export type TGetUserCollectionList<T extends UserRelease | UserArtist> = (
+  collectionName: string,
+  schema: ZodSchema<any>,
+) => T[];

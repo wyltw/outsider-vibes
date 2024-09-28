@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ErrorBlock from "../error-block";
 import SearchHeader from "./search-header";
 import { DiscogsArtistsResult, DiscogsReleasesResult } from "@/lib/types";
@@ -29,7 +29,9 @@ export default function SearchResults<T>({
   styleList,
 }: SearchResultsProps<T>) {
   const { handleChangeList, sortedResultsList } = useResultsListContext();
-  handleChangeList(searchResults);
+  useEffect(() => {
+    handleChangeList(searchResults);
+  }, [searchResults, handleChangeList]);
 
   const searchParams = useSearchParams();
   const page = Number(searchParams.get("page"));

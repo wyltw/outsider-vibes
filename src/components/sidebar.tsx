@@ -5,6 +5,7 @@ import Copyright from "./copyright";
 import SignIn from "./sign-in";
 import { auth } from "@/auth";
 import Image from "next/image";
+import UserCollection from "./user-collection";
 
 export default async function Sidebar() {
   let userData;
@@ -45,15 +46,11 @@ export default async function Sidebar() {
 
       <SidebarSection>
         <ThirdHeading>藝人收藏</ThirdHeading>
-        <ul>
-          <li>目前沒有任何收藏</li>
-        </ul>
+        <UserCollection />
       </SidebarSection>
       <SidebarSection>
         <ThirdHeading>專輯收藏</ThirdHeading>
-        <ul>
-          <li>目前沒有任何收藏</li>
-        </ul>
+        <UserCollection />
       </SidebarSection>
       <Copyright className="mt-auto" />
     </aside>
