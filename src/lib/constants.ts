@@ -1,6 +1,6 @@
 import { RouteItem } from "./types";
 
-export const DISCOGS_API = "https://api.discogs.com/database/";
+export const DISCOGS_API = "https://api.discogs.com";
 export const DEFAULT_PAGE = 1;
 export const DEFAULT_PERPAGE = 10;
 export const DISCOGS_PAGES_LIMIT = 1000;

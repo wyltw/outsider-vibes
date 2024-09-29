@@ -1,23 +1,29 @@
 import "server-only";
-import { wikiArticleIntroSchema } from "./validations";
+import { discogsReleaseSchema, wikiArticleIntroSchema } from "./validations";
 import { handleError } from "./utils";
 import {
-  CollectionDocKey,
   CollectionId,
-  DiscogsArtistsApiResponse,
-  DiscogsReleasesApiResponse,
+  DiscogsSearchArtistsApiResponse,
+  DiscogsSearchReleasesApiResponse,
   DiscogsSearchParams,
   TFetchData,
-  TFetchDiscogsData,
   UserArtist,
   UserRelease,
   WikiArticleIntroApiResponse,
+  DiscogsReleasesApiResponse,
 } from "./types";
 import { ZodSchema } from "zod";
 import { DEFAULT_PAGE, DEFAULT_PERPAGE, DISCOGS_API } from "./constants";
 
-import { collection, getDocs, QuerySnapshot } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  query,
+  QuerySnapshot,
+  where,
+} from "firebase/firestore";
 import { db } from "@/firebase";
+import { DocumentData } from "firebase-admin/firestore";
 
 export const fetchData: TFetchData = async (
   url: string,
@@ -31,6 +37,7 @@ export const fetchData: TFetchData = async (
     const data = await response.json();
     const validatedData = schema.safeParse(data);
     if (!validatedData.success) {
+      console.log(validatedData.error.message);
       throw new Error("Unexpected data from third party...");
     }
     return { success: true, data: validatedData.data };
@@ -48,24 +55,7 @@ export const fetchWikiArticleIntroduction = async (query: string) => {
   return result;
 };
 
-export const getDiscogsSearchAPI = (
-  searchParams: Record<string, string>,
-  ...baseSearchParams: Record<string, string>[]
-) => {
-  const baseURL = new URL("search", DISCOGS_API);
-  const setSearchParams = (searchParam: Record<string, string>) => {
-    Object.entries(searchParam).forEach(([name, value]) => {
-      baseURL.searchParams.set(name, value);
-    });
-  };
-  if (searchParams) {
-    //當url改變從useSearchParams自動獲取的如filter等searchParams
-    setSearchParams(searchParams);
-  }
-  if (baseSearchParams.length) {
-    //在呼叫fetch函式時手動傳入的searchParams如關鍵字，頁碼等
-    baseSearchParams.forEach(setSearchParams);
-  }
+const addDiscogsAuthParams = (baseURL: URL) => {
   if (process.env.NEXT_PUBLIC_DISCOGS_API_CONSUMER_KEY) {
     baseURL.searchParams.set(
       "key",
@@ -81,8 +71,30 @@ export const getDiscogsSearchAPI = (
   return baseURL;
 };
 
+const getDiscogsSearchAPI = (
+  searchParams: Record<string, string>,
+  ...baseSearchParams: Record<string, string>[]
+) => {
+  const baseURL = new URL("database/search", DISCOGS_API);
+  const setSearchParams = (searchParam: Record<string, string>) => {
+    Object.entries(searchParam).forEach(([name, value]) => {
+      baseURL.searchParams.set(name, value);
+    });
+  };
+  if (searchParams) {
+    //當url改變從useSearchParams自動獲取的如filter等searchParams
+    setSearchParams(searchParams);
+  }
+  if (baseSearchParams.length) {
+    //在呼叫fetch函式時手動傳入的searchParams如關鍵字，頁碼等
+    baseSearchParams.forEach(setSearchParams);
+  }
+
+  return addDiscogsAuthParams(baseURL);
+};
+
 export const fetchDiscogsData = async <
-  T extends DiscogsReleasesApiResponse | DiscogsArtistsApiResponse,
+  T extends DiscogsSearchReleasesApiResponse | DiscogsSearchArtistsApiResponse,
 >(
   q: string,
   searchParams: DiscogsSearchParams,
@@ -101,16 +113,43 @@ export const fetchDiscogsData = async <
   return result;
 };
 
-export const simplifyQuerySnapshot = <T extends UserRelease | UserArtist>(
+const getDiscogsReleasesAPI = (releaseId: string) => {
+  const baseURL = new URL(`releases/${releaseId}`, DISCOGS_API);
+  return addDiscogsAuthParams(baseURL);
+};
+
+export const fetchDiscogsDataByIds = async <
+  T extends DiscogsReleasesApiResponse,
+>(
+  releaseIds: string[],
+  schema: ZodSchema<any>,
+) => {
+  const promiseList = releaseIds.map((releaseId) => {
+    const baseURL = getDiscogsReleasesAPI(releaseId);
+    return fetchData<T>(baseURL.toString(), schema);
+    //這裡回傳的只是充滿pending狀態的Promise物件陣列，在下方的Promise.all完成
+  });
+  try {
+    const resultsList = await Promise.all(promiseList);
+    return { success: true, data: resultsList };
+  } catch (error) {
+    return { success: false, data: handleError(error) };
+  }
+};
+
+// for firebase
+
+const simplifyQuerySnapshot = <T extends UserRelease | UserArtist>(
   querySnapshot: QuerySnapshot<any>,
   schema: ZodSchema<any>,
 ): T[] | [] => {
+  //除了取得簡化的firebase資料，同時也透過zod驗證資料的型別
   const simplifiedData = querySnapshot.docs.map((doc) => ({
     id: doc.id,
     ...doc.data(),
   }));
   const validatedData = schema.safeParse(simplifiedData);
-  console.log("validatedData", validatedData.data);
+  //注意這裡直接驗證的是符合userReleaseSchema的陣列，因此使用時傳入的schema應該是userReleaseArraySchema
   try {
     if (!validatedData.success) {
       throw new Error(validatedData.error.message);
@@ -122,18 +161,22 @@ export const simplifyQuerySnapshot = <T extends UserRelease | UserArtist>(
   return validatedData.data;
 };
 
-export const getUserCollectionList = async <T extends UserRelease | UserArtist>(
+export const getUserSavedItemsList = async <T extends UserRelease | UserArtist>(
   collectionId: CollectionId,
   schema: ZodSchema<any>,
   key: keyof T,
+  userId: string = "",
 ) => {
   const userCollectionRef = collection(db, collectionId);
   try {
-    const data = await getDocs(userCollectionRef);
+    const userQuery = query(userCollectionRef, where("userId", "==", userId));
+    const data = await getDocs(userQuery);
     const simplifiedData = simplifyQuerySnapshot<T>(data, schema);
-    const collectionList = simplifiedData.map((doc) => doc[key]);
-    return collectionList;
+    const savedItemsList = simplifiedData.map((doc) => doc[key] as string);
+    //只取id
+    return savedItemsList;
   } catch (error) {
     console.error(handleError(error));
+    return [];
   }
 };

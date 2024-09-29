@@ -1,15 +1,15 @@
 "use client";
 
-import { DiscogsResultsList, TSortType } from "@/lib/types";
+import { DiscogsSearchResultsList, TSortType } from "@/lib/types";
 import { useSearchParams } from "next/navigation";
 import React, { createContext, ReactNode, useMemo, useState } from "react";
 
 type ResultsListContextProviderProps = { children: ReactNode };
 
 type TResultsListContext = {
-  sortedResultsList: DiscogsResultsList;
+  sortedResultsList: DiscogsSearchResultsList;
   sortBy: TSortType | string;
-  handleChangeList: (resultList: DiscogsResultsList) => void;
+  handleChangeList: (resultList: DiscogsSearchResultsList) => void;
 };
 
 export const ResultsListContext = createContext<TResultsListContext | null>(
@@ -19,10 +19,10 @@ export const ResultsListContext = createContext<TResultsListContext | null>(
 export default function ResultsListContextProvider({
   children,
 }: ResultsListContextProviderProps) {
-  const [resultsList, setResultsList] = useState<DiscogsResultsList>([]);
+  const [resultsList, setResultsList] = useState<DiscogsSearchResultsList>([]);
   const searchParams = useSearchParams();
   const sortBy = searchParams.get("sortBy") || "default";
-  const handleChangeList = (ResultsList: DiscogsResultsList) => {
+  const handleChangeList = (ResultsList: DiscogsSearchResultsList) => {
     setResultsList(ResultsList);
   };
 

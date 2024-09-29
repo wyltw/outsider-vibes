@@ -3,7 +3,10 @@
 import React, { useEffect, useState } from "react";
 import ErrorBlock from "../error-block";
 import SearchHeader from "./search-header";
-import { DiscogsArtistsResult, DiscogsReleasesResult } from "@/lib/types";
+import {
+  DiscogsSearchArtistsResult,
+  DiscogsSearchReleasesResult,
+} from "@/lib/types";
 import SelectedFilter from "../selected-filter";
 import PaginationControll from "../pagination-controll";
 import SearchResult from "./search-result";
@@ -12,8 +15,8 @@ import { useResultsListContext } from "@/lib/hooks";
 
 type SearchResultsProps<T> = {
   searchResults: T extends "release"
-    ? DiscogsReleasesResult[]
-    : DiscogsArtistsResult[];
+    ? DiscogsSearchReleasesResult[]
+    : DiscogsSearchArtistsResult[];
   genreList?: string[];
   styleList?: string[];
   resultsCount: number | undefined;
@@ -59,7 +62,7 @@ export default function SearchResults<T>({
               key={result.id}
               result={{
                 type: "release",
-                data: result as DiscogsReleasesResult,
+                data: result as DiscogsSearchReleasesResult,
               }}
             />
           ))}
@@ -69,7 +72,7 @@ export default function SearchResults<T>({
               key={result.id}
               result={{
                 type: "artist",
-                data: result as DiscogsArtistsResult,
+                data: result as DiscogsSearchArtistsResult,
               }}
             />
           ))}

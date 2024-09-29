@@ -1,6 +1,7 @@
 import { z, ZodSchema } from "zod";
 import {
   discogsArtistsSchema,
+  discogsReleaseSchema,
   discogsReleasesSchema,
   userArtistSchema,
   userReleaseSchema,
@@ -26,16 +27,24 @@ export type WikiArticleIntroApiResponse = z.infer<
   typeof wikiArticleIntroSchema
 >;
 
-export type DiscogsReleasesApiResponse = z.infer<typeof discogsReleasesSchema>;
+export type DiscogsSearchReleasesApiResponse = z.infer<
+  typeof discogsReleasesSchema
+>;
 
-export type DiscogsArtistsApiResponse = z.infer<typeof discogsArtistsSchema>;
+export type DiscogsSearchArtistsApiResponse = z.infer<
+  typeof discogsArtistsSchema
+>;
 
-export type DiscogsReleasesResult = DiscogsReleasesApiResponse["results"][0];
-export type DiscogsArtistsResult = DiscogsArtistsApiResponse["results"][0];
+export type DiscogsReleasesApiResponse = z.infer<typeof discogsReleaseSchema>;
 
-export type DiscogsResultsList = (
-  | DiscogsReleasesResult
-  | DiscogsArtistsResult
+export type DiscogsSearchReleasesResult =
+  DiscogsSearchReleasesApiResponse["results"][0];
+export type DiscogsSearchArtistsResult =
+  DiscogsSearchArtistsApiResponse["results"][0];
+
+export type DiscogsSearchResultsList = (
+  | DiscogsSearchReleasesResult
+  | DiscogsSearchArtistsResult
 )[];
 //temporary solution for sorting, might need to be strict in future.
 
@@ -57,7 +66,7 @@ export type TFetchData = <T>(
 ) => Promise<fetchResult<T>>;
 
 export type TFetchDiscogsData = <
-  T extends DiscogsReleasesApiResponse | DiscogsArtistsApiResponse,
+  T extends DiscogsSearchReleasesApiResponse | DiscogsSearchArtistsApiResponse,
 >(
   q: string,
   searchParams: DiscogsSearchParams,
@@ -65,15 +74,6 @@ export type TFetchDiscogsData = <
   page: number,
   perPage: number,
 ) => Promise<fetchResult<T>>;
-
-// export type ValidatedSearchParams = (searchParams: ReadonlyURLSearchParams) =>
-//   | {
-//       success: true;
-//       searchParams: {
-//         sortBy: "year" | "title" | "default";
-//       };
-//     }
-//   | { success: false; error: string };
 
 //type for firebase
 

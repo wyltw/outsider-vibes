@@ -13,8 +13,8 @@ import { sleep } from "@/lib/utils";
 import ErrorBlock from "../error-block";
 import { discogsArtistsSchema, discogsReleasesSchema } from "@/lib/validations";
 import {
-  DiscogsArtistsApiResponse,
-  DiscogsReleasesApiResponse,
+  DiscogsSearchArtistsApiResponse,
+  DiscogsSearchReleasesApiResponse,
   DiscogsSearchType,
 } from "@/lib/types";
 import { DEFAULT_PAGE, DEFAULT_PERPAGE } from "@/lib/constants";
@@ -31,7 +31,7 @@ export default async function RelavantSection({
 
   let results;
   if (type === "release") {
-    const result = await fetchDiscogsData<DiscogsReleasesApiResponse>(
+    const result = await fetchDiscogsData<DiscogsSearchReleasesApiResponse>(
       query,
       {
         type,
@@ -66,7 +66,7 @@ export default async function RelavantSection({
     );
   }
   if (type === "artist") {
-    const result = await fetchDiscogsData<DiscogsArtistsApiResponse>(
+    const result = await fetchDiscogsData<DiscogsSearchArtistsApiResponse>(
       query,
       {
         type,

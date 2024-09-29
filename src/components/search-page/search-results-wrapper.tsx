@@ -1,7 +1,7 @@
 import { fetchDiscogsData } from "@/lib/server-utils";
 import {
-  DiscogsArtistsApiResponse,
-  DiscogsReleasesApiResponse,
+  DiscogsSearchArtistsApiResponse,
+  DiscogsSearchReleasesApiResponse,
   DiscogsSearchType,
 } from "@/lib/types";
 import { getUniqueGenres } from "@/lib/utils";
@@ -25,7 +25,7 @@ export default async function SearchResultsWrapper({
   searchParams,
 }: SearchResultsWrapperProps) {
   if (searchParams.type === "release") {
-    const result = await fetchDiscogsData<DiscogsReleasesApiResponse>(
+    const result = await fetchDiscogsData<DiscogsSearchReleasesApiResponse>(
       query,
       searchParams,
       discogsReleasesSchema,
@@ -53,7 +53,7 @@ export default async function SearchResultsWrapper({
     );
   }
   if (searchParams.type === "artist") {
-    const result = await fetchDiscogsData<DiscogsArtistsApiResponse>(
+    const result = await fetchDiscogsData<DiscogsSearchArtistsApiResponse>(
       query,
       searchParams,
       discogsArtistsSchema,

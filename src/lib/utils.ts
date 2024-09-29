@@ -1,6 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { DiscogsReleasesResult, DiscogsSearchType } from "./types";
+import { DiscogsSearchReleasesResult, DiscogsSearchType } from "./types";
 import { DEFAULT_PAGE } from "./constants";
 
 export function cn(...inputs: ClassValue[]) {
@@ -42,7 +42,7 @@ export function replaceWithDefaultPicture(
 }
 
 export const getUniqueGenres = (
-  searchResults: DiscogsReleasesResult[],
+  searchResults: DiscogsSearchReleasesResult[],
   key: "genre" | "style",
 ) => Array.from(new Set(searchResults.map((result) => result[key]).flat()));
 
