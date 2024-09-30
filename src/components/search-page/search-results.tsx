@@ -13,10 +13,8 @@ import SearchResult from "./search-result";
 import { useSearchParams } from "next/navigation";
 import { useResultsListContext } from "@/lib/hooks";
 
-type SearchResultsProps<T> = {
-  searchResults: T extends "release"
-    ? DiscogsSearchReleasesResult[]
-    : DiscogsSearchArtistsResult[];
+type SearchResultsProps = {
+  searchResults: DiscogsSearchReleasesResult[] | DiscogsSearchArtistsResult[];
   genreList?: string[];
   styleList?: string[];
   resultsCount: number | undefined;
@@ -25,12 +23,12 @@ type SearchResultsProps<T> = {
 //對params進行操作改變url->page組件獲得更新params->params props給fetch function
 //注意fetchDiscogsData可以透過getDiscogsApi處理一整個searchParams物件，個別傳入的record目前是保留給genre page的。
 
-export default function SearchResults<T>({
+export default function SearchResults({
   searchResults,
   resultsCount,
   genreList,
   styleList,
-}: SearchResultsProps<T>) {
+}: SearchResultsProps) {
   const { handleChangeList, sortedResultsList } = useResultsListContext();
   useEffect(() => {
     handleChangeList(searchResults);
@@ -42,12 +40,10 @@ export default function SearchResults<T>({
 
   return (
     <>
-      <SearchHeader
-        genreList={genreList}
-        styleList={styleList}
-        results={searchResults}
-      />
+      <SearchHeader genreList={genreList} styleList={styleList} />
+      {/* props drilling here. */}
       {type === "release" && <SelectedFilter />}
+      {/* 條件渲染選中的篩選 */}
       {resultsCount !== 0 ? (
         <p className="mt-2 text-sm text-black/50">共有{resultsCount}筆結果</p>
       ) : null}
@@ -55,7 +51,9 @@ export default function SearchResults<T>({
         {resultsCount === 0 ? (
           <ErrorBlock error="沒有相關的搜尋結果，建議更換搜尋關鍵字" />
         ) : null}
-        {!type && <ErrorBlock error="缺少搜尋字串，請重新搜尋" />}
+        {type !== "release" && type !== "artist" ? (
+          <ErrorBlock error="缺少搜尋字串，請重新搜尋" />
+        ) : null}
         {type === "release" &&
           sortedResultsList.map((result) => (
             <SearchResult<"release">

@@ -9,12 +9,10 @@ import { searchTabs } from "@/lib/constants";
 
 import SortDropdown from "../sort-dropdown";
 import SearchFilter from "./search-filter";
-import { DiscogsArtistsResult, DiscogsReleasesResult } from "@/lib/types";
 
 type SearchHeaderProps = {
   genreList?: string[];
   styleList?: string[];
-  results?: DiscogsReleasesResult[] | DiscogsArtistsResult[];
 };
 
 export default function SearchHeader({
@@ -53,7 +51,6 @@ export default function SearchHeader({
         {type === "release" && (
           <SearchFilter genreList={genreList} styleList={styleList} />
         )}
-        {/* props drilling here. */}
       </section>
     </>
   );

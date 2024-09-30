@@ -27,9 +27,14 @@ export default async function UserCollection() {
     discogsReleaseSchema,
   );
 
+  if (!results.success) {
+    return <li className="text-black/50">{results.error}</li>;
+  }
+
+  const data = results.data;
+
   return (
     <ul>
-      {/* {results.map((result) => {})} */}
       <li>目前沒有任何收藏</li>
     </ul>
   );

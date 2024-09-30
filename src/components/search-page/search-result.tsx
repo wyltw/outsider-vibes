@@ -7,8 +7,8 @@ import GenreList from "../genre-list";
 import { Card } from "../ui/card";
 import Image from "next/image";
 import {
-  DiscogsArtistsResult,
-  DiscogsReleasesResult,
+  DiscogsSearchArtistsResult,
+  DiscogsSearchReleasesResult,
   DiscogsSearchType,
 } from "@/lib/types";
 
@@ -16,11 +16,11 @@ type SearchResultProps<T extends DiscogsSearchType> = {
   result:
     | {
         type: T;
-        data: T extends "release" ? DiscogsReleasesResult : null;
+        data: T extends "release" ? DiscogsSearchReleasesResult : null;
       }
     | {
         type: T;
-        data: T extends "artist" ? DiscogsArtistsResult : null;
+        data: T extends "artist" ? DiscogsSearchArtistsResult : null;
       };
 };
 

@@ -44,7 +44,7 @@ export default async function SearchResultsWrapper({
     return !result.success ? (
       <CustomError error={result.error} />
     ) : (
-      <SearchResults<"release">
+      <SearchResults
         searchResults={searchResults}
         genreList={genreList}
         styleList={styleList}
@@ -68,7 +68,7 @@ export default async function SearchResultsWrapper({
     return !result.success ? (
       <CustomError error={result.error} />
     ) : (
-      <SearchResults<"artist">
+      <SearchResults
         searchResults={searchResults}
         resultsCount={resultsCount}
       />

@@ -60,6 +60,10 @@ export type fetchResult<T> =
   | { success: true; data: T }
   | { success: false; error: string };
 
+export type fetchResults<T> =
+  | { success: true; data: T[] }
+  | { success: false; error: string };
+
 export type TFetchData = <T>(
   url: string,
   schema: ZodSchema<any>,
@@ -74,6 +78,11 @@ export type TFetchDiscogsData = <
   page: number,
   perPage: number,
 ) => Promise<fetchResult<T>>;
+
+export type TFetchDiscogsDataByIds = <T extends DiscogsReleasesApiResponse>(
+  releaseIds: string[],
+  schema: ZodSchema<any>,
+) => Promise<fetchResults<T>>;
 
 //type for firebase
 

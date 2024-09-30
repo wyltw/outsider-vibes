@@ -133,7 +133,7 @@ export const fetchDiscogsDataByIds = async <
     const resultsList = await Promise.all(promiseList);
     return { success: true, data: resultsList };
   } catch (error) {
-    return { success: false, data: handleError(error) };
+    return { success: false, error: handleError(error) };
   }
 };
 
