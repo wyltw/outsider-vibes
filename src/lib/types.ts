@@ -1,5 +1,6 @@
 import { z, ZodSchema } from "zod";
 import {
+  discogsArtistSchema,
   discogsArtistsSchema,
   discogsReleaseSchema,
   discogsReleasesSchema,
@@ -36,6 +37,8 @@ export type DiscogsSearchArtistsApiResponse = z.infer<
 >;
 
 export type DiscogsReleasesApiResponse = z.infer<typeof discogsReleaseSchema>;
+
+export type DiscogsArtistsApiResponse = z.infer<typeof discogsArtistSchema>;
 
 export type DiscogsSearchReleasesResult =
   DiscogsSearchReleasesApiResponse["results"][0];
@@ -79,8 +82,11 @@ export type TFetchDiscogsData = <
   perPage: number,
 ) => Promise<fetchResult<T>>;
 
-export type TFetchDiscogsDataByIds = <T extends DiscogsReleasesApiResponse>(
-  releaseIds: string[],
+export type TFetchDiscogsDataByIds = <
+  T extends DiscogsReleasesApiResponse | DiscogsArtistsApiResponse,
+>(
+  resourceType: "releases" | "artists",
+  ids: string[],
   schema: ZodSchema<any>,
 ) => Promise<fetchResults<T>>;
 
@@ -95,9 +101,7 @@ export type TSimplifyQuerySnapshot<T extends UserRelease | UserArtist> = (
   schema: ZodSchema<any>,
 ) => T[];
 
-export type CollectionId = "userReleases" | "UserArtist";
-
-export type CollectionDocKey<T> = "releaseId" | "artistId";
+export type CollectionId = "userReleases" | "userArtists";
 
 export type TGetUserCollectionList<T extends UserRelease | UserArtist> = (
   collectionName: string,

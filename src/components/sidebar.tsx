@@ -45,12 +45,12 @@ export default async function Sidebar() {
       )}
 
       <SidebarSection>
-        <ThirdHeading>藝人收藏</ThirdHeading>
-        <UserCollection />
+        <ThirdHeading>專輯收藏</ThirdHeading>
+        <UserCollection type="release" />
       </SidebarSection>
       <SidebarSection>
-        <ThirdHeading>專輯收藏</ThirdHeading>
-        <UserCollection />
+        <ThirdHeading>藝人收藏</ThirdHeading>
+        <UserCollection type="artist" />
       </SidebarSection>
       <Copyright className="mt-auto" />
     </aside>

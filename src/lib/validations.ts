@@ -88,6 +88,16 @@ export const discogsReleaseSchema = z.object({
   thumb: z.string(),
 });
 
+export const discogsArtistSchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  images: z.array(
+    z.object({
+      uri: z.string(),
+    }),
+  ),
+});
+
 export const discogsArtistsSchema = z.object({
   pagination: z.object({
     page: z.number(),

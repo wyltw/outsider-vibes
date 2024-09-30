@@ -11,6 +11,9 @@ import {
   UserRelease,
   WikiArticleIntroApiResponse,
   DiscogsReleasesApiResponse,
+  TFetchDiscogsDataByIds,
+  fetchResults,
+  DiscogsArtistsApiResponse,
 } from "./types";
 import { ZodSchema } from "zod";
 import { DEFAULT_PAGE, DEFAULT_PERPAGE, DISCOGS_API } from "./constants";
@@ -37,7 +40,7 @@ export const fetchData: TFetchData = async (
     const data = await response.json();
     const validatedData = schema.safeParse(data);
     if (!validatedData.success) {
-      console.log(validatedData.error.message);
+      console.error(validatedData.error.message);
       throw new Error("Unexpected data from third party...");
     }
     return { success: true, data: validatedData.data };
@@ -113,25 +116,36 @@ export const fetchDiscogsData = async <
   return result;
 };
 
-const getDiscogsReleasesAPI = (releaseId: string) => {
-  const baseURL = new URL(`releases/${releaseId}`, DISCOGS_API);
+const getDiscogsResourceAPI = (
+  resourceType: "releases" | "artists",
+  id: string,
+) => {
+  const baseURL = new URL(`${resourceType}/${id}`, DISCOGS_API);
   return addDiscogsAuthParams(baseURL);
 };
 
-export const fetchDiscogsDataByIds = async <
-  T extends DiscogsReleasesApiResponse,
+export const fetchDiscogsDataByIds: TFetchDiscogsDataByIds = async <
+  T extends DiscogsReleasesApiResponse | DiscogsArtistsApiResponse,
 >(
-  releaseIds: string[],
+  resourceType: "releases" | "artists",
+  ids: string[],
   schema: ZodSchema<any>,
 ) => {
-  const promiseList = releaseIds.map((releaseId) => {
-    const baseURL = getDiscogsReleasesAPI(releaseId);
+  const promiseList = ids.map((id) => {
+    const baseURL = getDiscogsResourceAPI(resourceType, id);
     return fetchData<T>(baseURL.toString(), schema);
     //這裡回傳的只是充滿pending狀態的Promise物件陣列，在下方的Promise.all完成
   });
   try {
     const resultsList = await Promise.all(promiseList);
-    return { success: true, data: resultsList };
+    const filteredResultsList: T[] = [];
+    resultsList.forEach((result) => {
+      if (!result.success) {
+        throw new Error(result.error);
+      }
+      filteredResultsList.push(result.data);
+    });
+    return { success: true, data: filteredResultsList };
   } catch (error) {
     return { success: false, error: handleError(error) };
   }
@@ -158,6 +172,7 @@ const simplifyQuerySnapshot = <T extends UserRelease | UserArtist>(
     console.error(handleError(error));
     return [];
   }
+
   return validatedData.data;
 };
 
