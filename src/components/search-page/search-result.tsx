@@ -11,6 +11,7 @@ import {
   DiscogsSearchReleasesResult,
   DiscogsSearchType,
 } from "@/lib/types";
+import BookmarkButton from "../bookmark-button";
 
 type SearchResultProps<T extends DiscogsSearchType> = {
   result:
@@ -42,6 +43,7 @@ export default function SearchResult<T extends DiscogsSearchType>({
             )}
           />
           <CardContent
+            itemId={String(release.id)}
             title={release.title}
             type={result.type}
             genre={"genre" in release ? release.genre : []}
@@ -63,7 +65,11 @@ export default function SearchResult<T extends DiscogsSearchType>({
               result.type,
             )}
           />
-          <CardContent type={result.type} title={artist.title} />
+          <CardContent
+            itemId={String(artist.id)}
+            type={result.type}
+            title={artist.title}
+          />
         </CardContainer>
       </>
     );
@@ -87,14 +93,16 @@ function CardImage({ coverImage }: { coverImage: string }) {
 }
 
 type CardContainerProps = {
+  itemId: string;
   title: string;
-  type: string;
+  type: DiscogsSearchType;
   genre?: string[];
   style?: string[];
   year?: string;
 };
 
 function CardContent({
+  itemId,
   type,
   title,
   genre = [],
@@ -102,7 +110,7 @@ function CardContent({
   year = "",
 }: CardContainerProps) {
   return (
-    <div className="flex flex-col gap-y-2 p-2">
+    <div className="flex flex-1 flex-col gap-y-2 p-2">
       <h2 className="text-2xl text-primary">
         {splitArtistAndAlbumTitle(title).map(([albumName, artist], i) => (
           <Fragment key={albumName + artist + i}>
@@ -119,6 +127,11 @@ function CardContent({
       )}
 
       <p className="mt-auto text-xl">{year}</p>
+      {type === "release" ? (
+        <BookmarkButton type={type} itemId={itemId} />
+      ) : (
+        <BookmarkButton type={type} itemId={itemId} />
+      )}
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import { z, ZodSchema } from "zod";
 import {
+  collectionResponseSchema,
   discogsArtistSchema,
   discogsArtistsSchema,
   discogsReleaseSchema,
@@ -78,8 +79,8 @@ export type TFetchDiscogsData = <
   q: string,
   searchParams: DiscogsSearchParams,
   schema: ZodSchema<any>,
-  page: number,
-  perPage: number,
+  page?: number,
+  perPage?: number,
 ) => Promise<fetchResult<T>>;
 
 export type TFetchDiscogsDataByIds = <
@@ -107,3 +108,5 @@ export type TGetUserCollectionList<T extends UserRelease | UserArtist> = (
   collectionName: string,
   schema: ZodSchema<any>,
 ) => T[];
+
+export type ColectionResponse = z.infer<typeof collectionResponseSchema>;

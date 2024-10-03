@@ -39,6 +39,7 @@ export default async function RelavantSection({
       discogsReleasesSchema,
       DEFAULT_PAGE,
       DEFAULT_PERPAGE,
+      //這裡才應該手動傳入頁碼，因為這裡沒有pagination
     );
     if (!result.success) {
       return <CustomError error={result.error} />;

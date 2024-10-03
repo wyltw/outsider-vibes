@@ -1,7 +1,14 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { DiscogsSearchReleasesResult, DiscogsSearchType } from "./types";
+import {
+  CollectionId,
+  DiscogsSearchReleasesResult,
+  DiscogsSearchType,
+} from "./types";
 import { DEFAULT_PAGE } from "./constants";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "@/firebase";
+import { Timestamp } from "firebase/firestore";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));

@@ -6,7 +6,6 @@ import { signOut, useSession, signIn } from "next-auth/react";
 
 export default function ClientSignIn() {
   const { data: session } = useSession();
-  console.dir("hello");
   if (session?.user) {
     return <ClientAuthButton onClick={() => signOut()}>登出</ClientAuthButton>;
   }

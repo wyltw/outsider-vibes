@@ -23,7 +23,7 @@ const dropdownItemList: TDropdownItemList[] = [
   { text: "按字母排序", value: "title" },
 ];
 
-const handleClick = (router: AppRouterInstance, sortBy: string) => {
+const handlePushRouter = (router: AppRouterInstance, sortBy: string) => {
   router.push(sortBy);
 };
 
@@ -56,7 +56,7 @@ export default function SortDropdown() {
                 key={item.text}
                 value={item.value}
                 onClick={() => {
-                  handleClick(router, getSortBySearchParams(item.value));
+                  handlePushRouter(router, getSortBySearchParams(item.value));
                 }}
               >
                 {item.text}

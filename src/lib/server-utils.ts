@@ -1,5 +1,5 @@
 import "server-only";
-import { discogsReleaseSchema, wikiArticleIntroSchema } from "./validations";
+import { wikiArticleIntroSchema } from "./validations";
 import { handleError } from "./utils";
 import {
   CollectionId,
@@ -12,21 +12,24 @@ import {
   WikiArticleIntroApiResponse,
   DiscogsReleasesApiResponse,
   TFetchDiscogsDataByIds,
-  fetchResults,
   DiscogsArtistsApiResponse,
+  DiscogsSearchType,
+  TFetchDiscogsData,
 } from "./types";
 import { ZodSchema } from "zod";
 import { DEFAULT_PAGE, DEFAULT_PERPAGE, DISCOGS_API } from "./constants";
 
 import {
+  addDoc,
   collection,
   getDocs,
   query,
   QuerySnapshot,
+  Timestamp,
   where,
+  orderBy,
 } from "firebase/firestore";
 import { db } from "@/firebase";
-import { DocumentData } from "firebase-admin/firestore";
 
 export const fetchData: TFetchData = async (
   url: string,
@@ -96,20 +99,18 @@ const getDiscogsSearchAPI = (
   return addDiscogsAuthParams(baseURL);
 };
 
-export const fetchDiscogsData = async <
+export const fetchDiscogsData: TFetchDiscogsData = async <
   T extends DiscogsSearchReleasesApiResponse | DiscogsSearchArtistsApiResponse,
 >(
   q: string,
   searchParams: DiscogsSearchParams,
   schema: ZodSchema<any>,
-  page: number = DEFAULT_PAGE,
   perPage: number = DEFAULT_PERPAGE,
 ) => {
   const queryString = decodeURIComponent(q);
   const baseURL = getDiscogsSearchAPI(
-    { page: String(page) },
-    { per_page: String(perPage) },
     searchParams,
+    { per_page: String(perPage) },
     { q: queryString },
   );
   const result = await fetchData<T>(baseURL.toString(), schema);
@@ -184,7 +185,11 @@ export const getUserSavedItemsList = async <T extends UserRelease | UserArtist>(
 ) => {
   const userCollectionRef = collection(db, collectionId);
   try {
-    const userQuery = query(userCollectionRef, where("userId", "==", userId));
+    const userQuery = query(
+      userCollectionRef,
+      where("userId", "==", userId),
+      orderBy("addedAt", "desc"),
+    );
     const data = await getDocs(userQuery);
     const simplifiedData = simplifyQuerySnapshot<T>(data, schema);
     const savedItemsList = simplifiedData.map((doc) => doc[key] as string);
@@ -193,5 +198,35 @@ export const getUserSavedItemsList = async <T extends UserRelease | UserArtist>(
   } catch (error) {
     console.error(handleError(error));
     return [];
+  }
+};
+
+export const saveItemToCollection = async (
+  type: DiscogsSearchType,
+  itemId: string,
+  userId: string,
+) => {
+  try {
+    const document = {
+      userId: userId,
+      addedAt: Timestamp.fromDate(new Date()),
+    };
+    const collectionId = type === "release" ? "userReleases" : "userArtists";
+    if (type === "release") {
+      const collectionRef = collection(db, collectionId);
+      await addDoc(collectionRef, {
+        releaseId: itemId,
+        ...document,
+      });
+    }
+    if (type === "artist") {
+      const collectionRef = collection(db, collectionId);
+      await addDoc(collectionRef, {
+        artistId: itemId,
+        ...document,
+      });
+    }
+  } catch (error) {
+    console.error(handleError(error));
   }
 };

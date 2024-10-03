@@ -1,3 +1,4 @@
+import { Timestamp } from "firebase/firestore";
 import { z } from "zod";
 
 export const wikiArticleIntroSchema = z.object({
@@ -85,17 +86,19 @@ export const discogsReleasesSchema = z.object({
 export const discogsReleaseSchema = z.object({
   id: z.number(),
   title: z.string(),
-  thumb: z.string(),
+  thumb: z.string().optional(),
 });
 
 export const discogsArtistSchema = z.object({
   id: z.number(),
   name: z.string(),
-  images: z.array(
-    z.object({
-      uri: z.string(),
-    }),
-  ),
+  images: z
+    .array(
+      z.object({
+        uri: z.string(),
+      }),
+    )
+    .optional(),
 });
 
 export const discogsArtistsSchema = z.object({
@@ -130,10 +133,7 @@ export const userReleaseSchema = z.object({
   id: z.string(),
   releaseId: z.string(),
   userId: z.string(),
-  addedAt: z.object({
-    seconds: z.number(),
-    nanoseconds: z.number(),
-  }),
+  addedAt: z.instanceof(Timestamp),
 });
 
 export const userReleaseArraySchema = z.array(userReleaseSchema);
@@ -142,10 +142,13 @@ export const userArtistSchema = z.object({
   id: z.string(),
   artistId: z.string(),
   userId: z.string(),
-  addedAt: z.object({
-    seconds: z.number(),
-    nanoseconds: z.number(),
-  }),
+  addedAt: z.instanceof(Timestamp),
+  //從firebase取得資料,getDocs會將Timestamp轉換成Timestamp實例
 });
 
 export const userArtistArraySchema = z.array(userArtistSchema);
+
+export const collectionResponseSchema = z.object({
+  type: z.enum(["release", "artist"]),
+  itemId: z.string(),
+});

@@ -18,7 +18,7 @@ import {
 } from "@/lib/validations";
 import Link from "next/link";
 
-import React from "react";
+import React, { ReactNode } from "react";
 import { Button } from "./ui/button";
 
 type UserCollectionProps = { type: DiscogsSearchType };
@@ -51,14 +51,12 @@ export default async function UserCollection({ type }: UserCollectionProps) {
 
     return (
       <>
-        <ul>
+        <CollectionContainer>
           {data.slice(0, 5).map((result) => (
-            <li key={result.id} className="text-primary">
-              {result.title}
-            </li>
+            <CollectionItem key={result.id} result={result} />
           ))}
-          {!data.length && <li className="text-black/50">目前沒有任何收藏</li>}
-        </ul>
+          {!data.length && <DefaultItem />}
+        </CollectionContainer>
         <Button className="w-full" variant={"ghost"} asChild>
           <Link href="/">查看全部收藏</Link>
         </Button>
@@ -84,22 +82,44 @@ export default async function UserCollection({ type }: UserCollectionProps) {
     }
 
     const data = results.data;
-    console.log(data.length);
 
     return (
       <>
-        <ul>
+        <CollectionContainer>
           {data.slice(0, 5).map((result) => (
-            <li key={result.id} className="text-primary">
-              {result.name}
-            </li>
+            <CollectionItem key={result.id} result={result} />
           ))}
-          {!data.length && <li className="text-black/50">目前沒有任何收藏</li>}
-        </ul>
+          {!data.length && <DefaultItem />}
+        </CollectionContainer>
         <Button className="w-full" variant={"ghost"} asChild>
           <Link href="/">查看全部收藏</Link>
         </Button>
       </>
     );
   }
+}
+
+function CollectionContainer({ children }: { children: ReactNode }) {
+  return (
+    <>
+      <ul className="flex flex-col items-center gap-y-2">{children}</ul>
+    </>
+  );
+}
+
+type CollectionItemProps = {
+  result: DiscogsReleasesApiResponse | DiscogsArtistsApiResponse;
+};
+
+function CollectionItem({ result }: CollectionItemProps) {
+  return (
+    <>
+      {"name" in result && <li className="text-primary">{result.name}</li>}
+      {"title" in result && <li className="text-primary">{result.title}</li>}
+    </>
+  );
+}
+
+function DefaultItem() {
+  return <li className="text-black/50">目前沒有任何收藏</li>;
 }
