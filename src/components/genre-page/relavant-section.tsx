@@ -37,7 +37,6 @@ export default async function RelavantSection({
         type,
       },
       discogsReleasesSchema,
-      DEFAULT_PAGE,
       DEFAULT_PERPAGE,
       //這裡才應該手動傳入頁碼，因為這裡沒有pagination
     );
@@ -73,7 +72,6 @@ export default async function RelavantSection({
         type,
       },
       discogsArtistsSchema,
-      DEFAULT_PAGE,
       DEFAULT_PERPAGE,
     );
     if (!result.success) {
