@@ -110,3 +110,8 @@ export type TGetUserCollectionList<T extends UserRelease | UserArtist> = (
 ) => T[];
 
 export type ColectionResponse = z.infer<typeof collectionResponseSchema>;
+
+export type ApiResponse = {
+  success: boolean;
+  message: string;
+};

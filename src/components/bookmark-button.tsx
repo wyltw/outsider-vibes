@@ -3,7 +3,8 @@
 import { PlusSquare } from "lucide-react";
 import React from "react";
 import { Button } from "./ui/button";
-import { DiscogsSearchType } from "@/lib/types";
+import { ApiResponse, DiscogsSearchType } from "@/lib/types";
+import toast from "react-hot-toast";
 
 type BookmarkButtonProps = {
   itemId: string;
@@ -19,7 +20,10 @@ export default function BookmarkButton({ type, itemId }: BookmarkButtonProps) {
         "Content-Type": "application/json",
       },
     });
-    const result = await response.json();
+    const result: ApiResponse = await response.json();
+    result.success
+      ? toast.success(result.message)
+      : toast.error(result.message);
   };
   return (
     <>

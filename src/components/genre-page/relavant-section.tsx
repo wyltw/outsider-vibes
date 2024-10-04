@@ -17,7 +17,7 @@ import {
   DiscogsSearchReleasesApiResponse,
   DiscogsSearchType,
 } from "@/lib/types";
-import { DEFAULT_PAGE, DEFAULT_PERPAGE } from "@/lib/constants";
+import { DEFAULT_PERPAGE } from "@/lib/constants";
 
 type RelavantSectionProps = { query: string; type: DiscogsSearchType };
 

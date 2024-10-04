@@ -29,11 +29,17 @@ export async function POST(request: NextRequest) {
       isSuccess = true;
     }
     return isSuccess
-      ? NextResponse.json({ message: "成功加入收藏" }, { status: 200 })
-      : NextResponse.json({ message: "發生錯誤，請稍後重試" }, { status: 500 });
+      ? NextResponse.json(
+          { success: true, message: "成功加入收藏" },
+          { status: 200 },
+        )
+      : NextResponse.json(
+          { success: false, message: "發生錯誤，請稍後重試" },
+          { status: 500 },
+        );
   } catch (error) {
     return NextResponse.json(
-      { message: "發生錯誤，請稍後重試" },
+      { success: false, message: "發生錯誤，請稍後重試" },
       { status: 500 },
     );
   }

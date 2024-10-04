@@ -113,7 +113,6 @@ export const fetchDiscogsData: TFetchDiscogsData = async <
     { per_page: String(perPage) },
     { q: queryString },
   );
-  console.log(baseURL);
   const result = await fetchData<T>(baseURL.toString(), schema);
   return result;
 };

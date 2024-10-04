@@ -1,7 +1,10 @@
 import React, { Fragment, ReactNode } from "react";
 import { Card } from "../ui/card";
 import Image from "next/image";
-import { DiscogsReleasesResult, DiscogsArtistsResult } from "@/lib/types";
+import {
+  DiscogsSearchReleasesResult,
+  DiscogsSearchArtistsResult,
+} from "@/lib/types";
 import {
   replaceWithDefaultPicture,
   splitArtistAndAlbumTitle,
@@ -10,8 +13,8 @@ import GenreList from "../genre-list";
 
 type RelavantCardProps = {
   result:
-    | { type: "release"; data: DiscogsReleasesResult }
-    | { type: "artist"; data: DiscogsArtistsResult };
+    | { type: "release"; data: DiscogsSearchReleasesResult }
+    | { type: "artist"; data: DiscogsSearchArtistsResult };
 };
 export default function RelavantCard({ result }: RelavantCardProps) {
   const isRelease = result.type === "release";
