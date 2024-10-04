@@ -92,7 +92,7 @@ export default async function UserCollection({ type }: UserCollectionProps) {
           {!data.length && <DefaultItem />}
         </CollectionContainer>
         <Button className="w-full text-base" variant={"ghost"} asChild>
-          <Link href="/">查看全部收藏</Link>
+          <Link href="/user-collection">查看全部收藏</Link>
         </Button>
       </>
     );

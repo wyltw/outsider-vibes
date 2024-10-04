@@ -16,6 +16,8 @@ import { Button } from "./ui/button";
 import { User } from "lucide-react";
 import UserAvatar from "./user-avatar";
 import { auth } from "@/auth";
+import NavigationButton from "./navigation-button";
+import Link from "next/link";
 
 type HeaderProps = {
   page: "landing" | "home";
@@ -62,9 +64,11 @@ export default async function Header({ page }: HeaderProps) {
                 )}
                 <DropdownMenuSeparator className="self-stretch" />
                 <div className="w-full space-y-2">
-                  <Button variant={"ghost"} size={"sm"} className="w-full">
-                    查看收藏
-                  </Button>
+                  {userData && (
+                    <Button variant={"ghost"} size={"sm"} className="w-full">
+                      <Link href="/user-collection">查看收藏</Link>
+                    </Button>
+                  )}
                   <SignIn context="dropdown" />
                 </div>
               </DropdownMenuContent>
