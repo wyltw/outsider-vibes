@@ -16,7 +16,6 @@ import { Button } from "./ui/button";
 import { User } from "lucide-react";
 import UserAvatar from "./user-avatar";
 import { auth } from "@/auth";
-import NavigationButton from "./navigation-button";
 import Link from "next/link";
 
 type HeaderProps = {
