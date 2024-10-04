@@ -6,6 +6,7 @@ import SignIn from "./sign-in";
 import { auth } from "@/auth";
 import Image from "next/image";
 import UserCollection from "./user-collection";
+import UserAvatar from "./user-avatar";
 
 export default async function Sidebar() {
   let userData;
@@ -18,18 +19,8 @@ export default async function Sidebar() {
       <SidebarSection>
         <ThirdHeading>個人資料</ThirdHeading>
         <div className="flex flex-col items-center gap-y-4">
-          {userData ? (
-            <Image
-              className="rounded-full"
-              alt="user avatar"
-              width={64}
-              height={64}
-              src={userData.image || ""}
-            />
-          ) : (
-            <div className="h-16 w-16 rounded-full bg-slate-200"></div>
-          )}
-          <SignIn />
+          <UserAvatar width={64} height={64} context={"sidebar"} />
+          <SignIn context="sidebar" />
           {userData ? (
             <p className="text-center text-sm text-black/50">
               歡迎回來，{userData.name}

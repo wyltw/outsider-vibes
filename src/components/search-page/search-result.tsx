@@ -114,7 +114,7 @@ function CardContent({
       <h2 className="text-2xl text-primary">
         {splitArtistAndAlbumTitle(title).map(([albumName, artist], i) => (
           <Fragment key={albumName + artist + i}>
-            <span className="block">{albumName}</span>
+            <span className="block font-medium">{albumName}</span>
             <span className="block text-base text-black/50">{artist}</span>
           </Fragment>
         ))}

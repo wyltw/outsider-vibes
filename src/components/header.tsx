@@ -6,12 +6,27 @@ import RouteList from "./route-list";
 import { headerRoutes } from "@/lib/constants";
 import SheetContainer from "./sheet-container";
 import SignIn from "./sign-in";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
+import { Button } from "./ui/button";
+import { User } from "lucide-react";
+import UserAvatar from "./user-avatar";
+import { auth } from "@/auth";
 
 type HeaderProps = {
   page: "landing" | "home";
 };
 
-export default function Header({ page }: HeaderProps) {
+export default async function Header({ page }: HeaderProps) {
+  let userData;
+  const session = await auth();
+  if (session?.user) {
+    userData = session.user;
+  }
   return (
     <header
       className={
@@ -30,8 +45,30 @@ export default function Header({ page }: HeaderProps) {
           {page === "home" && <SearchForm context="header" />}
           <nav className="flex gap-x-4">
             <RouteList page={page} routes={headerRoutes} context="header" />
-            <SignIn />
+            <SignIn context="header" />
             <SheetContainer page={page} />
+            <DropdownMenu>
+              <DropdownMenuTrigger className="md:hidden" asChild>
+                <Button variant={"ghost"} size={"icon"}>
+                  <User />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="flex flex-col items-center">
+                <UserAvatar width={48} height={48} context="header" />
+                {userData && (
+                  <p className="mt-2 text-center text-sm text-black/50">
+                    {userData.name}
+                  </p>
+                )}
+                <DropdownMenuSeparator className="self-stretch" />
+                <div className="w-full space-y-2">
+                  <Button variant={"ghost"} size={"sm"} className="w-full">
+                    查看收藏
+                  </Button>
+                  <SignIn context="dropdown" />
+                </div>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </nav>
         </div>
       </div>

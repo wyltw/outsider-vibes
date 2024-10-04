@@ -57,7 +57,7 @@ export default async function UserCollection({ type }: UserCollectionProps) {
           ))}
           {!data.length && <DefaultItem />}
         </CollectionContainer>
-        <Button className="w-full" variant={"ghost"} asChild>
+        <Button className="w-full text-base" variant={"ghost"} asChild>
           <Link href="/">查看全部收藏</Link>
         </Button>
       </>
@@ -91,7 +91,7 @@ export default async function UserCollection({ type }: UserCollectionProps) {
           ))}
           {!data.length && <DefaultItem />}
         </CollectionContainer>
-        <Button className="w-full" variant={"ghost"} asChild>
+        <Button className="w-full text-base" variant={"ghost"} asChild>
           <Link href="/">查看全部收藏</Link>
         </Button>
       </>
@@ -114,8 +114,8 @@ type CollectionItemProps = {
 function CollectionItem({ result }: CollectionItemProps) {
   return (
     <>
-      {"name" in result && <li className="text-primary">{result.name}</li>}
-      {"title" in result && <li className="text-primary">{result.title}</li>}
+      {"name" in result && <li className="text-black">{result.name}</li>}
+      {"title" in result && <li className="text-black">{result.title}</li>}
     </>
   );
 }
