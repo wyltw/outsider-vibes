@@ -5,6 +5,7 @@ import React from "react";
 import { Button } from "./ui/button";
 import { ApiResponse, DiscogsSearchType } from "@/lib/types";
 import toast from "react-hot-toast";
+import { useSession } from "next-auth/react";
 
 type BookmarkButtonProps = {
   itemId: string;
@@ -12,7 +13,12 @@ type BookmarkButtonProps = {
 };
 
 export default function BookmarkButton({ type, itemId }: BookmarkButtonProps) {
+  const { data: session } = useSession();
   const handleSaveItems = async () => {
+    if (!session?.user) {
+      toast.error("請先登入再使用添加功能");
+      return;
+    }
     const response = await fetch("/api/users/collections", {
       method: "POST",
       body: JSON.stringify({ type, itemId }),
