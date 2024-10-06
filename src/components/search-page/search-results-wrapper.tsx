@@ -25,7 +25,6 @@ export default async function SearchResultsWrapper({
   searchParams,
 }: SearchResultsWrapperProps) {
   if (searchParams.type === "release") {
-    console.log(searchParams.page);
     const result = await fetchDiscogsData<DiscogsSearchReleasesApiResponse>(
       query,
       searchParams,

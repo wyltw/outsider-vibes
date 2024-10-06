@@ -4,9 +4,9 @@ import { featuredGenres } from "@/lib/constants";
 import Copyright from "./copyright";
 import SignIn from "./sign-in";
 import { auth } from "@/auth";
-import Image from "next/image";
 import UserCollection from "./user-collection";
 import UserAvatar from "./user-avatar";
+import UserCollectionWrapper from "./user-collection-wrapper";
 
 export default async function Sidebar() {
   let userData;
@@ -39,11 +39,11 @@ export default async function Sidebar() {
 
       <SidebarSection>
         <ThirdHeading>專輯收藏</ThirdHeading>
-        <UserCollection type="release" />
+        <UserCollectionWrapper type="release" />
       </SidebarSection>
       <SidebarSection>
         <ThirdHeading>藝人收藏</ThirdHeading>
-        <UserCollection type="artist" />
+        <UserCollectionWrapper type="artist" />
       </SidebarSection>
       <Copyright className="mt-auto" />
     </aside>

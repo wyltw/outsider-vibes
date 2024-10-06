@@ -21,7 +21,6 @@ type SearchResultsProps = {
 };
 
 //對params進行操作改變url->page組件獲得更新params->params props給fetch function
-//注意fetchDiscogsData可以透過getDiscogsApi處理一整個searchParams物件，個別傳入的record目前是保留給genre page的。
 
 export default function SearchResults({
   searchResults,
@@ -74,6 +73,7 @@ export default function SearchResults({
               }}
             />
           ))}
+        {/* sortedResultsList本身的union無法被排除，為此使用斷言 */}
       </ul>
       <PaginationControll resultsCount={resultsCount} page={page} />
     </>

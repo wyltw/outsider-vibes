@@ -1,54 +1,28 @@
 import { auth } from "@/auth";
 import {
-  fetchDiscogsDataByIds,
-  getUserSavedItemsList,
-} from "@/lib/server-utils";
-import {
   DiscogsArtistsApiResponse,
   DiscogsReleasesApiResponse,
-  DiscogsSearchType,
-  UserArtist,
-  UserRelease,
 } from "@/lib/types";
-import {
-  discogsArtistSchema,
-  discogsReleaseSchema,
-  userArtistArraySchema,
-  userReleaseArraySchema,
-} from "@/lib/validations";
+
 import Link from "next/link";
 
 import React, { ReactNode } from "react";
 import { Button } from "./ui/button";
 
-type UserCollectionProps = { type: DiscogsSearchType };
+type UserCollectionProps = {
+  result:
+    | { type: "release"; data: DiscogsReleasesApiResponse[] }
+    | { type: "artist"; data: DiscogsArtistsApiResponse[] };
+};
 
-export default async function UserCollection({ type }: UserCollectionProps) {
+export default async function UserCollection({ result }: UserCollectionProps) {
   const session = await auth();
-  const userId = session ? session.user?.id : "";
   if (!session?.user) {
     return <p className="text-black/50">登入後查看最新收藏</p>;
   }
 
-  if (type === "release") {
-    const userSavedItems = await getUserSavedItemsList<UserRelease>(
-      "userReleases",
-      userReleaseArraySchema,
-      "releaseId",
-      userId,
-    );
-    const results = await fetchDiscogsDataByIds<DiscogsReleasesApiResponse>(
-      "releases",
-      userSavedItems,
-      discogsReleaseSchema,
-    );
-
-    if (!results.success) {
-      return <p className="text-black/50">{results.error}</p>;
-    }
-
-    const data = results.data;
-
+  if (result.type === "release") {
+    const { data } = result;
     return (
       <>
         <CollectionContainer>
@@ -58,31 +32,14 @@ export default async function UserCollection({ type }: UserCollectionProps) {
           {!data.length && <DefaultItem />}
         </CollectionContainer>
         <Button className="w-full text-base" variant={"ghost"} asChild>
-          <Link href="/">查看全部收藏</Link>
+          <Link href="/user-collection">查看全部收藏</Link>
         </Button>
       </>
     );
   }
 
-  if (type === "artist") {
-    const userSavedItems = await getUserSavedItemsList<UserArtist>(
-      "userArtists",
-      userArtistArraySchema,
-      "artistId",
-      userId,
-    );
-    const results = await fetchDiscogsDataByIds<DiscogsArtistsApiResponse>(
-      "artists",
-      userSavedItems,
-      discogsArtistSchema,
-    );
-
-    if (!results.success) {
-      return <p className="text-black/50">{results.error}</p>;
-    }
-
-    const data = results.data;
-
+  if (result.type === "artist") {
+    const { data } = result;
     return (
       <>
         <CollectionContainer>

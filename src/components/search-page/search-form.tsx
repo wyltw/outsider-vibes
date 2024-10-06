@@ -56,7 +56,7 @@ export default function SearchForm({
               "h-10 w-2/5 transition-all duration-700 focus-visible:w-full md:h-10",
             context === "sheet" && "rounded-e-md md:h-10",
           )}
-          placeholder="輸入藝人或者專輯，找到喜歡的風格..."
+          placeholder="輸入藝人或者專輯..."
         />
       </label>
       <Button
