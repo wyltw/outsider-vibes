@@ -1,14 +1,7 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import {
-  CollectionId,
-  DiscogsSearchReleasesResult,
-  DiscogsSearchType,
-} from "./types";
+import { DiscogsSearchReleasesResult, DiscogsSearchType } from "./types";
 import { DEFAULT_PAGE } from "./constants";
-import { addDoc, collection } from "firebase/firestore";
-import { db } from "@/firebase";
-import { Timestamp } from "firebase/firestore";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -35,7 +28,7 @@ export async function sleep(ms: number) {
 }
 
 export function replaceWithDefaultPicture(
-  target: string,
+  target: string = "",
   type: DiscogsSearchType,
 ) {
   const isSpacer = target.includes("spacer");
@@ -86,20 +79,3 @@ export const getPageArray = (
   //一般頁碼渲染邏輯
   return pageArray;
 };
-
-// export const getValidatedSearchParams = (
-//   searchParams: ReadonlyURLSearchParams,
-// ) => {
-//   const searchParamsObject = Object.fromEntries(searchParams);
-//   const validatedSearchParams =
-//     searchParamsSchema.safeParse(searchParamsObject);
-//   try {
-//     if (!validatedSearchParams.success) {
-//       // 驗證成功
-//       throw new Error("sort type is not available");
-//     }
-//     return { success: true, searchParams: validatedSearchParams.data };
-//   } catch (error) {
-//     return { success: false, error: handleError(error) };
-//   }
-// };

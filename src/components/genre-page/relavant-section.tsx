@@ -29,7 +29,6 @@ export default async function RelavantSection({
     console.log(data);
   });
 
-  let results;
   if (type === "release") {
     const result = await fetchDiscogsData<DiscogsSearchReleasesApiResponse>(
       query,
@@ -46,21 +45,20 @@ export default async function RelavantSection({
     if (!result.data.pagination.items) {
       return <ErrorBlock error="沒有相關的搜尋結果，建議更換搜尋關鍵字" />;
     }
-    results = result.success ? result.data.results : [];
+    const results = result.data.results;
     return (
       <CarouselContainer>
         <CarouselContent>
-          {results &&
-            results.map((result) => {
-              return (
-                <CarouselItem
-                  key={result.id}
-                  className="md:basis-1/3 xl:basis-1/4"
-                >
-                  <RelavantCard result={{ type: type, data: result }} />
-                </CarouselItem>
-              );
-            })}
+          {results.map((result) => {
+            return (
+              <CarouselItem
+                key={result.id}
+                className="md:basis-1/3 xl:basis-1/4"
+              >
+                <RelavantCard result={{ type: type, data: result }} />
+              </CarouselItem>
+            );
+          })}
         </CarouselContent>
       </CarouselContainer>
     );
@@ -80,21 +78,20 @@ export default async function RelavantSection({
     if (!result.data.pagination.items) {
       return <ErrorBlock error="沒有相關的搜尋結果，建議更換搜尋關鍵字" />;
     }
-    results = result.success ? result.data.results : [];
+    const results = result.data.results;
     return (
       <CarouselContainer>
         <CarouselContent>
-          {results &&
-            results.map((result) => {
-              return (
-                <CarouselItem
-                  key={result.id}
-                  className="md:basis-1/3 xl:basis-1/4"
-                >
-                  <RelavantCard result={{ type: type, data: result }} />
-                </CarouselItem>
-              );
-            })}
+          {results.map((result) => {
+            return (
+              <CarouselItem
+                key={result.id}
+                className="md:basis-1/3 xl:basis-1/4"
+              >
+                <RelavantCard result={{ type: type, data: result }} />
+              </CarouselItem>
+            );
+          })}
         </CarouselContent>
       </CarouselContainer>
     );

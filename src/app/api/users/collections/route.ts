@@ -1,5 +1,9 @@
 import { auth } from "@/auth";
-import { saveItemToCollection } from "@/lib/server-utils";
+import {
+  getUserSavedItemsCount,
+  saveItemToCollection,
+} from "@/lib/server-utils";
+import { handleError } from "@/lib/utils";
 import { collectionResponseSchema } from "@/lib/validations";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -22,9 +26,17 @@ export async function POST(request: NextRequest) {
     }
     const { type, itemId } = validatedData.data;
     if (validatedData.data.type === "release") {
+      const count = await getUserSavedItemsCount("userReleases", userId);
+      if (count >= 5) {
+        throw new Error("願望清單的數量過多，請到清單列表刪除後繼續");
+      }
       await saveItemToCollection(type, itemId, userId);
       isSuccess = true;
     } else if (validatedData.data.type === "artist") {
+      const count = await getUserSavedItemsCount("userArtists", userId);
+      if (count >= 5) {
+        throw new Error("清單數量過多，請到刪除部分後繼續");
+      }
       await saveItemToCollection(type, itemId, userId);
       isSuccess = true;
     }
@@ -39,7 +51,7 @@ export async function POST(request: NextRequest) {
         );
   } catch (error) {
     return NextResponse.json(
-      { success: false, message: "發生錯誤，請稍後重試" },
+      { success: false, message: handleError(error) },
       { status: 500 },
     );
   }

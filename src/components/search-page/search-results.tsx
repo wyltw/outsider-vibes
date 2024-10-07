@@ -73,7 +73,8 @@ export default function SearchResults({
               }}
             />
           ))}
-        {/* sortedResultsList本身的union無法被排除，為此使用斷言 */}
+        {/* sortedResultsList本身的union無法被排除，為此使用斷言。
+        此外最初是因為不想以帶著type屬性的物件形式作為state，在數據操作上不便，因此最終在邏輯合理的情況下使用斷言 */}
       </ul>
       <PaginationControll resultsCount={resultsCount} page={page} />
     </>

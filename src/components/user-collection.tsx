@@ -1,13 +1,12 @@
-import { auth } from "@/auth";
 import {
-  DiscogsArtistsApiResponse,
   DiscogsReleasesApiResponse,
+  DiscogsArtistsApiResponse,
+  DiscogsSearchType,
 } from "@/lib/types";
-
-import Link from "next/link";
-
-import React, { ReactNode } from "react";
-import { Button } from "./ui/button";
+import { replaceWithDefaultPicture } from "@/lib/utils";
+import Image from "next/image";
+import React from "react";
+import { Card } from "./ui/card";
 
 type UserCollectionProps = {
   result:
@@ -15,68 +14,71 @@ type UserCollectionProps = {
     | { type: "artist"; data: DiscogsArtistsApiResponse[] };
 };
 
-export default async function UserCollection({ result }: UserCollectionProps) {
-  const session = await auth();
-  if (!session?.user) {
-    return <p className="text-black/50">登入後查看最新收藏</p>;
-  }
-
+export default function UserCollection({ result }: UserCollectionProps) {
   if (result.type === "release") {
-    const { data } = result;
+    const results = result.data;
     return (
-      <>
-        <CollectionContainer>
-          {data.slice(0, 5).map((result) => (
-            <CollectionItem key={result.id} result={result} />
-          ))}
-          {!data.length && <DefaultItem />}
-        </CollectionContainer>
-        <Button className="w-full text-base" variant={"ghost"} asChild>
-          <Link href="/user-collection">查看全部收藏</Link>
-        </Button>
-      </>
+      <div>
+        {results.map((result) => (
+          <CollectionItemCard
+            key={result.id}
+            result={{ type: "release", data: result }}
+          />
+        ))}
+      </div>
     );
   }
-
   if (result.type === "artist") {
-    const { data } = result;
+    const results = result.data;
     return (
-      <>
-        <CollectionContainer>
-          {data.slice(0, 5).map((result) => (
-            <CollectionItem key={result.id} result={result} />
-          ))}
-          {!data.length && <DefaultItem />}
-        </CollectionContainer>
-        <Button className="w-full text-base" variant={"ghost"} asChild>
-          <Link href="/user-collection">查看全部收藏</Link>
-        </Button>
-      </>
+      <div className="flex">
+        {results.map((result) => (
+          <CollectionItemCard
+            key={result.id}
+            result={{ type: "artist", data: result }}
+          />
+        ))}
+      </div>
     );
   }
 }
 
-function CollectionContainer({ children }: { children: ReactNode }) {
-  return (
-    <>
-      <ul className="flex flex-col items-center gap-y-2">{children}</ul>
-    </>
-  );
-}
-
-type CollectionItemProps = {
-  result: DiscogsReleasesApiResponse | DiscogsArtistsApiResponse;
+type CollectionItemCardProps = {
+  result:
+    | { type: "release"; data: DiscogsReleasesApiResponse }
+    | { type: "artist"; data: DiscogsArtistsApiResponse };
 };
 
-function CollectionItem({ result }: CollectionItemProps) {
-  return (
-    <>
-      {"name" in result && <li className="text-black">{result.name}</li>}
-      {"title" in result && <li className="text-black">{result.title}</li>}
-    </>
-  );
-}
-
-function DefaultItem() {
-  return <li className="text-black/50">目前沒有任何收藏</li>;
+function CollectionItemCard({ result }: CollectionItemCardProps) {
+  if (result.type === "release") {
+    const release = result.data;
+    return (
+      <Card>
+        <Image
+          width={120}
+          height={120}
+          alt="release cover"
+          src={
+            release.thumb || replaceWithDefaultPicture(release.thumb, "release")
+          }
+        />
+        <h4>{release.title}</h4>
+      </Card>
+    );
+  }
+  if (result.type === "artist") {
+    const artist = result.data;
+    const image = artist.images ? artist.images[0].uri : "";
+    return (
+      <Card>
+        <Image
+          width={120}
+          height={120}
+          alt="release cover"
+          src={image || replaceWithDefaultPicture(image, "artist")}
+        />
+        <h4>{artist.name}</h4>
+      </Card>
+    );
+  }
 }

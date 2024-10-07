@@ -17,7 +17,7 @@ import {
   TFetchDiscogsData,
 } from "./types";
 import { ZodSchema } from "zod";
-import { DEFAULT_PAGE, DEFAULT_PERPAGE, DISCOGS_API } from "./constants";
+import { DEFAULT_PERPAGE, DISCOGS_API } from "./constants";
 
 import {
   addDoc,
@@ -37,15 +37,22 @@ export const fetchData: TFetchData = async (
 ) => {
   try {
     const response = await fetch(url);
+
+    if (response.status === 429) {
+      throw new Error(`${response.status} - 系統繁忙中，請稍後刷新重試`);
+    }
     if (!response.ok) {
       throw new Error(`${response.status} - ${response.statusText}`);
     }
+
     const data = await response.json();
     const validatedData = schema.safeParse(data);
+
     if (!validatedData.success) {
       console.error(validatedData.error.message);
       throw new Error("Unexpected data from third party...");
     }
+
     return { success: true, data: validatedData.data };
   } catch (error) {
     return { success: false, error: handleError(error) };
@@ -198,6 +205,21 @@ export const getUserSavedItemsList = async <T extends UserRelease | UserArtist>(
   } catch (error) {
     console.error(handleError(error));
     return [];
+  }
+};
+
+export const getUserSavedItemsCount = async (
+  collectionId: CollectionId,
+  userId: string = "",
+) => {
+  const userCollectionRef = collection(db, collectionId);
+  try {
+    const userQuery = query(userCollectionRef, where("userId", "==", userId));
+    const data = await getDocs(userQuery);
+    return data.size;
+  } catch (error) {
+    console.error(handleError(error));
+    return 0;
   }
 };
 

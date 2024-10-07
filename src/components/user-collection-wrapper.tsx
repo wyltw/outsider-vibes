@@ -17,11 +17,16 @@ import {
   userArtistArraySchema,
 } from "@/lib/validations";
 import React from "react";
+import CollectionPreview from "./collection-preview";
 import UserCollection from "./user-collection";
-type UserCollectionWrapperProps = { type: DiscogsSearchType };
+type UserCollectionWrapperProps = {
+  type: DiscogsSearchType;
+  context: "sidebar" | "main";
+};
 
 export default async function UserCollectionWrapper({
   type,
+  context,
 }: UserCollectionWrapperProps) {
   const session = await auth();
   const userId = session ? session.user?.id : "";
@@ -44,7 +49,11 @@ export default async function UserCollectionWrapper({
     }
 
     const data = results.data;
-    return <UserCollection result={{ type: "release", data }} />;
+
+    if (context === "main") {
+      return <UserCollection result={{ type: "release", data }} />;
+    }
+    return <CollectionPreview result={{ type: "release", data }} />;
   }
   if (type === "artist") {
     const userSavedItems = await getUserSavedItemsList<UserArtist>(
@@ -64,7 +73,10 @@ export default async function UserCollectionWrapper({
     }
 
     const data = results.data;
-    return <UserCollection result={{ type: "artist", data }} />;
+
+    if (context === "main") {
+      return <UserCollection result={{ type: "artist", data }} />;
+    }
+    return <CollectionPreview result={{ type: "artist", data }} />;
   }
-  return <div>user-collection-wrapper</div>;
 }

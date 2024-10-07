@@ -4,7 +4,6 @@ import { featuredGenres } from "@/lib/constants";
 import Copyright from "./copyright";
 import SignIn from "./sign-in";
 import { auth } from "@/auth";
-import UserCollection from "./user-collection";
 import UserAvatar from "./user-avatar";
 import UserCollectionWrapper from "./user-collection-wrapper";
 
@@ -39,11 +38,11 @@ export default async function Sidebar() {
 
       <SidebarSection>
         <ThirdHeading>專輯收藏</ThirdHeading>
-        <UserCollectionWrapper type="release" />
+        <UserCollectionWrapper type="release" context="sidebar" />
       </SidebarSection>
       <SidebarSection>
         <ThirdHeading>藝人收藏</ThirdHeading>
-        <UserCollectionWrapper type="artist" />
+        <UserCollectionWrapper type="artist" context="sidebar" />
       </SidebarSection>
       <Copyright className="mt-auto" />
     </aside>
