@@ -12,6 +12,7 @@ import {
   DiscogsSearchType,
 } from "@/lib/types";
 import BookmarkButton from "../bookmark-button";
+import CardImage from "../card-image";
 
 type SearchResultProps<T extends DiscogsSearchType> = {
   result:
@@ -37,10 +38,9 @@ export default function SearchResult<T extends DiscogsSearchType>({
       <>
         <CardContainer key={release.id}>
           <CardImage
-            coverImage={replaceWithDefaultPicture(
-              release.cover_image,
-              result.type,
-            )}
+            className="h-48 w-48 rounded-s-lg"
+            src={replaceWithDefaultPicture(release.cover_image, result.type)}
+            alt="release cover"
           />
           <CardContent
             itemId={String(release.id)}
@@ -60,10 +60,9 @@ export default function SearchResult<T extends DiscogsSearchType>({
       <>
         <CardContainer>
           <CardImage
-            coverImage={replaceWithDefaultPicture(
-              artist.cover_image,
-              result.type,
-            )}
+            className="h-48 w-48 rounded-s-lg"
+            src={replaceWithDefaultPicture(artist.cover_image, result.type)}
+            alt="release cover"
           />
           <CardContent
             itemId={String(artist.id)}
@@ -78,18 +77,6 @@ export default function SearchResult<T extends DiscogsSearchType>({
 
 function CardContainer({ children }: { children: ReactNode }) {
   return <Card className="flex gap-x-4">{children}</Card>;
-}
-
-function CardImage({ coverImage }: { coverImage: string }) {
-  return (
-    <Image
-      className="h-48 w-48 max-w-full rounded-s-lg object-cover"
-      src={coverImage}
-      alt="release cover"
-      width={192}
-      height={192}
-    />
-  );
 }
 
 type CardContainerProps = {

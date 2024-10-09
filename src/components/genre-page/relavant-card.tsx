@@ -1,6 +1,5 @@
 import React, { Fragment, ReactNode } from "react";
 import { Card } from "../ui/card";
-import Image from "next/image";
 import {
   DiscogsSearchReleasesResult,
   DiscogsSearchArtistsResult,
@@ -10,6 +9,7 @@ import {
   splitArtistAndAlbumTitle,
 } from "@/lib/utils";
 import GenreList from "../genre-list";
+import CardImage from "../card-image";
 
 type RelavantCardProps = {
   result:
@@ -25,12 +25,13 @@ export default function RelavantCard({ result }: RelavantCardProps) {
     return (
       <>
         <CardContainer>
-          <CardImage
-            coverImage={replaceWithDefaultPicture(
-              release.cover_image,
-              result.type,
-            )}
-          />
+          <div className="h-48 max-w-full">
+            {/* 這裡顯式使用css設定寬高是因為來源圖片尺寸不統一 */}
+            <CardImage
+              src={replaceWithDefaultPicture(release.cover_image, result.type)}
+              alt="release cover"
+            />
+          </div>
           <CardContent
             type={result.type}
             title={release.title}
@@ -47,12 +48,12 @@ export default function RelavantCard({ result }: RelavantCardProps) {
     return (
       <>
         <CardContainer>
-          <CardImage
-            coverImage={replaceWithDefaultPicture(
-              artist.cover_image,
-              result.type,
-            )}
-          />
+          <div className="h-48 max-w-full">
+            <CardImage
+              src={replaceWithDefaultPicture(artist.cover_image, result.type)}
+              alt="artist cover"
+            />
+          </div>
           <CardContent type={result.type} title={artist.title} />
         </CardContainer>
       </>
@@ -65,18 +66,6 @@ function CardContainer({ children }: { children: ReactNode }) {
     <Card className="mx-auto flex h-full max-w-64 flex-col items-center gap-y-2 bg-white p-2 shadow sm:mx-0 sm:max-w-none">
       {children}
     </Card>
-  );
-}
-
-function CardImage({ coverImage }: { coverImage: string }) {
-  return (
-    <Image
-      className="h-48 w-48 max-w-full object-cover"
-      src={coverImage}
-      alt="release cover"
-      width={192}
-      height={192}
-    />
   );
 }
 

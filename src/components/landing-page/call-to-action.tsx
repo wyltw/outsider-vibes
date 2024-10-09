@@ -7,7 +7,7 @@ import Image from "next/image";
 export default function CallToAction() {
   return (
     <section className="flex justify-center py-52 md:block">
-      <section className="flex flex-col items-center justify-around md:flex-row">
+      <div className="flex flex-col items-center justify-around md:flex-row">
         <div className="-mt-10 flex max-w-md flex-col items-center md:-mt-0 md:items-start">
           <FirstHeading
             className="whitespace-nowrap"
@@ -30,7 +30,7 @@ export default function CallToAction() {
             </Button>
           </div>
         </div>
-        <div className="-z-10 order-first max-w-80 self-start opacity-80 md:order-none md:max-w-full">
+        <div className="-z-10 order-first max-w-80 self-start opacity-80 md:order-none md:max-w-none">
           <Image
             src="/images/headphone-amico.svg"
             alt="headphone"
@@ -38,7 +38,7 @@ export default function CallToAction() {
             height={360}
           />
         </div>
-      </section>
+      </div>
     </section>
   );
 }

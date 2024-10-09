@@ -86,7 +86,13 @@ export const discogsReleasesSchema = z.object({
 export const discogsReleaseSchema = z.object({
   id: z.number(),
   title: z.string(),
-  thumb: z.string().optional(),
+  images: z
+    .array(
+      z.object({
+        uri: z.string(),
+      }),
+    )
+    .optional(),
 });
 
 export const discogsArtistSchema = z.object({

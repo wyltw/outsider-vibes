@@ -35,7 +35,7 @@ export default function PaginationControll({
     useUpdatedSearchParams();
   return (
     <Pagination className="mt-4">
-      <PaginationContent>
+      <PaginationContent className="gap-0">
         {page - DEFAULT_PAGE > siblingCount && (
           <PaginationItem>
             <PaginationLink

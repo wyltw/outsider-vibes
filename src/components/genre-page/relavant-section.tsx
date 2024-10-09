@@ -104,6 +104,7 @@ function CarouselContainer({ children }: CarouselContainerProps) {
   return (
     <Carousel
       className="max-w-xs md:max-w-2xl xl:max-w-4xl 2xl:max-w-5xl"
+      //在畫面縮放的時候適當的增加最大寬度配合CarouselItem使card不至於太寬
       opts={{
         align: "start",
         loop: true,

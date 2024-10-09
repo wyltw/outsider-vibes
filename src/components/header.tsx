@@ -70,9 +70,11 @@ export default async function Header({ page }: HeaderProps) {
                     查看收藏
                   </ProtectedButton>
                   <SignIn context="dropdown" />
-                  <p className="text-center text-sm text-black/50">
-                    登入以添加收藏
-                  </p>
+                  {!userData ? (
+                    <p className="text-center text-sm text-black/50">
+                      登入以添加收藏
+                    </p>
+                  ) : null}
                 </div>
               </DropdownMenuContent>
             </DropdownMenu>
