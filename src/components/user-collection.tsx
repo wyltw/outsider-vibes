@@ -45,23 +45,21 @@ export default function UserCollection({ result }: UserCollectionProps) {
 }
 
 function CollectionItemContainer({ children }: { children: ReactNode }) {
-  return <div className="flex flex-wrap gap-x-2 gap-y-4">{children}</div>;
+  return (
+    <div className="grid gap-x-2 gap-y-4 sm:grid-cols-2 md:grid-cols-4">
+      {children}
+    </div>
+  );
 }
 
 function CardContainer({ children }: { children: ReactNode }) {
   return (
-    <Card className="flex basis-full flex-col items-center gap-y-2 p-2 sm:basis-0">
-      {children}
-    </Card>
+    <Card className="flex flex-col items-center gap-y-2 p-2">{children}</Card>
   );
 }
 
 function FourthHeading({ children }: { children: ReactNode }) {
-  return (
-    <h4 className="whitespace-nowrap text-center text-xl text-primary">
-      {children}
-    </h4>
-  );
+  return <h4 className="text-center text-xl text-primary">{children}</h4>;
 }
 
 type CollectionItemCardProps = {
@@ -76,14 +74,14 @@ function CollectionItemCard({ result }: CollectionItemCardProps) {
     const image = release.images ? release.images[0].uri : "";
     return (
       <CardContainer>
-        <div className="h-48 max-w-48">
+        <div className="max-h-80 self-stretch sm:max-h-48">
           <CardImage
             alt="release cover"
             src={image || replaceWithDefaultPicture(image, "release")}
           />
         </div>
         <FourthHeading>{release.title}</FourthHeading>
-        <Button variant={"outline"} size={"icon"}>
+        <Button className="mt-auto" variant={"outline"} size={"icon"}>
           <Trash2 />
         </Button>
       </CardContainer>
@@ -94,7 +92,7 @@ function CollectionItemCard({ result }: CollectionItemCardProps) {
     const image = artist.images ? artist.images[0].uri : "";
     return (
       <CardContainer>
-        <div className="sm: max-h-80 w-full sm:max-h-48 sm:w-auto">
+        <div className="max-h-80 self-stretch sm:max-h-48">
           <CardImage
             alt="artist cover"
             src={image || replaceWithDefaultPicture(image, "artist")}

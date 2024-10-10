@@ -12,7 +12,7 @@ export default function CardImage({
 }: CardImageProps) {
   return (
     <Image
-      className={cn("h-full min-h-48 w-full min-w-48 object-cover", className)}
+      className={cn("h-full min-h-48 w-full object-cover", className)}
       width={400}
       height={400}
       alt={alt}

@@ -17,18 +17,20 @@ export default async function GenrePage({ params }: GenrePageProps) {
       <Suspense fallback={<TextLoading />}>
         <WikiSummary genre={params.genre} />
       </Suspense>
-      <Section>
-        <SecondHeading> 帶有此風格的專輯：</SecondHeading>
-        <Suspense fallback={<CardLoading />}>
-          <RelavantSection query={params.genre} type="release" />
-        </Suspense>
-      </Section>
-      <Section>
-        <SecondHeading> 帶有此風格的藝人：</SecondHeading>
-        <Suspense fallback={<CardLoading />}>
-          <RelavantSection query={params.genre} type="artist" />
-        </Suspense>
-      </Section>
+      <div className="flex flex-col gap-y-4">
+        <Section>
+          <SecondHeading> 帶有此風格的專輯：</SecondHeading>
+          <Suspense fallback={<CardLoading />}>
+            <RelavantSection query={params.genre} type="release" />
+          </Suspense>
+        </Section>
+        <Section>
+          <SecondHeading> 帶有此風格的藝人：</SecondHeading>
+          <Suspense fallback={<CardLoading />}>
+            <RelavantSection query={params.genre} type="artist" />
+          </Suspense>
+        </Section>
+      </div>
     </>
   );
 }
@@ -38,7 +40,7 @@ type SectionProps = { children: ReactNode };
 export function Section({ children }: SectionProps) {
   return (
     <>
-      <section className="my-4 flex flex-col items-center gap-y-5">
+      <section className="flex flex-col items-center gap-y-5">
         {children}
       </section>
     </>
