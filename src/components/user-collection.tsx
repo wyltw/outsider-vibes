@@ -68,18 +68,22 @@ type CollectionItemCardProps = {
     | { type: "artist"; data: DiscogsArtistsApiResponse };
 };
 
+function CardImageContainer({ children }: { children: ReactNode }) {
+  return <div className="max-h-80 self-stretch sm:max-h-48">{children}</div>;
+}
+
 function CollectionItemCard({ result }: CollectionItemCardProps) {
   if (result.type === "release") {
     const release = result.data;
     const image = release.images ? release.images[0].uri : "";
     return (
       <CardContainer>
-        <div className="max-h-80 self-stretch sm:max-h-48">
+        <CardImageContainer>
           <CardImage
             alt="release cover"
             src={image || replaceWithDefaultPicture(image, "release")}
           />
-        </div>
+        </CardImageContainer>
         <FourthHeading>{release.title}</FourthHeading>
         <Button className="mt-auto" variant={"outline"} size={"icon"}>
           <Trash2 />
@@ -92,12 +96,12 @@ function CollectionItemCard({ result }: CollectionItemCardProps) {
     const image = artist.images ? artist.images[0].uri : "";
     return (
       <CardContainer>
-        <div className="max-h-80 self-stretch sm:max-h-48">
+        <CardImageContainer>
           <CardImage
             alt="artist cover"
             src={image || replaceWithDefaultPicture(image, "artist")}
           />
-        </div>
+        </CardImageContainer>
         <FourthHeading>{artist.name}</FourthHeading>
         <Button variant={"outline"} size={"icon"}>
           <Trash2 />

@@ -25,13 +25,13 @@ export default function RelavantCard({ result }: RelavantCardProps) {
     return (
       <>
         <CardContainer>
-          <div className="h-48 max-w-full">
+          <CardImageContainer>
             {/* 這裡顯式使用css設定寬高是因為來源圖片尺寸不統一 */}
             <CardImage
               src={replaceWithDefaultPicture(release.cover_image, result.type)}
               alt="release cover"
             />
-          </div>
+          </CardImageContainer>
           <CardContent
             type={result.type}
             title={release.title}
@@ -48,17 +48,21 @@ export default function RelavantCard({ result }: RelavantCardProps) {
     return (
       <>
         <CardContainer>
-          <div className="h-48 max-w-full">
+          <CardImageContainer>
             <CardImage
               src={replaceWithDefaultPicture(artist.cover_image, result.type)}
               alt="artist cover"
             />
-          </div>
+          </CardImageContainer>
           <CardContent type={result.type} title={artist.title} />
         </CardContainer>
       </>
     );
   }
+}
+
+function CardImageContainer({ children }: { children: ReactNode }) {
+  return <div className="h-48 w-full">{children}</div>;
 }
 
 function CardContainer({ children }: { children: ReactNode }) {

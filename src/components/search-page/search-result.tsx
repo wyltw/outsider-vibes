@@ -37,11 +37,13 @@ export default function SearchResult<T extends DiscogsSearchType>({
     return (
       <>
         <CardContainer key={release.id}>
-          <CardImage
-            className="h-48 w-48 rounded-s-lg"
-            src={replaceWithDefaultPicture(release.cover_image, result.type)}
-            alt="release cover"
-          />
+          <CardImageContainer>
+            <CardImage
+              className="rounded-lg"
+              src={replaceWithDefaultPicture(release.cover_image, result.type)}
+              alt="release cover"
+            />
+          </CardImageContainer>
           <CardContent
             itemId={String(release.id)}
             title={release.title}
@@ -59,11 +61,13 @@ export default function SearchResult<T extends DiscogsSearchType>({
     return (
       <>
         <CardContainer>
-          <CardImage
-            className="h-48 w-48 rounded-s-lg"
-            src={replaceWithDefaultPicture(artist.cover_image, result.type)}
-            alt="release cover"
-          />
+          <CardImageContainer>
+            <CardImage
+              className="rounded-lg"
+              src={replaceWithDefaultPicture(artist.cover_image, result.type)}
+              alt="release cover"
+            />
+          </CardImageContainer>
           <CardContent
             itemId={String(artist.id)}
             type={result.type}
@@ -76,7 +80,11 @@ export default function SearchResult<T extends DiscogsSearchType>({
 }
 
 function CardContainer({ children }: { children: ReactNode }) {
-  return <Card className="flex gap-x-4">{children}</Card>;
+  return <Card className="flex flex-col gap-x-4 sm:flex-row">{children}</Card>;
+}
+
+function CardImageContainer({ children }: { children: ReactNode }) {
+  return <div className="h-48 w-full sm:max-w-48">{children}</div>;
 }
 
 type CardContainerProps = {
