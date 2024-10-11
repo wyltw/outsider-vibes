@@ -154,7 +154,12 @@ export const userArtistSchema = z.object({
 
 export const userArtistArraySchema = z.array(userArtistSchema);
 
-export const collectionResponseSchema = z.object({
+export const collectionPostRequestSchema = z.object({
   type: z.enum(["release", "artist"]),
   itemId: z.string(),
+});
+
+export const collectionDeleteRequestSchema = z.object({
+  type: z.enum(["release", "artist"]),
+  documentId: z.string(),
 });

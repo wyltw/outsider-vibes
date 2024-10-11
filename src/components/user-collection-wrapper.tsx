@@ -55,6 +55,7 @@ export default async function UserCollectionWrapper({
     }
     return <CollectionPreview result={{ type: "release", data }} />;
   }
+
   if (type === "artist") {
     const userSavedItems = await getUserSavedItemsList<UserArtist>(
       "userArtists",

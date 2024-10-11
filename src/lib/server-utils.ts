@@ -28,6 +28,8 @@ import {
   Timestamp,
   where,
   orderBy,
+  doc,
+  deleteDoc,
 } from "firebase/firestore";
 import { db } from "@/firebase";
 
@@ -136,21 +138,25 @@ export const fetchDiscogsDataByIds: TFetchDiscogsDataByIds = async <
   T extends DiscogsReleasesApiResponse | DiscogsArtistsApiResponse,
 >(
   resourceType: "releases" | "artists",
-  ids: string[],
+  ids: { documentId: string; discogsId: string }[],
   schema: ZodSchema<any>,
 ) => {
-  const promiseList = ids.map((id) => {
-    const baseURL = getDiscogsResourceAPI(resourceType, id);
-    return fetchData<T>(baseURL.toString(), schema);
-    //這裡回傳的只是充滿pending狀態的Promise物件陣列，在下方的Promise.all完成
-  });
   try {
+    const promiseList = ids.map(({ documentId, discogsId }) => {
+      const baseURL = getDiscogsResourceAPI(resourceType, discogsId);
+      return fetchData<T>(baseURL.toString(), schema).then((result) => {
+        if (!result.success) {
+          throw new Error(result.error);
+        }
+        const dataWithDocumentId = { ...result.data, documentId };
+        return { ...result, data: dataWithDocumentId };
+      });
+      //這裡回傳的只是充滿pending狀態的Promise物件陣列，在下方的Promise.all完成
+    });
     const resultsList = await Promise.all(promiseList);
     const filteredResultsList: T[] = [];
     resultsList.forEach((result) => {
-      if (!result.success) {
-        throw new Error(result.error);
-      }
+      //fetchData函式被設計成不會拋出錯誤，所以在這裡手動捕獲錯誤
       filteredResultsList.push(result.data);
     });
     return { success: true, data: filteredResultsList };
@@ -199,7 +205,10 @@ export const getUserSavedItemsList = async <T extends UserRelease | UserArtist>(
     );
     const data = await getDocs(userQuery);
     const simplifiedData = simplifyQuerySnapshot<T>(data, schema);
-    const savedItemsList = simplifiedData.map((doc) => doc[key] as string);
+    const savedItemsList = simplifiedData.map((doc) => ({
+      documentId: doc["id"],
+      discogsId: doc[key] as string,
+    }));
     //只取id
     return savedItemsList;
   } catch (error) {
@@ -249,6 +258,20 @@ export const saveItemToCollection = async (
       });
     }
   } catch (error) {
-    console.error(handleError(error));
+    throw new Error("添加收藏失敗");
+    //這裡還是需要拋出錯誤，否則無法知道firebase操作是否成功
+  }
+};
+
+export const deleteUserSavedItem = async (
+  type: DiscogsSearchType,
+  documentId: string,
+) => {
+  const collectionId = type === "release" ? "userReleases" : "userArtists";
+  const userDocumentRef = doc(db, collectionId, documentId);
+  try {
+    await deleteDoc(userDocumentRef);
+  } catch (error) {
+    throw new Error("刪除收藏失敗");
   }
 };

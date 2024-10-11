@@ -1,6 +1,7 @@
 import { z, ZodSchema } from "zod";
 import {
-  collectionResponseSchema,
+  collectionDeleteRequestSchema,
+  collectionPostRequestSchema,
   discogsArtistSchema,
   discogsArtistsSchema,
   discogsReleaseSchema,
@@ -37,9 +38,13 @@ export type DiscogsSearchArtistsApiResponse = z.infer<
   typeof discogsArtistsSchema
 >;
 
-export type DiscogsReleasesApiResponse = z.infer<typeof discogsReleaseSchema>;
+export type DiscogsReleasesApiResponse = z.infer<
+  typeof discogsReleaseSchema
+> & { documentId: string };
 
-export type DiscogsArtistsApiResponse = z.infer<typeof discogsArtistSchema>;
+export type DiscogsArtistsApiResponse = z.infer<typeof discogsArtistSchema> & {
+  documentId: string;
+};
 
 export type DiscogsSearchReleasesResult =
   DiscogsSearchReleasesApiResponse["results"][0];
@@ -87,7 +92,7 @@ export type TFetchDiscogsDataByIds = <
   T extends DiscogsReleasesApiResponse | DiscogsArtistsApiResponse,
 >(
   resourceType: "releases" | "artists",
-  ids: string[],
+  ids: { documentId: string; discogsId: string }[],
   schema: ZodSchema<any>,
 ) => Promise<fetchResults<T>>;
 
@@ -109,7 +114,11 @@ export type TGetUserCollectionList<T extends UserRelease | UserArtist> = (
   schema: ZodSchema<any>,
 ) => T[];
 
-export type ColectionResponse = z.infer<typeof collectionResponseSchema>;
+export type collectionPostRequest = z.infer<typeof collectionPostRequestSchema>;
+
+export type collectionDeleteRequest = z.infer<
+  typeof collectionDeleteRequestSchema
+>;
 
 export type ApiResponse = {
   success: boolean;

@@ -6,8 +6,7 @@ import { replaceWithDefaultPicture } from "@/lib/utils";
 import React, { ReactNode } from "react";
 import { Card } from "./ui/card";
 import CardImage from "./card-image";
-import { Button } from "./ui/button";
-import { Trash2 } from "lucide-react";
+import DeleteButton from "./delete-button";
 
 type UserCollectionProps = {
   result:
@@ -85,9 +84,7 @@ function CollectionItemCard({ result }: CollectionItemCardProps) {
           />
         </CardImageContainer>
         <FourthHeading>{release.title}</FourthHeading>
-        <Button className="mt-auto" variant={"outline"} size={"icon"}>
-          <Trash2 />
-        </Button>
+        <DeleteButton documentId={release.documentId} type={result.type} />
       </CardContainer>
     );
   }
@@ -103,9 +100,7 @@ function CollectionItemCard({ result }: CollectionItemCardProps) {
           />
         </CardImageContainer>
         <FourthHeading>{artist.name}</FourthHeading>
-        <Button variant={"outline"} size={"icon"}>
-          <Trash2 />
-        </Button>
+        <DeleteButton documentId={artist.documentId} type={result.type} />
       </CardContainer>
     );
   }
