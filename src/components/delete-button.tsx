@@ -5,6 +5,17 @@ import React from "react";
 import { Button } from "./ui/button";
 import { ApiResponse, DiscogsSearchType } from "@/lib/types";
 import toast from "react-hot-toast";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "./ui/alert-dialog";
 
 type DeleteButtonProps = { documentId: string; type: DiscogsSearchType };
 
@@ -23,12 +34,28 @@ export default function DeleteButton({ documentId, type }: DeleteButtonProps) {
       : toast.error(result.message);
   };
   return (
-    <Button
-      onClick={handleDeleteUserSavedItem}
-      variant={"outline"}
-      size={"icon"}
-    >
-      <Trash2 />
-    </Button>
+    <>
+      <AlertDialog>
+        <AlertDialogTrigger>
+          <Button variant={"outline"} size={"icon"}>
+            <Trash2 />
+          </Button>
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>確定要刪除此項目嗎？</AlertDialogTitle>
+            <AlertDialogDescription>
+              請確保您已經在其他音樂平台收藏此項目
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>取消</AlertDialogCancel>
+            <AlertDialogAction onClick={handleDeleteUserSavedItem}>
+              刪除
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
   );
 }
