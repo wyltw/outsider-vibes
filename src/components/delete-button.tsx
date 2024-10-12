@@ -16,10 +16,12 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "./ui/alert-dialog";
+import { useRouter } from "next/navigation";
 
 type DeleteButtonProps = { documentId: string; type: DiscogsSearchType };
 
 export default function DeleteButton({ documentId, type }: DeleteButtonProps) {
+  const router = useRouter();
   const handleDeleteUserSavedItem = async () => {
     const response = await fetch("/api/users/collections", {
       method: "DELETE",
@@ -32,11 +34,12 @@ export default function DeleteButton({ documentId, type }: DeleteButtonProps) {
     result.success
       ? toast.success(result.message)
       : toast.error(result.message);
+    router.refresh();
   };
   return (
     <>
       <AlertDialog>
-        <AlertDialogTrigger>
+        <AlertDialogTrigger className="mt-auto">
           <Button variant={"outline"} size={"icon"}>
             <Trash2 />
           </Button>

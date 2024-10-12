@@ -55,6 +55,7 @@ export default function SearchResults({
         ) : null}
         {type === "release" &&
           sortedResultsList.map((result) => (
+            //sortedResultsList從resultsList衍生計算，默認值已經是空陣列，所以型別是安全的。
             <SearchResult<"release">
               key={result.id}
               result={{

@@ -6,6 +6,7 @@ import { Button } from "./ui/button";
 import { ApiResponse, DiscogsSearchType } from "@/lib/types";
 import toast from "react-hot-toast";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 type BookmarkButtonProps = {
   itemId: string;
@@ -14,6 +15,7 @@ type BookmarkButtonProps = {
 
 export default function BookmarkButton({ type, itemId }: BookmarkButtonProps) {
   const { data: session } = useSession();
+  const router = useRouter();
   const handleSaveItems = async () => {
     if (!session?.user) {
       toast.error("請先登入再使用添加功能");
@@ -30,6 +32,7 @@ export default function BookmarkButton({ type, itemId }: BookmarkButtonProps) {
     result.success
       ? toast.success(result.message)
       : toast.error(result.message);
+    router.refresh();
   };
   return (
     <>

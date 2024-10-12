@@ -57,6 +57,10 @@ function CardContainer({ children }: { children: ReactNode }) {
   );
 }
 
+function CardImageContainer({ children }: { children: ReactNode }) {
+  return <div className="max-h-80 self-stretch sm:max-h-48">{children}</div>;
+}
+
 function FourthHeading({ children }: { children: ReactNode }) {
   return <h4 className="text-center text-xl text-primary">{children}</h4>;
 }
@@ -66,10 +70,6 @@ type CollectionItemCardProps = {
     | { type: "release"; data: DiscogsReleasesApiResponse }
     | { type: "artist"; data: DiscogsArtistsApiResponse };
 };
-
-function CardImageContainer({ children }: { children: ReactNode }) {
-  return <div className="max-h-80 self-stretch sm:max-h-48">{children}</div>;
-}
 
 function CollectionItemCard({ result }: CollectionItemCardProps) {
   if (result.type === "release") {
