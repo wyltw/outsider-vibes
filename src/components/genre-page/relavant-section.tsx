@@ -25,10 +25,6 @@ export default async function RelavantSection({
   query,
   type,
 }: RelavantSectionProps) {
-  await sleep(5000).then((data) => {
-    console.log(data);
-  });
-
   if (type === "release") {
     const result = await fetchDiscogsData<DiscogsSearchReleasesApiResponse>(
       query,

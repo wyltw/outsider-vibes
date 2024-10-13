@@ -93,6 +93,7 @@ export function useSelectedFilter() {
   params.delete("sortBy");
   const selectedFilterArray: string[] = [];
   for (const value of params.values()) {
+    console.log(value);
     selectedFilterArray.push(...value.split(" "));
     //push可以接受多個參數,因此展開陣列正好
   }

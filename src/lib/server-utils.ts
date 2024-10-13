@@ -146,6 +146,7 @@ export const fetchDiscogsDataByIds: TFetchDiscogsDataByIds = async <
       const baseURL = getDiscogsResourceAPI(resourceType, discogsId);
       return fetchData<T>(baseURL.toString(), schema).then((result) => {
         if (!result.success) {
+          //fetchData函式被設計成不會拋出錯誤，所以在這裡手動捕獲錯誤
           throw new Error(result.error);
         }
         const dataWithDocumentId = { ...result.data, documentId };
@@ -156,7 +157,6 @@ export const fetchDiscogsDataByIds: TFetchDiscogsDataByIds = async <
     const resultsList = await Promise.all(promiseList);
     const filteredResultsList: T[] = [];
     resultsList.forEach((result) => {
-      //fetchData函式被設計成不會拋出錯誤，所以在這裡手動捕獲錯誤
       filteredResultsList.push(result.data);
     });
     return { success: true, data: filteredResultsList };

@@ -1,22 +1,22 @@
 import React from "react";
-import Logo from "./logo";
+import Logo from "../logo";
 import { cn } from "@/lib/utils";
-import SearchForm from "./search-page/search-form";
-import RouteList from "./route-list";
+import SearchForm from "../search-page/search-form";
+import RouteList from "../route-list";
 import { headerRoutes } from "@/lib/constants";
-import SheetContainer from "./sheet-container";
-import SignIn from "./sign-in";
+import SheetContainer from "../sheet-container";
+import SignIn from "../sign-in";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { User } from "lucide-react";
-import UserAvatar from "./user-avatar";
+import UserAvatar from "../user-avatar";
 import { auth } from "@/auth";
-import ProtectedButton from "./protected-button";
+import ProtectedButton from "../protected-button";
 
 type HeaderProps = {
   page: "landing" | "home";

@@ -1,11 +1,11 @@
 import React, { ReactNode } from "react";
-import RouteList from "./route-list";
+import RouteList from "../route-list";
 import { featuredGenres } from "@/lib/constants";
-import Copyright from "./copyright";
-import SignIn from "./sign-in";
+import Copyright from "../copyright";
+import SignIn from "../sign-in";
 import { auth } from "@/auth";
-import UserAvatar from "./user-avatar";
-import UserCollectionWrapper from "./user-collection-wrapper";
+import UserAvatar from "../user-avatar";
+import UserCollectionWrapper from "../user-collection-wrapper";
 
 export default async function Sidebar() {
   let userData;

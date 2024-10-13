@@ -7,9 +7,6 @@ import { fetchWikiArticleIntroduction } from "@/lib/server-utils";
 type WikiSummaryProps = { genre: string };
 
 export default async function WikiSummary({ genre }: WikiSummaryProps) {
-  await sleep(2000).then((data) => {
-    console.log(data);
-  });
   const result = await fetchWikiArticleIntroduction(genre);
   if (!result.success) {
     return <CustomError error={result.error} />;
