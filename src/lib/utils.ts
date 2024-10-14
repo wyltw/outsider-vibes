@@ -45,6 +45,7 @@ export const getUniqueGenres = (
   searchResults: DiscogsSearchReleasesResult[],
   key: "genre" | "style",
 ) => Array.from(new Set(searchResults.map((result) => result[key]).flat()));
+//map的回傳是一個充滿genre陣列或者style陣列的陣列，經過flat攤平後由Set建構式排除重複元素，最後再通過from轉換回一般陣列。
 
 export const splitArtistAndAlbumTitle = (title: string) => {
   return [title.split(" - ").reverse()];
@@ -71,11 +72,11 @@ export const getPageArray = (
     }
     return pageArray.reverse();
   }
-  //確保首頁和尾頁的頁碼渲染
+  //確保頁碼為首頁和尾頁的時候周邊頁碼渲染
   for (let i = previousPage; i <= nextPage; i++) {
     if (i !== 0 && i <= totalPage) pageArray.push(i);
     //考慮邊界情況，如出現0或者超過最大頁數
   }
-  //一般頁碼渲染邏輯
+  //一般的頁碼渲染邏輯
   return pageArray;
 };

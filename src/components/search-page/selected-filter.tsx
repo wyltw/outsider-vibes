@@ -2,8 +2,8 @@
 
 import { useSelectedFilter, useUpdatedSearchParams } from "@/lib/hooks";
 import React from "react";
-import { Badge } from "./ui/badge";
-import { Button } from "./ui/button";
+import { Badge } from "../ui/badge";
+import { Button } from "../ui/button";
 import Link from "next/link";
 
 export default function SelectedFilter() {

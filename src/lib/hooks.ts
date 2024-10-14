@@ -23,26 +23,23 @@ export function useResultsListContext() {
 export function useUpdatedSearchParams() {
   const searchParams = useSearchParams();
   //先取得當下的searchParams後進行後續操作，因為這個實例是read only的
-  const getFilterSearchParams = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams.toString());
-      const previousValue = params.get(name) || "";
-      const valueArray = [previousValue];
-      //採用陣列以便過濾第一個空字串及插入空格，第一個空字串是因為previousValue的默認值，及尚未選取任何filter的初始狀態,函式在渲染Link時就已經執行了
-      if (!valueArray[0].includes(value)) {
-        //此條件檢查目前的genre/style字串中是否與渲染中的值相同
-        const filteredValueArray = [...valueArray, value]
-          .filter((elem) => elem)
-          //排除空字串
-          .join(" ");
-        //以空格作為每個filter的間隔成為一個字串
-        params.set(name, filteredValueArray);
-      }
-      params.set("page", "1");
-      return "?" + params.toString();
-    },
-    [searchParams],
-  );
+  const getFilterSearchParams = (name: string, value: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    const previousValue = params.get(name) || "";
+    const valueArray = [previousValue];
+    //採用陣列以便過濾第一個空字串及插入空格，第一個空字串是因為previousValue的默認值，及尚未選取任何filter的初始狀態,函式在渲染Link時就已經執行了
+    if (!valueArray[0].includes(value)) {
+      //此條件檢查目前的genre/style字串中是否與渲染中的值相同
+      const filteredValueArray = [...valueArray, value]
+        .filter((elem) => elem)
+        //排除空字串
+        .join(" ");
+      //以空格作為每個filter的間隔成為一個字串
+      params.set(name, filteredValueArray);
+    }
+    params.set("page", "1");
+    return "?" + params.toString();
+  };
 
   const getResetSearchParams = () => {
     const params = new URLSearchParams(searchParams.toString());
@@ -93,7 +90,6 @@ export function useSelectedFilter() {
   params.delete("sortBy");
   const selectedFilterArray: string[] = [];
   for (const value of params.values()) {
-    console.log(value);
     selectedFilterArray.push(...value.split(" "));
     //push可以接受多個參數,因此展開陣列正好
   }

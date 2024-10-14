@@ -1,8 +1,9 @@
 import { auth } from "@/auth";
+import CardLoading from "@/components/card-loading";
 import CustomError from "@/components/custom-error";
 import UserCollectionWrapper from "@/components/user-collection-wrapper";
 import Image from "next/image";
-import React, { ReactNode } from "react";
+import React, { ReactNode, Suspense } from "react";
 
 export default async function UserCollectionPage() {
   const session = await auth();
@@ -34,11 +35,15 @@ export default async function UserCollectionPage() {
       <div className="mt-4 flex flex-col gap-y-4">
         <Section>
           <SecondHeading>專輯收藏</SecondHeading>
-          <UserCollectionWrapper type="release" context="main" />
+          <Suspense fallback={<CardLoading />}>
+            <UserCollectionWrapper type="release" context="main" />
+          </Suspense>
         </Section>
         <Section>
           <SecondHeading>藝人收藏</SecondHeading>
-          <UserCollectionWrapper type="artist" context="main" />
+          <Suspense fallback={<CardLoading />}>
+            <UserCollectionWrapper type="artist" context="main" />
+          </Suspense>
         </Section>
       </div>
     </>

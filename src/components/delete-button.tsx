@@ -39,7 +39,7 @@ export default function DeleteButton({ documentId, type }: DeleteButtonProps) {
   return (
     <>
       <AlertDialog>
-        <AlertDialogTrigger className="mt-auto">
+        <AlertDialogTrigger asChild className="mt-auto">
           <Button variant={"outline"} size={"icon"}>
             <Trash2 />
           </Button>

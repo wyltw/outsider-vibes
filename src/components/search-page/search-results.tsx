@@ -7,7 +7,7 @@ import {
   DiscogsSearchArtistsResult,
   DiscogsSearchReleasesResult,
 } from "@/lib/types";
-import SelectedFilter from "../selected-filter";
+import SelectedFilter from "./selected-filter";
 import PaginationControll from "../pagination-controll";
 import SearchResult from "./search-result";
 import { useSearchParams } from "next/navigation";
