@@ -170,3 +170,5 @@ export const searchParamsSchema = z.object({
   style: z.string().optional(),
   page: z.string(),
 });
+
+export const pageNumberSchema = z.coerce.number().int().positive();

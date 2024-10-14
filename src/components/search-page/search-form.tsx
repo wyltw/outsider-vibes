@@ -64,7 +64,6 @@ export default function SearchForm({
             size={"icon"}
             className={cn("absolute h-10 rounded-s-none")}
           >
-            {" "}
             <Search />
           </Button>
         )}

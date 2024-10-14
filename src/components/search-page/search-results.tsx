@@ -12,6 +12,7 @@ import PaginationControll from "../pagination-controll";
 import SearchResult from "./search-result";
 import { useSearchParams } from "next/navigation";
 import { useResultsListContext } from "@/lib/hooks";
+import { pageNumberSchema } from "@/lib/validations";
 
 type SearchResultsProps = {
   searchResults: DiscogsSearchReleasesResult[] | DiscogsSearchArtistsResult[];
@@ -35,6 +36,10 @@ export default function SearchResults({
 
   const searchParams = useSearchParams();
   const page = Number(searchParams.get("page"));
+  const parsedPage = pageNumberSchema.safeParse(page);
+  if (!parsedPage.success) {
+    throw new Error("Invalid SearchParams");
+  }
   const type = searchParams.get("type");
 
   return (
@@ -74,7 +79,7 @@ export default function SearchResults({
         {/* sortedResultsList本身的union無法被排除，為此使用斷言。
         此外最初是因為不想以帶著type屬性的物件形式作為state，在數據操作上不便，因此最終在邏輯合理的情況下使用斷言 */}
       </ul>
-      <PaginationControll resultsCount={resultsCount} page={page} />
+      <PaginationControll resultsCount={resultsCount} page={parsedPage.data} />
     </>
   );
 }
