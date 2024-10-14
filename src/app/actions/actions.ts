@@ -1,6 +1,6 @@
 "use server";
 
-import { signIn, signOut, auth } from "@/auth";
+import { signIn, signOut } from "@/auth";
 
 export const signInAction = async (providers: string) => {
   await signIn(providers);
