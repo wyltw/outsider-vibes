@@ -5,6 +5,7 @@ import WikiSummary from "@/components/wiki-summary";
 import TextLoading from "@/components/text-loading";
 import CardLoading from "@/components/card-loading";
 import RelavantSection from "@/components/genre-page/relavant-section";
+import { sleep } from "@/lib/utils";
 
 type GenrePageProps = { params: { genre: string } };
 

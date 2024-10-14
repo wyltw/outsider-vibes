@@ -3,7 +3,7 @@ import SkeletonCard from "./skeleton-card";
 
 export default function CardLoading() {
   return (
-    <div className="flex h-[350px] w-full items-center justify-between">
+    <div className="flex w-full flex-wrap items-center justify-between gap-y-4">
       <SkeletonCard />
       <SkeletonCard />
       <SkeletonCard />

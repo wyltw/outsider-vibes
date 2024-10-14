@@ -9,7 +9,6 @@ import {
   CarouselPrevious,
 } from "../ui/carousel";
 import RelavantCard from "./relavant-card";
-import { sleep } from "@/lib/utils";
 import ErrorBlock from "../error-block";
 import { discogsArtistsSchema, discogsReleasesSchema } from "@/lib/validations";
 import {
@@ -18,6 +17,7 @@ import {
   DiscogsSearchType,
 } from "@/lib/types";
 import { DEFAULT_PERPAGE } from "@/lib/constants";
+import { sleep } from "@/lib/utils";
 
 type RelavantSectionProps = { query: string; type: DiscogsSearchType };
 
@@ -25,6 +25,7 @@ export default async function RelavantSection({
   query,
   type,
 }: RelavantSectionProps) {
+  await sleep(5000);
   if (type === "release") {
     const result = await fetchDiscogsData<DiscogsSearchReleasesApiResponse>(
       query,
