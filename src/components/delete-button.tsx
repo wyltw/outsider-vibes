@@ -1,7 +1,7 @@
 "use client";
 
-import { Trash2 } from "lucide-react";
-import React from "react";
+import { Loader, Trash2 } from "lucide-react";
+import React, { useState } from "react";
 import { Button } from "./ui/button";
 import { ApiResponse, DiscogsSearchType } from "@/lib/types";
 import toast from "react-hot-toast";
@@ -21,8 +21,10 @@ import { useRouter } from "next/navigation";
 type DeleteButtonProps = { documentId: string; type: DiscogsSearchType };
 
 export default function DeleteButton({ documentId, type }: DeleteButtonProps) {
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const handleDeleteUserSavedItem = async () => {
+    setIsLoading(true);
     const response = await fetch("/api/users/collections", {
       method: "DELETE",
       body: JSON.stringify({ documentId, type }),
@@ -31,17 +33,18 @@ export default function DeleteButton({ documentId, type }: DeleteButtonProps) {
       },
     });
     const result: ApiResponse = await response.json();
+    router.refresh();
     result.success
       ? toast.success(result.message)
       : toast.error(result.message);
-    router.refresh();
+    setIsLoading(false);
   };
   return (
     <>
       <AlertDialog>
         <AlertDialogTrigger asChild className="mt-auto">
           <Button variant={"outline"} size={"icon"}>
-            <Trash2 />
+            {isLoading ? <Loader className="animate-spin" /> : <Trash2 />}
           </Button>
         </AlertDialogTrigger>
         <AlertDialogContent>

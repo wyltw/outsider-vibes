@@ -1,7 +1,7 @@
 "use client";
 
-import { PlusSquare } from "lucide-react";
-import React from "react";
+import { Loader, PlusSquare } from "lucide-react";
+import React, { useState } from "react";
 import { Button } from "./ui/button";
 import { ApiResponse, DiscogsSearchType } from "@/lib/types";
 import toast from "react-hot-toast";
@@ -14,9 +14,11 @@ type BookmarkButtonProps = {
 };
 
 export default function BookmarkButton({ type, itemId }: BookmarkButtonProps) {
+  const [isLoading, setIsLoading] = useState(false);
   const { data: session } = useSession();
   const router = useRouter();
   const handleSaveItems = async () => {
+    setIsLoading(true);
     if (!session?.user) {
       toast.error("請先登入再使用添加功能");
       return;
@@ -29,10 +31,11 @@ export default function BookmarkButton({ type, itemId }: BookmarkButtonProps) {
       },
     });
     const result: ApiResponse = await response.json();
+    router.refresh();
     result.success
       ? toast.success(result.message)
       : toast.error(result.message);
-    router.refresh();
+    setIsLoading(false);
   };
   return (
     <>
@@ -43,8 +46,14 @@ export default function BookmarkButton({ type, itemId }: BookmarkButtonProps) {
         className="ms-auto gap-x-2"
         size={"sm"}
       >
-        <PlusSquare />
-        添加收藏
+        {isLoading ? (
+          <Loader className="animate-spin" />
+        ) : (
+          <>
+            <PlusSquare />
+            添加收藏
+          </>
+        )}
       </Button>
     </>
   );
