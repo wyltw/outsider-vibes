@@ -163,3 +163,10 @@ export const collectionDeleteRequestSchema = z.object({
   type: z.enum(["release", "artist"]),
   documentId: z.string(),
 });
+
+export const searchParamsSchema = z.object({
+  type: z.enum(["release", "artist"]),
+  genre: z.string().optional(),
+  style: z.string().optional(),
+  page: z.string(),
+});

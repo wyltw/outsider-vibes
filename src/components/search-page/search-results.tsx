@@ -50,9 +50,6 @@ export default function SearchResults({
         {resultsCount === 0 ? (
           <ErrorBlock error="沒有相關的搜尋結果，建議更換搜尋關鍵字" />
         ) : null}
-        {type !== "release" && type !== "artist" ? (
-          <ErrorBlock error="缺少搜尋字串，請重新搜尋" />
-        ) : null}
         {type === "release" &&
           sortedResultsList.map((result) => (
             //sortedResultsList從resultsList衍生計算，默認值已經是空陣列，所以型別是安全的。

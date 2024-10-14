@@ -13,8 +13,6 @@ import CustomError from "../custom-error";
 type SearchResultsWrapperProps = {
   query: string;
   searchParams: {
-    genre: string;
-    style: string;
     page: string;
     type: DiscogsSearchType;
   };
