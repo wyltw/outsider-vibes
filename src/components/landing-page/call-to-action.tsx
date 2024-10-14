@@ -3,6 +3,7 @@ import React from "react";
 import { Button } from "../ui/button";
 import FirstHeading from "../first-heading";
 import Image from "next/image";
+import { signIn } from "@/auth";
 
 export default function CallToAction() {
   return (
@@ -21,12 +22,14 @@ export default function CallToAction() {
             每個音符都有故事，每種旋律都有共鳴。
             加入我們的社區，發現更多令人驚喜的音樂。
           </p>
-          <div className="mt-6 flex w-full max-w-sm flex-col gap-4 md:flex-row">
-            <Button variant="outline" size={"lg"} asChild>
-              <Link href="./home">Visit our community</Link>
-            </Button>
-            <Button size={"lg"} asChild>
-              <Link href="./sign-up">Sign up</Link>
+          <div className="mt-6 flex w-full max-w-sm gap-4">
+            <Button
+              className="flex-1 text-xl"
+              variant="outline"
+              size={"lg"}
+              asChild
+            >
+              <Link href="./home">開始一趟音樂之旅</Link>
             </Button>
           </div>
         </div>

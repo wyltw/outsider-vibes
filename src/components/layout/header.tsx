@@ -46,7 +46,11 @@ export default async function Header({ page }: HeaderProps) {
           {page === "home" && <SearchForm context="header" />}
           <nav className="flex gap-x-4">
             <RouteList page={page} routes={headerRoutes} context="header" />
-            <SignIn context="header" />
+            {page === "landing" ? (
+              <SignIn context="header" page="landing" />
+            ) : (
+              <SignIn context="header" />
+            )}
             <SheetContainer page={page} />
             <DropdownMenu>
               <DropdownMenuTrigger className="md:hidden" asChild>
@@ -69,7 +73,11 @@ export default async function Header({ page }: HeaderProps) {
                   >
                     查看收藏
                   </ProtectedButton>
-                  <SignIn context="dropdown" />
+                  {page === "landing" ? (
+                    <SignIn context="dropdown" page="landing" />
+                  ) : (
+                    <SignIn context="dropdown" />
+                  )}
                   {!userData ? (
                     <p className="text-center text-sm text-black/50">
                       登入以添加收藏

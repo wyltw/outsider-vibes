@@ -28,6 +28,7 @@ export default function RelavantCard({ result }: RelavantCardProps) {
           <CardImageContainer>
             {/* 這裡顯式使用css設定寬高是因為來源圖片尺寸不統一 */}
             <CardImage
+              className="rounded-lg"
               src={replaceWithDefaultPicture(release.cover_image, result.type)}
               alt="release cover"
             />
@@ -50,6 +51,7 @@ export default function RelavantCard({ result }: RelavantCardProps) {
         <CardContainer>
           <CardImageContainer>
             <CardImage
+              className="rounded-lg"
               src={replaceWithDefaultPicture(artist.cover_image, result.type)}
               alt="artist cover"
             />

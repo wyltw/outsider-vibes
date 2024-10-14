@@ -16,7 +16,7 @@ export default function FinalCallToAction() {
       />
 
       <Button size={"lg"} className="text-base" asChild>
-        <Link href="./sign-up">Join us</Link>
+        <Link href="./home">開始探索</Link>
       </Button>
     </section>
   );
