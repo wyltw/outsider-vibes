@@ -6,7 +6,6 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { useParams, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { useResultsListContext } from "@/lib/hooks";
 
 type SearchFormProps = {
   context: "header" | "home" | "sheet";
@@ -45,7 +44,7 @@ export default function SearchForm({
         context === "header" && "hidden w-full max-w-lg sm:flex",
       )}
     >
-      <label className="flex flex-1 justify-end">
+      <label className="relative flex flex-1 justify-end">
         <Input
           onChange={handleInput}
           value={searchText}
@@ -56,8 +55,19 @@ export default function SearchForm({
               "h-10 w-2/5 transition-all duration-700 focus-visible:w-full md:h-10",
             context === "sheet" && "rounded-e-md md:h-10",
           )}
+          //默認高度為h-10
           placeholder="輸入藝人或者專輯..."
         />
+        {context === "sheet" && (
+          <Button
+            variant={"link"}
+            size={"icon"}
+            className={cn("absolute h-10 rounded-s-none")}
+          >
+            {" "}
+            <Search />
+          </Button>
+        )}
       </label>
       <Button
         size={context === "header" ? "icon" : "lg"}
