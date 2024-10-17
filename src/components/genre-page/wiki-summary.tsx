@@ -1,6 +1,6 @@
 import React from "react";
-import CustomError from "./custom-error";
-import EmbarrassedIcon from "./embarrased-icon";
+import CustomError from "../custom-error";
+import EmbarrassedIcon from "../embarrased-icon";
 import { fetchWikiArticleIntroduction } from "@/lib/server-utils";
 
 type WikiSummaryProps = { genre: string };

@@ -1,7 +1,5 @@
 import React, { ReactNode, Suspense } from "react";
-
-import WikiSummary from "@/components/wiki-summary";
-
+import WikiSummary from "@/components/genre-page/wiki-summary";
 import TextLoading from "@/components/text-loading";
 import CardLoading from "@/components/card-loading";
 import RelavantSection from "@/components/genre-page/relavant-section";

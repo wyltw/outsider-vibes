@@ -8,7 +8,7 @@ import {
   replaceWithDefaultPicture,
   splitArtistAndAlbumTitle,
 } from "@/lib/utils";
-import GenreList from "../genre-list";
+import GenreList from "../search-page/genre-list";
 import CardImage from "../card-image";
 
 type RelavantCardProps = {

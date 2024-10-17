@@ -3,7 +3,7 @@ import {
   splitArtistAndAlbumTitle,
 } from "@/lib/utils";
 import React, { Fragment, ReactNode } from "react";
-import GenreList from "../genre-list";
+import GenreList from "./genre-list";
 import { Card } from "../ui/card";
 import Image from "next/image";
 import {

@@ -18,6 +18,7 @@ export default function ProtectedButton({
   isDisabled,
 }: ProtectedButtonProps) {
   const { data: session } = useSession();
+  const router = useRouter();
   const handleClick = () => {
     if (!session?.user) {
       toast.error("請先登入");
@@ -25,7 +26,6 @@ export default function ProtectedButton({
     }
     router.push(url);
   };
-  const router = useRouter();
   return (
     <Button
       variant={"ghost"}
