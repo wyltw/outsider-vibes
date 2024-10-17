@@ -37,7 +37,7 @@ export default async function GenrePage({ params }: GenrePageProps) {
 
 type SectionProps = { children: ReactNode };
 
-export function Section({ children }: SectionProps) {
+function Section({ children }: SectionProps) {
   return (
     <>
       <section className="flex flex-col items-center gap-y-5">
