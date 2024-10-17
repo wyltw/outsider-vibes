@@ -71,17 +71,11 @@ export const fetchWikiArticleIntroduction = async (query: string) => {
 };
 
 const addDiscogsAuthParams = (baseURL: URL) => {
-  if (process.env.NEXT_PUBLIC_DISCOGS_API_CONSUMER_KEY) {
-    baseURL.searchParams.set(
-      "key",
-      process.env.NEXT_PUBLIC_DISCOGS_API_CONSUMER_KEY,
-    );
+  if (process.env.DISCOGS_API_CONSUMER_KEY) {
+    baseURL.searchParams.set("key", process.env.DISCOGS_API_CONSUMER_KEY);
   }
-  if (process.env.NEXT_PUBLIC_DISCOGS_API_CONSUMER_SECRET) {
-    baseURL.searchParams.set(
-      "secret",
-      process.env.NEXT_PUBLIC_DISCOGS_API_CONSUMER_SECRET,
-    );
+  if (process.env.DISCOGS_API_CONSUMER_SECRET) {
+    baseURL.searchParams.set("secret", process.env.DISCOGS_API_CONSUMER_SECRET);
   }
   return baseURL;
 };
