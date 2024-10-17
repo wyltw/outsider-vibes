@@ -1,5 +1,5 @@
 "use client";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { createContext, ReactNode, useEffect, useState } from "react";
 
 type TSheetToggleContext = {
@@ -17,14 +17,13 @@ export default function SheetToggleContextProvider({
   children,
 }: SheetToggleContextProviderProps) {
   const pathName = usePathname();
-  const searchParams = useSearchParams();
   const [isOpen, setIsOpen] = useState(false);
   const handleSheetToggle = (isOpen: boolean) => {
     setIsOpen(isOpen);
   };
   useEffect(() => {
     handleSheetToggle(false);
-  }, [pathName, searchParams]);
+  }, [pathName]);
 
   const context = { isOpen, handleSheetToggle };
 

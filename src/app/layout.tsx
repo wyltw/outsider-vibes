@@ -3,7 +3,6 @@ import { Toaster } from "react-hot-toast";
 import { DM_Sans, Noto_Sans_TC } from "next/font/google";
 import "./globals.css";
 import SheetToggleContextProvider from "@/contexts/SheetToggleContextProvider";
-import ResultsListContextProvider from "@/contexts/ResultsListContextProvider";
 import { SessionProvider } from "next-auth/react";
 
 const notoSansTC = Noto_Sans_TC({
@@ -33,9 +32,7 @@ export default function RootLayout({
         className={`${dmSans.className} ${notoSansTC.className} bg-[#FDFBFE]`}
       >
         <SessionProvider>
-          <SheetToggleContextProvider>
-            <ResultsListContextProvider>{children} </ResultsListContextProvider>
-          </SheetToggleContextProvider>
+          <SheetToggleContextProvider>{children}</SheetToggleContextProvider>
         </SessionProvider>
 
         <Toaster position="bottom-right" reverseOrder={false} />
