@@ -1,6 +1,5 @@
 import { fetchDiscogsData } from "@/lib/server-utils";
 import React, { ReactNode } from "react";
-import CustomError from "../custom-error";
 import {
   Carousel,
   CarouselContent,
@@ -35,7 +34,7 @@ export default async function RelavantSection({
       //這裡才應該手動傳入頁碼，因為這裡沒有pagination
     );
     if (!result.success) {
-      return <CustomError error={result.error} />;
+      return <ErrorBlock error={result.error} />;
     }
     if (!result.data.pagination.items) {
       return <ErrorBlock error="沒有相關的搜尋結果，建議更換搜尋關鍵字" />;
@@ -68,7 +67,7 @@ export default async function RelavantSection({
       DEFAULT_PERPAGE,
     );
     if (!result.success) {
-      return <CustomError error={result.error} />;
+      return <ErrorBlock error={result.error} />;
     }
     if (!result.data.pagination.items) {
       return <ErrorBlock error="沒有相關的搜尋結果，建議更換搜尋關鍵字" />;

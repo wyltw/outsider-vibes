@@ -1,14 +1,14 @@
 import React from "react";
-import CustomError from "../custom-error";
 import EmbarrassedIcon from "../embarrased-icon";
 import { fetchWikiArticleIntroduction } from "@/lib/server-utils";
+import ErrorBlock from "../error-block";
 
 type WikiSummaryProps = { genre: string };
 
 export default async function WikiSummary({ genre }: WikiSummaryProps) {
   const result = await fetchWikiArticleIntroduction(genre);
   if (!result.success) {
-    return <CustomError error={result.error} />;
+    return <ErrorBlock error={result.error} />;
   }
   const articleIntro = result.data;
   return (

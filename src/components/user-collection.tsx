@@ -7,6 +7,7 @@ import React, { ReactNode } from "react";
 import { Card } from "./ui/card";
 import CardImage from "./card-image";
 import DeleteButton from "./delete-button";
+import ErrorBlock from "./error-block";
 
 type UserCollectionProps = {
   result:
@@ -17,6 +18,9 @@ type UserCollectionProps = {
 export default function UserCollection({ result }: UserCollectionProps) {
   if (result.type === "release") {
     const results = result.data;
+    if (!results.length) {
+      return <ErrorBlock error="目前還沒有收藏，請到搜索頁面添加" />;
+    }
     return (
       <CollectionItemContainer>
         {results.map((result) => (
@@ -30,6 +34,9 @@ export default function UserCollection({ result }: UserCollectionProps) {
   }
   if (result.type === "artist") {
     const results = result.data;
+    if (!results.length) {
+      return <ErrorBlock error="目前還沒有收藏，請到搜索頁面添加" />;
+    }
     return (
       <CollectionItemContainer>
         {results.map((result) => (
