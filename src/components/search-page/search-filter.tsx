@@ -79,7 +79,7 @@ function Filter({ children, text }: FilterProps) {
           size={"icon"}
           variant={"ghost"}
         >
-          <ChevronLeft className="" />
+          <ChevronLeft />
         </Button>
         <div
           ref={divRef}
@@ -92,7 +92,7 @@ function Filter({ children, text }: FilterProps) {
           size={"icon"}
           variant={"ghost"}
         >
-          <ChevronRight className="" />
+          <ChevronRight />
         </Button>
       </div>
     </div>

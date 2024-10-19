@@ -80,7 +80,11 @@ export default function SearchResult<T extends DiscogsSearchType>({
 }
 
 function CardContainer({ children }: { children: ReactNode }) {
-  return <Card className="flex flex-col gap-x-4 sm:flex-row">{children}</Card>;
+  return (
+    <Card className="flex flex-col gap-x-4 hover:shadow-md sm:flex-row">
+      {children}
+    </Card>
+  );
 }
 
 function CardImageContainer({ children }: { children: ReactNode }) {

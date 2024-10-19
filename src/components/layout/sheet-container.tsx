@@ -5,12 +5,12 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "./ui/sheet";
+} from "../ui/sheet";
 import { headerRoutes } from "@/lib/constants";
 import { Menu } from "lucide-react";
-import RouteList from "./route-list";
-import SearchForm from "./search-page/search-form";
-import { Button } from "./ui/button";
+import RouteList from "../route-list";
+import SearchForm from "../search-page/search-form";
+import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 import { useSheetToggleContext } from "@/lib/hooks";
 
@@ -25,7 +25,7 @@ export default function SheetContainer({ page }: SheetContainerProps) {
           <Button
             className={cn(
               page === "landing" && "sm:hidden",
-              page === "home" && "md:hidden",
+              page === "home" && "lg:hidden",
             )}
             variant="ghost"
             size="icon"

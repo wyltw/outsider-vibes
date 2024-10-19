@@ -64,7 +64,7 @@ function ServerAuthButton({
   if (context === "header") {
     return (
       <form action={action}>
-        <Button type="submit" className="hidden md:block">
+        <Button type="submit" className="hidden lg:block">
           {children}
         </Button>
       </form>
@@ -74,7 +74,7 @@ function ServerAuthButton({
   if (context === "sidebar") {
     return (
       <form action={action}>
-        <Button type="submit" size={"sm"} className="hidden md:block">
+        <Button type="submit" size={"sm"}>
           {children}
         </Button>
       </form>

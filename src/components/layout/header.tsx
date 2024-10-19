@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import SearchForm from "../search-page/search-form";
 import RouteList from "../route-list";
 import { headerRoutes } from "@/lib/constants";
-import SheetContainer from "../sheet-container";
+import SheetContainer from "./sheet-container";
 import SignIn from "../sign-in";
 import {
   DropdownMenu,
@@ -53,7 +53,7 @@ export default async function Header({ page }: HeaderProps) {
             )}
             <SheetContainer page={page} />
             <DropdownMenu>
-              <DropdownMenuTrigger className="md:hidden" asChild>
+              <DropdownMenuTrigger className="lg:hidden" asChild>
                 <Button variant={"ghost"} size={"icon"}>
                   <User />
                 </Button>
