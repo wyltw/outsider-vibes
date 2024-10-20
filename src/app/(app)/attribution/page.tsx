@@ -24,12 +24,7 @@ export default function AttributionPage() {
         <SecondHeading>Illustrations</SecondHeading>
         <ul>
           <li>
-            <CustomLink href="https://storyset.com/music">
-              illustrations by Storyset
-            </CustomLink>
-          </li>
-          <li>
-            <CustomLink href="https://storyset.com/music">
+            <CustomLink href="https://storyset.com">
               illustrations by Storyset
             </CustomLink>
           </li>
