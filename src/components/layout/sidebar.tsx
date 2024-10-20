@@ -14,7 +14,7 @@ export default async function Sidebar() {
     userData = session.user;
   }
   return (
-    <aside className="fixed left-0 top-[80px] z-50 col-span-1 mt-[1px] hidden h-[calc(100vh_-_80px)] w-72 flex-col gap-y-4 overflow-y-auto bg-white px-4 py-8 shadow lg:flex">
+    <aside className="fixed left-0 top-[80px] z-50 col-span-1 mt-px hidden h-[calc(100vh_-_80px)] w-72 flex-col gap-y-4 overflow-y-auto bg-white px-4 py-8 shadow lg:flex">
       {/* 即使因為文檔流aside可以自然下推，顯式的設定top-[80px]設定起始點會使目的更加明確 */}
       <SidebarSection>
         <ThirdHeading>個人資料</ThirdHeading>

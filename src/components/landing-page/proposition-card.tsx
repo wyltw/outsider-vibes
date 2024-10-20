@@ -17,7 +17,7 @@ type PropositionCardProps = {
 const MotionImage = motion(Image);
 
 const sectionVariants = {
-  hidden: { opacity: 0, y: -50 },
+  hidden: { opacity: 0, y: -40 },
   visible: {
     opacity: 1,
     y: 0,
@@ -26,7 +26,7 @@ const sectionVariants = {
 };
 
 const imageVariants = {
-  hidden: { opacity: 0, x: -50 },
+  hidden: { opacity: 0, x: -40 },
   visible: {
     opacity: 1,
     x: 0,
@@ -35,7 +35,7 @@ const imageVariants = {
 };
 
 const divVariants = {
-  hidden: { opacity: 0, x: 50 },
+  hidden: { opacity: 0, x: 40 },
   visible: {
     opacity: 1,
     x: 0,
@@ -68,7 +68,7 @@ export default function PropositionCard({
       <motion.div variants={divVariants} className={cn("max-w-sm", className)}>
         <p className="text-sm tracking-wider text-secondary">{label}</p>
         {children}
-        <p className="mt-2 break-keep text-black/50">{textLines}</p>
+        <p className="mt-2 break-keep text-black/40">{textLines}</p>
       </motion.div>
     </motion.section>
   );

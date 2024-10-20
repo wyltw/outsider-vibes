@@ -12,6 +12,7 @@ export default function BackgroundPattern({
   return (
     <div className="relative overflow-hidden">
       <Image
+        priority
         className="-z-10 h-auto max-w-full opacity-30"
         src="/images/jean-philippe-delberghe-75xPHEQBmvA-unsplash.jpg"
         alt="background"

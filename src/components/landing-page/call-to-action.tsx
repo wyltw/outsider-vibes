@@ -3,7 +3,6 @@ import React from "react";
 import { Button } from "../ui/button";
 import FirstHeading from "../first-heading";
 import Image from "next/image";
-import { signIn } from "@/auth";
 
 export default function CallToAction() {
   return (

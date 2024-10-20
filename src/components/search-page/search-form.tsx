@@ -52,7 +52,7 @@ export default function SearchForm({
           className={cn(
             "rounded-e-none text-base transition-all placeholder:text-base focus-visible:ring-primary md:h-14",
             context === "header" &&
-              "h-10 w-2/5 transition-all duration-700 focus-visible:w-full md:h-10",
+              "h-10 w-2/5 transition-all duration-500 focus-visible:w-full md:h-10",
             context === "sheet" && "rounded-e-md md:h-10",
           )}
           //默認高度為h-10

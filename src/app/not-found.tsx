@@ -26,9 +26,16 @@ export default function NotFound() {
       >
         回上一頁
       </Button>
-      <Link className="py-2 underline-offset-4 hover:underline" href="/">
-        回到首頁
-      </Link>
+      <Button
+        className="text-base text-black"
+        asChild
+        onClick={() => {
+          router.back();
+        }}
+        variant={"link"}
+      >
+        <Link href="/">回到首頁</Link>
+      </Button>
     </div>
   );
 }

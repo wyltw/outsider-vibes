@@ -28,6 +28,7 @@ export const footerRoutes: RouteItem[] = [
     path: "/",
   },
 ];
+
 export const featuredGenres: RouteItem[] = [
   {
     name: "Happy hardcore",
