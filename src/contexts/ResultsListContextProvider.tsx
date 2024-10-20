@@ -37,7 +37,8 @@ export default function ResultsListContextProvider({
         } else if (sortBy === "title") {
           const titleA = a.title.toUpperCase();
           const titleB = b.title.toUpperCase();
-          return titleB.localeCompare(titleA);
+          console.log(titleB.localeCompare(titleA));
+          return titleA.localeCompare(titleB);
         }
         return 0;
       }),
@@ -56,3 +57,8 @@ export default function ResultsListContextProvider({
     </ResultsListContext.Provider>
   );
 }
+
+// const titleA = a.title.toUpperCase().charCodeAt(0);
+// const titleB = b.title.toUpperCase().charCodeAt(0);
+// console.log(titleB - titleA);
+// return titleB - titleA;
