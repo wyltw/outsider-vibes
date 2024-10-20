@@ -73,8 +73,12 @@ type CollectionItemProps = {
 function CollectionItem({ result }: CollectionItemProps) {
   return (
     <>
-      {"name" in result && <li className="text-black">{result.name}</li>}
-      {"title" in result && <li className="text-black">{result.title}</li>}
+      {"name" in result && (
+        <li className="truncate text-black">{result.name}</li>
+      )}
+      {"title" in result && (
+        <li className="truncate text-black">{result.title}</li>
+      )}
     </>
   );
 }
