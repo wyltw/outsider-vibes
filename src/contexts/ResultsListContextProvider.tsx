@@ -57,8 +57,3 @@ export default function ResultsListContextProvider({
     </ResultsListContext.Provider>
   );
 }
-
-// const titleA = a.title.toUpperCase().charCodeAt(0);
-// const titleB = b.title.toUpperCase().charCodeAt(0);
-// console.log(titleB - titleA);
-// return titleB - titleA;
