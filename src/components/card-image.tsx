@@ -17,6 +17,7 @@ export default function CardImage({
       height={400}
       alt={alt}
       src={src}
+      quality={50}
       {...props}
     />
   );
