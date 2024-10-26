@@ -23,14 +23,14 @@ export default async function UserCollectionPage() {
   }
   return (
     <>
-      <h1 className="mb-2 text-3xl font-medium text-primary">願望清單</h1>
+      <h1 className="mb-2 text-3xl font-medium text-primary">收藏夹</h1>
       <p className="text-black/50">
         未來，我們計畫逐步串接 Spotify
         API，讓您可以直接將心儀的專輯或藝術家添加至您的 Spotify 清單中。
       </p>
       <p className="text-black/50">
         目前由於 Discogs API
-        的頻率限制，我們暫時設置了一個收藏上限，感謝您的理解與支持！
+        的請求頻率限制，我們暫時設置了一個收藏上限，感謝您的理解與支持！
       </p>
       <div className="mt-4 flex flex-col gap-y-4">
         <Section>
