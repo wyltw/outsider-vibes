@@ -17,7 +17,7 @@ import {
   userArtistArraySchema,
 } from "@/lib/validations";
 import React from "react";
-import CollectionPreview from "./collection-preview";
+import CollectionPreview from "../layout/collection-preview";
 import UserCollection from "./user-collection";
 
 type UserCollectionWrapperProps = {

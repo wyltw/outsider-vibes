@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
 import CardLoading from "@/components/card-loading";
 import CustomError from "@/components/custom-error";
-import UserCollectionWrapper from "@/components/user-collection-wrapper";
+import UserCollectionWrapper from "@/components/collection-page/user-collection-wrapper";
 import Image from "next/image";
 import React, { ReactNode, Suspense } from "react";
 

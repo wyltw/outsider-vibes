@@ -4,9 +4,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "../ui/button";
 import { RouteItem } from "@/lib/types";
-import Copyright from "../copyright";
+import Copyright from "./copyright";
 import { footerRoutes } from "@/lib/constants";
-import CustomLink from "../CustomLink";
+import CustomLink from "../custom-link";
 
 export default function Footer() {
   return (

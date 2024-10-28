@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import React from "react";
-import CustomLink from "./CustomLink";
+import CustomLink from "../custom-link";
 
 type CopyrightProps = { className?: string };
 

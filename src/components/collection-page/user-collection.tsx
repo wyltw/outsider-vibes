@@ -4,10 +4,10 @@ import {
 } from "@/lib/types";
 import { replaceWithDefaultPicture } from "@/lib/utils";
 import React, { ReactNode } from "react";
-import { Card } from "./ui/card";
-import CardImage from "./card-image";
-import DeleteButton from "./delete-button";
-import ErrorBlock from "./error-block";
+import { Card } from "../ui/card";
+import CardImage from "../card-image";
+import DeleteButton from "../delete-button";
+import ErrorBlock from "../error-block";
 
 type UserCollectionProps = {
   result:

@@ -1,4 +1,4 @@
-import CustomLink from "@/components/CustomLink";
+import CustomLink from "@/components/custom-link";
 import React, { ReactNode } from "react";
 
 export default function AttributionPage() {

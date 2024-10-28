@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "../ui/button";
 import { User } from "lucide-react";
-import UserAvatar from "../user-avatar";
+import UserAvatar from "../collection-page/user-avatar";
 import { auth } from "@/auth";
 import ProtectedButton from "../protected-button";
 
