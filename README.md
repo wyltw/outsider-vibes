@@ -1,36 +1,125 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Outsider Vibes - 音樂搜索平台
 
-## Getting Started
+![image](https://hackmd.io/_uploads/ryjeoOce1x.png)
 
-First, run the development server:
+* 使用Next.js開發的音樂搜索平台，因Spotify沒有以音樂風格/類型進行搜尋的功能，因此利用Discogs API提供的音樂資料實現進階搜尋功能。
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Live Demo
+
+https://outsider-vibes.vercel.app/
+
+## 使用的技術：
+
+### 前端
+
+- TypeScript
+- Next.js(App Router)
+- React
+
+### UI
+
+- Tailwind CSS
+- Shadcn/ui
+- Framer Motion
+
+### 後端
+
+- Firebase
+- Auth.js(NextAuth.js v5)
+
+### 工具套件
+
+- Zod - 用於驗證外部資料（如：API回應），確保型別安全
+
+## 專案特色
+
+1. **模組化：**
+
+-- 建立通用性高的組件，透過對泛型組件傳入Props進行複用，同時減少Tailwind CSS和Shadcn/ui可能帶來的重複
+
+2. **性能優化：**
+
+-- 充分利用Next.js的Server Components維持SSR的優勢，只在必要時將組件轉換為Client Components
+
+3. **嚴謹的數據驗證及型別安全：**
+
+-- 使用TypeScript進行靜態檢查，同時使用Zod幫助驗證外部來源資料，使專案在運行期間同樣強健
+
+4. **以URLs管理狀態：**
+
+-- 使用URL參數管理狀態，搜索頁的URL與API URL結合，所以搜索結果可以被保存和分享
+
+5. **泛型組件和函式：**
+
+-- 在合理場景下進行重構，利用泛型組件和函式以利功能拓展
+
+6. **RWD設計：**
+
+-- 確保網頁在所有尺寸下都易於使用
+
+## 主要功能
+
+1. **進階搜尋：**
+
+-- 搜尋頁面包含排序，過濾等功能
+
+![image](https://hackmd.io/_uploads/HyPg7GGbJx.png)
+
+2. **簡易收藏：**
+
+![image](https://hackmd.io/_uploads/Bkwt7zM-Jl.png)
+
+-- 提供用戶使用google登入添加簡易收藏
+
+## 未來拓展
+
+1. **結合Spotify API：**
+
+-- 以目前的架構為基礎繼續加入Spotify API，完成Spotify的第三方登入功能，使用戶可以在本專案使用完整收藏功能
+
+2. **試聽功能：**
+
+-- 嘗試整合Spotify API和Discogs API，添加試聽功能及專輯/藝人詳細信息瀏覽
+
+3. **簡易收藏的改進：**
+
+-- 受限於Discogs API的請求頻率限制，考慮使用Firebase保存簡易專輯/藝人信息作為緩存策略
+
+## 專案結構
+
+```
+src/
+├── app/                  
+│   ├── (app)/              
+│   ├── (landing)/          
+│   ├── actions/            
+│   ├── api/               
+│   ├── error.tsx          
+│   ├── favicon.ico         
+│   ├── globals.css         
+│   ├── layout.tsx          
+│   └── not-found.tsx       
+│
+├── components/             
+│
+├── contexts/              
+│
+├── lib/                    
+│   ├── constants.ts        
+│   ├── hooks.ts           
+│   ├── server-utils.ts     
+│   ├── types.ts            
+│   ├── utils.ts            
+│   ├── validations.ts      
+│   ├── auth.ts             
+│   ├── firebase.ts         
+│   └── middleware.ts  
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
