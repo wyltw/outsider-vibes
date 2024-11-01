@@ -1,6 +1,7 @@
 import { signIn, signOut, auth } from "@/auth";
 import { Button } from "./ui/button";
-import { ReactNode } from "react";
+import { ReactNode, Suspense } from "react";
+import ButtonLoading from "./button-loading";
 
 type SignInProps = {
   context: "header" | "sidebar" | "dropdown" | "landing";
@@ -65,7 +66,7 @@ function ServerAuthButton({
     return (
       <form action={action}>
         <Button type="submit" className="hidden lg:block">
-          {children}
+          <Suspense fallback={<ButtonLoading />}>{children}</Suspense>
         </Button>
       </form>
     );
@@ -75,7 +76,7 @@ function ServerAuthButton({
     return (
       <form action={action}>
         <Button type="submit" size={"sm"}>
-          {children}
+          <Suspense fallback={<ButtonLoading />}>{children}</Suspense>
         </Button>
       </form>
     );
@@ -85,7 +86,7 @@ function ServerAuthButton({
     return (
       <form className="w-full" action={action}>
         <Button type="submit" size={"sm"} className="w-full">
-          {children}
+          <Suspense fallback={<ButtonLoading />}>{children}</Suspense>
         </Button>
       </form>
     );
