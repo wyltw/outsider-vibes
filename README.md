@@ -67,9 +67,9 @@ https://outsider-vibes.vercel.app/
 
 2. **簡易收藏：**
 
-![image](https://github.com/user-attachments/assets/54f255c5-3174-4ab4-afca-138a40c61dac)
-
 -- 提供用戶使用google登入添加簡易收藏
+
+![image](https://github.com/user-attachments/assets/54f255c5-3174-4ab4-afca-138a40c61dac)
 
 ## 未來拓展
 
