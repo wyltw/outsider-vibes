@@ -1,6 +1,6 @@
 # Outsider Vibes - 音樂搜索平台
 
-![image](https://hackmd.io/_uploads/ryjeoOce1x.png)
+![image](https://github.com/user-attachments/assets/e2ff09ff-3aa6-4311-9cbd-9099b52be9de)
 
 * 使用Next.js開發的音樂搜索平台，因Spotify沒有以音樂風格/類型進行搜尋的功能，因此利用Discogs API提供的音樂資料實現進階搜尋功能。
 
@@ -63,11 +63,11 @@ https://outsider-vibes.vercel.app/
 
 -- 搜尋頁面包含排序，過濾等功能
 
-![image](https://hackmd.io/_uploads/HyPg7GGbJx.png)
+![image](https://github.com/user-attachments/assets/c53bdceb-c72a-4216-a235-4cef6dd82162)
 
 2. **簡易收藏：**
 
-![image](https://hackmd.io/_uploads/Bkwt7zM-Jl.png)
+![image](https://github.com/user-attachments/assets/54f255c5-3174-4ab4-afca-138a40c61dac)
 
 -- 提供用戶使用google登入添加簡易收藏
 
