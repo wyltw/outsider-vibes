@@ -19,6 +19,7 @@ export default function HomePage() {
             className="hidden sm:col-start-3 sm:col-end-5 sm:row-start-1 sm:row-end-2 sm:block sm:opacity-80"
             src="/images/headphone-bro.svg"
             alt="headphone"
+            priority
             width={500}
             height={500}
           />
@@ -27,6 +28,7 @@ export default function HomePage() {
           className="-mt-36 opacity-80 sm:hidden"
           src="/images/headphone-bro.svg"
           alt="headphone"
+          priority
           width={500}
           height={500}
         />
