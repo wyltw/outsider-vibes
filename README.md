@@ -1,8 +1,8 @@
-# Outsider Vibes - 音樂搜索平台
+# Outsider Vibes - 音樂搜索應用
 
 ![image](https://github.com/user-attachments/assets/e2ff09ff-3aa6-4311-9cbd-9099b52be9de)
 
-* 使用Next.js開發的音樂搜索平台，因Spotify沒有以音樂風格/類型進行搜尋的功能，因此利用Discogs API提供的音樂資料實現進階搜尋功能。
+* 使用Next.js開發的音樂搜索應用，因Spotify沒有以音樂風格/類型進行搜尋的功能，因此利用Discogs API提供的音樂資料實現進階搜尋功能。
 
 ## Live Demo
 
