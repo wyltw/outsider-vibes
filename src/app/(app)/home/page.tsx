@@ -1,6 +1,7 @@
 import FirstHeading from "@/components/first-heading";
 import SearchForm from "@/components/search-page/search-form";
 import Image from "next/image";
+import headPhoneBro from "/public/images/headphone-bro.svg";
 
 export default function HomePage() {
   return (
@@ -17,7 +18,7 @@ export default function HomePage() {
           </div>
           <Image
             className="hidden sm:col-start-3 sm:col-end-5 sm:row-start-1 sm:row-end-2 sm:block sm:opacity-80"
-            src="/images/headphone-bro.svg"
+            src={headPhoneBro}
             alt="headphone"
             priority
             width={500}
@@ -26,7 +27,7 @@ export default function HomePage() {
         </div>
         <Image
           className="-mt-36 opacity-80 sm:hidden"
-          src="/images/headphone-bro.svg"
+          src={headPhoneBro}
           alt="headphone"
           priority
           width={500}

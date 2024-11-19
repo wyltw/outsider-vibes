@@ -3,6 +3,7 @@ import React from "react";
 import { Button } from "../ui/button";
 import FirstHeading from "../first-heading";
 import Image from "next/image";
+import headphoneAmico from "/public/images/headphone-amico.svg";
 
 export default function CallToAction() {
   return (
@@ -34,7 +35,7 @@ export default function CallToAction() {
         </div>
         <div className="-z-10 order-first max-w-80 self-start opacity-80 md:order-none md:max-w-none">
           <Image
-            src="/images/headphone-amico.svg"
+            src={headphoneAmico}
             alt="headphone"
             width={360}
             height={360}

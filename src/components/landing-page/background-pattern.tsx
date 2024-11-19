@@ -1,4 +1,5 @@
 import Image from "next/image";
+import jeanPhilippeDelberghe from "/public/images/jean-philippe-delberghe-75xPHEQBmvA-unsplash.jpg";
 import React, { ReactNode } from "react";
 
 type BackgroundPatternProps = { children: ReactNode };
@@ -12,11 +13,13 @@ export default function BackgroundPattern({
   return (
     <div className="relative overflow-hidden">
       <Image
-        priority
         className="-z-10 h-auto max-w-full opacity-30"
-        src="/images/jean-philippe-delberghe-75xPHEQBmvA-unsplash.jpg"
+        src={jeanPhilippeDelberghe}
         alt="background"
         fill
+        quality={100}
+        loading="lazy"
+        placeholder="blur"
       />
       {children}
     </div>

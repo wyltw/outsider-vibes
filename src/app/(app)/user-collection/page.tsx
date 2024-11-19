@@ -3,6 +3,7 @@ import CardLoading from "@/components/card-loading";
 import CustomError from "@/components/custom-error";
 import UserCollectionWrapper from "@/components/collection-page/user-collection-wrapper";
 import Image from "next/image";
+import authenticationPana from "/public/images/authentication-pana.svg";
 import React, { ReactNode, Suspense } from "react";
 
 export default async function UserCollectionPage() {
@@ -16,7 +17,7 @@ export default async function UserCollectionPage() {
           width={560}
           height={560}
           alt="authentication"
-          src={"/images/authentication-pana.svg"}
+          src={authenticationPana}
         />
       </>
     );

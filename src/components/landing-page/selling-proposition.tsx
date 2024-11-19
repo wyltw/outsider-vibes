@@ -1,6 +1,8 @@
 import React, { ReactNode } from "react";
 import PropositionCard from "./proposition-card";
 import SecondHeading from "./second-heading";
+import discussion from "/public/images/discussion.svg";
+import nftMarketPlace from "/public/images/nft-marketplace.svg";
 
 export default function SellingProposition() {
   return (
@@ -8,7 +10,7 @@ export default function SellingProposition() {
       <section className="my-28 flex flex-col items-center gap-y-8">
         <SecondHeading>你的音樂探索</SecondHeading>
         <PropositionCard
-          imageSrc="/images/nft-marketplace.svg"
+          imageSrc={nftMarketPlace}
           imageAlt="treasure"
           label="UNEARTHING"
           textLines={"與他人分享自己喜愛的音樂，不用煩惱自己的喜好不被接受。"}
@@ -21,7 +23,7 @@ export default function SellingProposition() {
           {/* 事實上，jsx結構完全可以作為props傳遞，先前的問題可能來自於未能正確處理作為props傳遞的jsx。不過對目前的children props已經感到滿意，不再變更*/}
         </PropositionCard>
         <PropositionCard
-          imageSrc="/images/discussion.svg"
+          imageSrc={discussion}
           imageAlt="discussion"
           label="CONNECTING"
           textLines={
