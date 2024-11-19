@@ -1,8 +1,8 @@
-# Outsider Vibes - 音樂搜索平台
+# Outsider Vibes - 音樂搜索應用
 
 ![image](https://github.com/user-attachments/assets/e2ff09ff-3aa6-4311-9cbd-9099b52be9de)
 
-* 使用Next.js開發的音樂搜索平台，因Spotify沒有以音樂風格/類型進行搜尋的功能，因此利用Discogs API提供的音樂資料實現進階搜尋功能。
+* 使用Next.js開發的音樂搜索應用，因Spotify沒有以音樂風格/類型進行搜尋的功能，因此利用Discogs API提供的音樂資料實現進階搜尋功能。
 
 ## Live Demo
 
@@ -84,6 +84,14 @@ https://outsider-vibes.vercel.app/
 3. **簡易收藏的改進：**
 
 -- 受限於Discogs API的請求頻率限制，考慮使用Firebase保存簡易專輯/藝人信息作為緩存策略
+
+4.  **導入狀態管理工具：**
+
+-- 由於目前的狀態管理相對簡單，因此只使用Context API管理狀態，如果後續的狀態變得更加複雜，會考慮引入Zustand或者Redux等工具
+
+5.  **單元測試：**
+
+-- 隨著功能隨著時間增加和複雜，我會嘗試開始編寫單元測試，以確保功能的穩定性
 
 ## 專案結構
 
