@@ -143,6 +143,7 @@ export const fetchDiscogsDataByIds: TFetchDiscogsDataByIds = async <
           //fetchData函式被設計成不會拋出錯誤，所以在這裡手動捕獲錯誤
           throw new Error(result.error);
         }
+
         const dataWithDocumentId = { ...result.data, documentId };
         return { ...result, data: dataWithDocumentId };
       });
@@ -203,7 +204,7 @@ export const getUserSavedItemsList = async <T extends UserRelease | UserArtist>(
       documentId: doc["id"],
       discogsId: doc[key] as string,
     }));
-    //只取id
+    //只取id,在這裡需要documentId是為了可以辨識是哪一筆資料，為了可以正確刪除
     return savedItemsList;
   } catch (error) {
     console.error(handleError(error));
