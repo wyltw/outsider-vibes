@@ -68,8 +68,8 @@ function CardImageContainer({ children }: { children: ReactNode }) {
   return <div className="max-h-80 self-stretch sm:max-h-48">{children}</div>;
 }
 
-function FourthHeading({ children }: { children: ReactNode }) {
-  return <h4 className="text-center text-xl text-primary">{children}</h4>;
+function ThirdHeading({ children }: { children: ReactNode }) {
+  return <h3 className="text-center text-xl text-primary">{children}</h3>;
 }
 
 type CollectionItemCardProps = {
@@ -90,7 +90,7 @@ function CollectionItemCard({ result }: CollectionItemCardProps) {
             src={image || replaceWithDefaultPicture(image, "release")}
           />
         </CardImageContainer>
-        <FourthHeading>{release.title}</FourthHeading>
+        <ThirdHeading>{release.title}</ThirdHeading>
         <DeleteButton documentId={release.documentId} type={result.type} />
       </CardContainer>
     );
@@ -106,7 +106,7 @@ function CollectionItemCard({ result }: CollectionItemCardProps) {
             src={image || replaceWithDefaultPicture(image, "artist")}
           />
         </CardImageContainer>
-        <FourthHeading>{artist.name}</FourthHeading>
+        <ThirdHeading>{artist.name}</ThirdHeading>
         <DeleteButton documentId={artist.documentId} type={result.type} />
       </CardContainer>
     );
