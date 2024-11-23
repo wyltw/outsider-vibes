@@ -57,9 +57,10 @@ export const getPageArray = (
   siblingCount: number,
   totalPage: number,
 ) => {
-  const previousPage = currentPage - siblingCount;
-  const nextPage = currentPage + siblingCount;
+  const previousPages = currentPage - siblingCount;
+  const nextPages = currentPage + siblingCount;
   //使頁碼根據siblingCount決定渲染的頁碼數量
+
   let pageArray: number[] = [];
   if (currentPage === DEFAULT_PAGE) {
     for (let i = currentPage; i < currentPage + siblingCount * 2; i++) {
@@ -73,7 +74,8 @@ export const getPageArray = (
     return pageArray.reverse();
   }
   //確保頁碼為首頁和尾頁的時候周邊頁碼渲染
-  for (let i = previousPage; i <= nextPage; i++) {
+
+  for (let i = previousPages; i <= nextPages; i++) {
     if (i !== 0 && i <= totalPage) pageArray.push(i);
     //考慮邊界情況，如出現0或者超過最大頁數
   }

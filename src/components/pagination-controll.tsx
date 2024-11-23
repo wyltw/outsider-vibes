@@ -46,7 +46,7 @@ export default function PaginationControll({
             </PaginationLink>
           </PaginationItem>
         )}
-        {/* 當前頁碼減去第一頁大於siblingCount的時候，代表頁碼陣列的渲染範圍已經不包括第一頁，如當前第四頁，陣列為[2, 3, 4, 5, 6]*/}
+        {/* 當前頁碼減去第一頁大於siblingCount的時候，代表頁碼陣列的渲染範圍已經不包括第一頁，如當前第四頁，陣列為[2, 3, 4, 5, 6]，所以使回到第一頁的按鈕出現*/}
         {page > DEFAULT_PAGE && (
           <PaginationItem>
             <PaginationPrevious
