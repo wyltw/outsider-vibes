@@ -52,7 +52,6 @@ export const splitArtistAndAlbumTitle = (title: string) => {
 };
 
 export const getPageArray = (
-  // still can be refactored
   currentPage: number,
   siblingCount: number,
   totalPage: number,
