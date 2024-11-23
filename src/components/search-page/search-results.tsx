@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import ErrorBlock from "../error-block";
 import SearchHeader from "./search-header";
 import {
@@ -29,11 +29,12 @@ export default function SearchResults({
   genreList,
   styleList,
 }: SearchResultsProps) {
-  const { handleChangeList, sortedResultsList } = useResultsListContext();
+  const { handleSetList, sortedResultsList } = useResultsListContext();
   useEffect(() => {
-    handleChangeList(searchResults);
-  }, [searchResults, handleChangeList]);
-
+    handleSetList(searchResults);
+  }, [searchResults, handleSetList]);
+  //在這裡需要useEffect是因為會發生以下錯誤，這是因為透過context試圖在SearchResults的render phase再次觸發渲染，所以使用useEffect確保在commit phase執行避免錯誤發生
+  // Cannot update a component (`ResultsListContextProvider`) while rendering a different component (`SearchResults`).
   const searchParams = useSearchParams();
   const page = Number(searchParams.get("page"));
   const parsedPage = pageNumberSchema.safeParse(page);

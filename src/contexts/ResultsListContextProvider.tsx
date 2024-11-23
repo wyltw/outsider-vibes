@@ -9,7 +9,7 @@ type ResultsListContextProviderProps = { children: ReactNode };
 type TResultsListContext = {
   sortedResultsList: DiscogsSearchResultsList;
   sortBy: TSortType | string;
-  handleChangeList: (resultList: DiscogsSearchResultsList) => void;
+  handleSetList: (resultList: DiscogsSearchResultsList) => void;
 };
 
 export const ResultsListContext = createContext<TResultsListContext | null>(
@@ -22,8 +22,8 @@ export default function ResultsListContextProvider({
   const [resultsList, setResultsList] = useState<DiscogsSearchResultsList>([]);
   const searchParams = useSearchParams();
   const sortBy = searchParams.get("sortBy") || "default";
-  const handleChangeList = (ResultsList: DiscogsSearchResultsList) => {
-    setResultsList(ResultsList);
+  const handleSetList = (resultsList: DiscogsSearchResultsList) => {
+    setResultsList(resultsList);
   };
 
   const sortedResultsList = useMemo(
@@ -45,7 +45,7 @@ export default function ResultsListContextProvider({
   );
 
   const context = {
-    handleChangeList,
+    handleSetList,
     sortedResultsList,
     sortBy,
   };
