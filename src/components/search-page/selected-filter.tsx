@@ -23,7 +23,7 @@ export default function SelectedFilter() {
           ))}
         </ul>
         <Button
-          className="ms-auto flex"
+          className="ml-auto flex"
           size={"sm"}
           variant={"outline"}
           asChild

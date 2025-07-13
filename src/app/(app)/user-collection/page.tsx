@@ -13,7 +13,7 @@ export default async function UserCollectionPage() {
       <>
         <CustomError error="請先登入後再查看收藏" />
         <Image
-          className="me-auto ms-auto"
+          className="ml-auto mr-auto"
           width={560}
           height={560}
           alt="authentication"

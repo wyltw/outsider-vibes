@@ -18,7 +18,7 @@ export default function Error({
   }, [error]);
 
   return (
-    <main className="ms-4 mt-24">
+    <main className="ml-4 mt-24">
       <h1 className="text-4xl text-primary">{error.message}</h1>
       <p>It seems like the URL is invalid or something went wrong. You can:</p>
       <div className="mt-6 space-x-4">

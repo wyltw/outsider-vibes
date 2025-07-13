@@ -43,7 +43,7 @@ export default function BookmarkButton({ type, itemId }: BookmarkButtonProps) {
         onClick={() => {
           handleSaveItems();
         }}
-        className="ms-auto gap-x-2"
+        className="ml-auto gap-x-2"
         size={"sm"}
       >
         {isLoading ? (

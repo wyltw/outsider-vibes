@@ -71,7 +71,7 @@ function Filter({ children, text }: FilterProps) {
     }
   };
   return (
-    <div className="ms-3 text-primary">
+    <div className="ml-3 text-primary">
       <p className="mb-2 whitespace-nowrap">{text}</p>
       <div className="flex">
         <Button
